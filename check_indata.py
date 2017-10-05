@@ -7,7 +7,7 @@ Notes:
     P373 is Commonscat
     P1472 is Creator-template
 
-@todo: Deprecate and move last bits to make_SMM_info
+@todo: Deprecate and move last bits to make_NordicMuseum_info
 
 This is largely deprecated but still contains some bits for making mapping lists
 which should be preserved.
@@ -21,7 +21,7 @@ import os
 import batchupload.listscraper as listscraper
 import urllib2
 import json
-CWD_PATH = u'SMM-images'
+CWD_PATH = u'NordicMuseum-images'
 OUT_PATH = u'connections'
 filenameList = {}
 keywordList = {}
