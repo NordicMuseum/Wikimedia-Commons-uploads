@@ -30,7 +30,7 @@ EXPECTED_HEADER = u'Identifikationsnr|Typ av objekt|Benämning|Material|' + \
 
 
 class NordicMuseumInfo(MakeBaseInfo):
-    """Construct file descriptions and filenames for the NordicMuseum batch upload."""
+    """Construct file descriptions and filenames for the Nordic Museum batch upload."""
 
     def __init__(self):
         """
@@ -148,11 +148,11 @@ class NordicMuseumInfo(MakeBaseInfo):
         @return: str
         """
         if item.typ == u'Foto':
-            return self.make_foto_info(item)
+            return self.make_photo_info(item)
         elif item.typ == u'Föremål':
             return self.make_artwork_info(item)
 
-    def make_foto_info(self, item):
+    def make_photo_info(self, item):
         """
         given an item of typ=Foto output the filled out template
         """
@@ -167,18 +167,14 @@ class NordicMuseumInfo(MakeBaseInfo):
             self.get_depicted_object(item, typ='person'))
         descr += u' |depicted place       = %s\n' % (
             item.get_depicted_place(self.mappings), )
-        if item.avbildat_fartyg:
-            linked_objects = self.get_depicted_object(item, typ='ship')
-            descr += NordicMuseumInfo.get_depicted_ship_field(linked_objects)
         descr += u' |date                 = %s\n' % (
             helpers.std_date_range(item.date_foto), )
         descr += u' |medium               = %s\n' % (
             item.get_materials(self.mappings), )
         descr += u' |institution          = %s\n' % item.get_institution()
         descr += u' |accession number     = %s\n' % item.get_id_link()
-        descr += u' |source               = %s\n' % item.get_source()
-        descr += u' |permission           = {{NordicMuseum cooperation project}}\n'
-        descr += u'%s\n' % item.get_license()
+        descr += u' |source               = {{Nordiska museet cooperation project}}\n' % item.get_source()
+        descr += u' |permission           = %s\n' % item.get_license()
         descr += u' |other_versions       = \n'
         descr += u'}}'
         return descr
@@ -191,8 +187,6 @@ class NordicMuseumInfo(MakeBaseInfo):
         descr += u' |artist               = '
         if item.namn_konstnar:
             descr += self.get_creator(item.namn_konstnar)
-        elif item.namn_konstruktor:
-            descr += self.get_creator(item.namn_konstruktor)
         descr += u'\n'
         if item.namn_tillverkare:
             descr += NordicMuseumInfo.get_manufacturer_field(
@@ -203,10 +197,6 @@ class NordicMuseumInfo(MakeBaseInfo):
         if item.avbildad_person:
             linked_objects = self.get_depicted_object(item, typ='person')
             descr += u'<br>\n{{depicted person|style=plain text|%s}}' % \
-                     '|'.join(linked_objects)
-        if item.avbildat_fartyg:
-            linked_objects = self.get_depicted_object(item, typ='ship')
-            descr += u'<br>\n{{depicted ship|style=plain text|%s}}' % \
                      '|'.join(linked_objects)
         if item.avbildad_ort:
             descr += u'<br>\n{{depicted place|%s}}' % (
@@ -220,18 +210,11 @@ class NordicMuseumInfo(MakeBaseInfo):
             item.get_materials(self.mappings), )
         descr += u' |institution          = %s\n' % item.get_institution()
         descr += u' |accession number     = %s\n' % item.get_id_link()
-        descr += u' |source               = %s\n' % item.get_source()
-        descr += u' |permission           = {{NordicMuseum cooperation project}}\n'
-        descr += u'%s\n' % item.get_license()
+        descr += u' |source               = {{Nordiska museet cooperation project}}\n' % item.get_source()
+        descr += u' |permission           = %s\n' % item.get_license()
         descr += u' |other_versions       = \n'
         descr += u'}}'
         return descr
-
-    @staticmethod
-    def get_depicted_ship_field(value):
-        """Add the template field for depicted ships."""
-        return u' |other_fields_2       = {{depicted ship' \
-               u'|style=information field|%s}}\n' % '|'.join(value)
 
     @staticmethod
     def get_manufacturer_field(value):
@@ -327,7 +310,7 @@ class NordicMuseumInfo(MakeBaseInfo):
             cats.append(self.make_maintanance_cat(u'add description'))
 
         # creator cats
-        creators = item.namn_tillverkare + item.namn_konstruktor
+        creators = item.namn_tillverkare
         creators.append(item.namn_konstnar)
         creators.append(item.namn_fotograf)
         for creator in creators:
@@ -340,15 +323,13 @@ class NordicMuseumInfo(MakeBaseInfo):
 
     def get_depicted_object(self, item, typ):
         """
-        given an item get a linked version of the depicted person/ship
-        param typ: one of "person", "ship", "all"
+        given an item get a linked version of the depicted person
+        param typ: one of "person", "all"
         """
         # determine type
         label = None
         if typ == 'person':
             label = item.avbildad_person
-        elif typ == 'ship':
-            label = item.avbildat_fartyg
         elif typ == 'all':
             label = item.avbildad_namn
         else:
@@ -416,8 +397,6 @@ class NordicMuseumItem(object):
         d['material'] = entry[u'Material']
         d['namn_konstnar'] = helpers.flip_name(entry[u'Namn-Konstnär'])
         namn_konstnar_knav = entry[u'Konstnär-KulturNav']
-        d['namn_konstruktor'] = helpers.flip_names(entry[u'Namn-Konstruktör'])
-        namn_konstruktor_knav = entry[u'Konstruktör-KulturNav']
         d['namn_fotograf'] = helpers.flip_name(entry[u'Namn-Fotograf'])
         d['namn_tillverkare'] = helpers.flip_names(entry[u'Namn-Tillverkare'])
         d['date_foto'] = entry[u'Datering-Fotografering']
@@ -437,10 +416,6 @@ class NordicMuseumItem(object):
         if namn_konstnar_knav:
             NordicMuseum_info.add_to_k_nav_list(
                 namn_konstnar_knav, d['namn_konstnar'])
-        if namn_konstruktor_knav:
-            NordicMuseum_info.add_to_k_nav_list(
-                namn_konstruktor_knav,
-                d['namn_konstruktor'][0])
         if avbildad_namn_knav:
             NordicMuseum_info.add_to_k_nav_list(
                 avbildad_namn_knav,
@@ -449,18 +424,14 @@ class NordicMuseumItem(object):
         # split avbildad_namn into people and ships/boat types
         # a person is anyone with a name like Last, First
         d['avbildad_person'] = []
-        d['avbildat_fartyg'] = []
         for a in avbildad_namn:
             if a != helpers.flip_name(a):
                 d['avbildad_person'].append(helpers.flip_name(a))
-            else:
-                d['avbildat_fartyg'].append(a)
         # add to dict, now with flipped names
-        d['avbildad_namn'] = d['avbildad_person'] + d['avbildat_fartyg']
+        d['avbildad_namn'] = d['avbildad_person']
 
         # cleanup lists
         d['avbildad_person'] = common.trim_list(d['avbildad_person'])
-        d['avbildat_fartyg'] = common.trim_list(d['avbildat_fartyg'])
         d['avbildad_namn'] = common.trim_list(d['avbildad_namn'])
 
         # cleanup blacklisted
@@ -530,10 +501,8 @@ class NordicMuseumItem(object):
             return self.samling
 
     def get_institution(self):
-        if self.samling == u'Sjöhistoriska museet':
-            return u'{{Institution:Sjöhistoriska museet}}'
-        elif self.samling == u'Vasamuseet':
-            return u'{{Institution:Vasamuseet}}'
+        if self.samling == u'Nordiska museet':
+            return u'{{Institution:Nordiska museet}}'
         else:
             pywikibot.output(u'No Institution')
 
@@ -620,10 +589,8 @@ class NordicMuseumItem(object):
         return txt
 
     def get_source_cat(self):
-        if self.samling == u'Sjöhistoriska museet':
-            return u'Images from Sjöhistoriska museet'
-        elif self.samling == u'Vasamuseet':
-            return u'Images from Vasamuseet'
+        if self.samling == u'Nordiska museet':
+            return u'Images from Nordiska museet'
         else:
             pywikibot.output(u'No Institution-catalog')
 
