@@ -16,7 +16,6 @@ OUTPUT_FILE = 'dimu_harvest_data.json'
 
 
 class DiMuHarvester(object):
-
     """A harvester for all images in a DigitaltMuseum folder."""
 
     def __init__(self, options):
