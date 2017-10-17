@@ -4,9 +4,9 @@
 import requests
 
 import pywikibot
-import batchupload.helpers as helpers
-import batchupload.common as common
 
+import batchupload.common as common
+import batchupload.helpers as helpers
 
 SETTINGS = "settings.json"
 LOGFILE = 'dimu_harvest.log'
