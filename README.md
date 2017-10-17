@@ -2,8 +2,8 @@
 This repo contains the python3 scripts used by the Nordic Museum to upload images
 to Wikimedia Commons. It is based on [lokal-profil/upload-batches](https://github.com/lokal-profil/upload-batches).
 
-To run it you will have to install [BatchUploadTools](https://github.com/lokal-profil/BatchUploadTools)
-and [pywikibot](https://github.com/wikimedia/pywikibot-core) using:
+To run it you will have to install [`BatchUploadTools`](https://github.com/lokal-profil/BatchUploadTools)
+and [`pywikibot`](https://github.com/wikimedia/pywikibot-core) using:
 `pip install -r requirements.txt`
 
 *Note*: You might have to add the `--process-dependency-links` flag to the above
