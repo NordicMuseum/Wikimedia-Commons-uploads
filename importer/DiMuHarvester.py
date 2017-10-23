@@ -145,14 +145,19 @@ class DiMuHarvester(object):
         data = self.load_single_object(item_uuid)
 
         parsed_data = self.parse_single_object(data)
+        all_image_keys = set([
+            '{item}_{image}'.format(item=item_uuid, image=image.get('index'))
+            for image in data.get('media').get('pictures')])
+
         for image in data.get('media').get('pictures'):
             key = '{item}_{image}'.format(
                 item=item_uuid, image=image.get('index'))
+            other_keys = all_image_keys - set([key])
 
-            image_data = self.make_image_object(image, parsed_data)
+            image_data = self.make_image_object(image, parsed_data, other_keys)
             if (image_data.get('copyright') or
                     image_data.get('default_copyright')):
-                self.data[key] = self.make_image_object(image, parsed_data)
+                self.data[key] = image_data
             else:
                 self.log.write('{}: had no license info. Skipping.'.format(
                     key))
@@ -510,12 +515,13 @@ class DiMuHarvester(object):
 
         return data
 
-    def make_image_object(self, image_data, item_data):
+    def make_image_object(self, image_data, item_data, other_keys):
         """
         Construct a data object for a single image.
 
         :param image_data: the unique data for the image
         :param item_data: the shared data for all images of this item
+        :param other_keys: the keys to other images of the same object
         """
         image = item_data.copy()
         if image_data.get('photographer'):
@@ -524,6 +530,7 @@ class DiMuHarvester(object):
         image['copyright'] = self.parse_license_info(
             image_data.get('licenses'))
         image['media_id'] = image_data.get('identifier')
+        image['see_also'] = list(other_keys)
         return image
 
     def load_uuid_list(self, uuid_list):
