@@ -13,6 +13,7 @@ LOGFILE = 'dimu_harvest.log'
 OUTPUT_FILE = 'dimu_harvest_data.json'
 
 ## use person role (in license etc.) to set data['creator']
+## consider merging copyright and default_copyright into one tag
 
 
 class DiMuHarvester(object):
@@ -207,7 +208,7 @@ class DiMuHarvester(object):
         data['tags'] = self.not_implemented_yet_waring(raw_data, 'tags')
         data['inscriptions'] = self.not_implemented_yet_waring(
             raw_data, 'inscriptions')
-        data['subjects'] = self.not_implemented_yet_waring(
+        data['subjects_2'] = self.not_implemented_yet_waring(  # subjects also exist within motif  # noqa
             raw_data, 'subjects')
         data['names'] = self.not_implemented_yet_waring(raw_data, 'names')
         data['measures'] = self.not_implemented_yet_waring(
@@ -241,7 +242,7 @@ class DiMuHarvester(object):
                     self.log.write(
                         '{}: had an unexpected subject name type "{}".'.format(
                             self.active_uuid, subject.get('nameType')))
-            data['subjects'] = subjects
+            data['subjects'] = list(subjects)
 
         if motif_data.get('depictedPlaces'):
             data['description_place'] = {}
@@ -315,6 +316,9 @@ class DiMuHarvester(object):
         for field in place_data.get('fields'):
             place_type = field.get('placeType')
             if place_type in structured_types:
+                if place_type == 'parish':
+                    # correct use of parish codes has them zero padded
+                    field['code'] = field.get('code').zfill(4)
                 place[place_type] = field.get('code') or field.get('value')
             elif place_type:
                 self.log.write(
@@ -377,6 +381,7 @@ class DiMuHarvester(object):
             person['k_nav'] = person_data.get('uuid')
         person['role'] = self.map_person_role(
             person_data.get('role'))
+        person['id'] = person_data.get('id')
         return person
 
     def map_place_role(self, role):
@@ -403,6 +408,7 @@ class DiMuHarvester(object):
 
         These are mapped to Commons values at a later stage.
         """
+        #map to false to tell the calling function to discard that entry
         mapped_roles = {
             "11K": 'creator',  # artist
         }
