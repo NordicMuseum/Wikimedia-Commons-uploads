@@ -1,2 +1,2 @@
 git+https://github.com/wikimedia/pywikibot-core.git
-git+https://github.com/lokal-profil/BatchUploadTools.git@0.1.8
+git+https://github.com/lokal-profil/BatchUploadTools.git@0.2.1
