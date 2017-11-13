@@ -312,6 +312,7 @@ def query_to_lookup(query, item_label='item', value_label='value',
 
 #make this load settings appropriately
 def main():
+    """Initialise and run the mapping updater."""
     options = {
         'harvest_file': 'nm_data.json',
         'mapping_log_file': 'nm_mappings.log',
