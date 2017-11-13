@@ -182,6 +182,7 @@ class DiMuMappingUpdater(object):
 
 
 def load_harvest_data(filename):
+    """Load the harvested data from a file."""
     filename = filename or HARVEST_FILE
     harvest_data = common.open_and_read_file(filename, as_json=True)
     return harvest_data
