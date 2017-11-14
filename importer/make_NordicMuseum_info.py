@@ -327,10 +327,50 @@ class NMItem(object):
 
         :param with_depicted: whether to also include depicted data
         """
-        raise NotImplementedError
+        desc = '{{sv|%s}}' % self.description
+
+        return desc
         #Use get_depicted_place
         #handle view over
         #get_depicted_object(item, typ='person')
+        #{{depicted place|%s}}' % (item.get_depicted_place(self.mappings),
+        #{{depicted person|%s|style=information field}} ' % '|'.join(formatted_depicted) #<- run this through mapping to pick up links/wikidata
+
+    def get_depicted_place(self):
+        """Format at depicted place statement."""
+        if self.depicted_place:
+            raise NotImplementedError
+        return ''
+
+    def get_materials(self):
+        """Format at materials/technique statement."""
+        # need to be run through the mappings and formatted accordingly
+        if self.technique or self.material:
+            raise NotImplementedError
+        return ''
+
+    def get_license_text(self):
+        """Format a license template."""
+        # look at self.copyright and self.default_copyright
+        # map licenses to templates
+        # for PD try to get death date from creator (wikidata) else PD-70
+        # or are some cc0?
+        # use
+        raise NotImplementedError
+
+    def get_creation_date(self):
+        """Format a creation date statement."""
+        if self.creation and self.creation['date']:
+            date_val = self.creation['date']
+            if isinstance(date_val, tuple):
+                return '{{other date|-|%s|%s}}' % date_val
+            else:
+                return date_val
+        return ''
+
+    def get_other_versions(self):
+        """Create a gallery for other images of the same object."""
+        raise NotImplementedError
 
 
 if __name__ == "__main__":
