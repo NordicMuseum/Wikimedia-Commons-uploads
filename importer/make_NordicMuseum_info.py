@@ -99,7 +99,7 @@ class NMInfo(MakeBaseInfo):
         :return: str
         """
         return helpers.format_filename(
-            item.get_title_description(), 'Nordiska museet', item.idno)
+            item.get_title_description(), 'Nordiska museet', item.glam_id)
 
     def make_info_template(self, item):
         """
@@ -262,7 +262,8 @@ class NMItem(object):
         :param nm_info: the NMInfo instance
         """
         # ensure all required variables are present
-        required_entries = ('latitude', 'longitude', 'is_photo', 'photographer')
+        required_entries = ('latitude', 'longitude', 'is_photo',
+                            'photographer')
         for entry in required_entries:
             if entry not in initial_data:
                 initial_data[entry] = None
@@ -276,10 +277,24 @@ class NMItem(object):
         self.nm_info = nm_info  # the NMInfo instance creating this NMItem
         self.log = nm_info.log
         self.commons = nm_info.commons
+        self.glam_id = self.get_glam_id()  # set the id used by the glam
+
+    # @todo: consider loading glam identifier from settings
+    def get_glam_id(self):
+        """Set the identifier used by the Nordic museum."""
+        for glam, idno in self.glam_id:
+            if glam == 'S-NM':
+                return idno
+
+        # without a glam_id we have to abort
+        raise common.MyError('Could not find an id for this GLAM in the data!')
 
     def get_title_description(self):
         """Construct an appropriate description for a filename."""
-        raise NotImplementedError
+        if self.description:
+            return self.description.strip()
+        else:
+            raise NotImplementedError
 
     # @todo: adapt for depicted person, other keywords
     def get_original_description(self):
@@ -296,15 +311,9 @@ class NMItem(object):
 
     def get_id_link(self):
         """Create the id link template."""
-        nm_id = ''
-        for glam, idno in self.glam_id:
-            if glam == 'S-NM':
-                nm_id = idno
-        if nm_id:
-            series, _, idno = nm_id.partition('.')
-            return '{{Nordiska museet link|{series}|{id}}}'.format(
+        series, _, idno = self.glam_id.partition('.')
+        return '{{Nordiska museet link|{series}|{id}}}'.format(
                 series=series, id=idno)
-        return ''
 
     def get_source(self):
         """Produce a linked source statement."""
