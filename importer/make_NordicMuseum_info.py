@@ -309,10 +309,10 @@ class NMItem(object):
         return '[{url} {link_text}]\n{template}'.format(
             url=self.get_dimu_url(), link_text=txt, template=template)
 
-    # @todo make this go to the specific image?
     def get_dimu_url(self):
         """Create the url for the item on DigitaltMuseum."""
-        return 'https://digitaltmuseum.se/{}/'.format(self.dimu_id)
+        return 'https://digitaltmuseum.se/{id}/?slide={order}'.format(
+            id=self.dimu_id, order=self.slider_order)
 
     def get_description(self, with_depicted=True):
         """
