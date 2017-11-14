@@ -169,6 +169,8 @@ class DiMuMappingUpdater(object):
                         'country')
 
         for typ in code_entries:
+            if typ not in self.places_to_map:
+                continue
             mapped_keys = set(self.mappings.get(typ))
             unknown = set(self.places_to_map.get(typ)) - mapped_keys
             if not unknown:
