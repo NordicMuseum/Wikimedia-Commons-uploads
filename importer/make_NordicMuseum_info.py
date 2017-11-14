@@ -191,11 +191,18 @@ class NMInfo(MakeBaseInfo):
 
         return txt
 
+    # @todo: ensure that these work with uploade_by_url
+    # can also try the CORS enabled fdms01.dimu.org server
     def get_original_filename(self, item):
         """
-        Convert the idno to the equivalent format used for the image files
+        Generate the url where the original files can be found.
+
+        Uses media_id instead of filename as the latter is not guaranteed to
+        exist or be mapped to the right image.
         """
-        raise NotImplementedError
+        server = 'http://dms01.dimu.org'
+        return '{server}/image/{id}?dimension=max&filename={id}.jpg'.format(
+            server=server, id=item.media_id)
 
     # @todo: check need
     def get_creator(self, creator):
