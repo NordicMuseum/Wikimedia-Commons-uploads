@@ -32,17 +32,18 @@ class NMInfo(MakeBaseInfo):
 
     def __init__(self, **options):
         """Initialise a make_info object."""
-        batch_date = options.get('batch_label') or BATCH_DATE
-        batch_cat = options.get('base_meta_cat') or BATCH_CAT
+        batch_date = pop(options, 'batch_label') or BATCH_DATE
+        batch_cat = pop(options, 'base_meta_cat') or BATCH_CAT
         super(NMInfo, self).__init__(batch_cat, batch_date, **options)
 
         # black-listed values
-        self.bad_namn = ('Nordiska museets arkiv', )
-        self.bad_date = ('odaterad', )
+        self.bad_names = ('Nordiska museets arkiv', )
+        self.bad_dates = ('odaterad', )
 
-        #self.commons = pywikibot.Site('commons', 'commons')
-        #self.wikidata = pywikibot.Site('wikidata', 'wikidata')
-        #self.category_cache = {}  # cache for category_exists()
+        self.commons = pywikibot.Site('commons', 'commons')
+        self.wikidata = pywikibot.Site('wikidata', 'wikidata')
+        self.category_cache = {}  # cache for category_exists()
+        self.wikidata_cache = {}  # cache for Wikidata results
         #self.k_nav_list = {}
         #self.photographer_cache = {}
         self.log = common.LogFile('', LOGFILE)
@@ -68,6 +69,17 @@ class NMInfo(MakeBaseInfo):
         self.mappings = mapping_updater.load_mappings(
             update_mappings, load_mapping_lists=True)
 
+    def mapped_and_wikidata(self, entry, mapping):
+        """Add the linked wikidata info to a mapping."""
+        if entry in mapping:
+            mapped_info = mapping.get(entry)
+            if mapped_info.get('wikidata'):
+                mapped_info.update(
+                    self.nm_info.get_wikidata_info(
+                        mapped_info.get('wikidata')))
+            return mapped_info
+        return {}
+
     def process_data(self, raw_data):
         """
         Take the loaded data and construct a NMItem for each.
@@ -76,18 +88,8 @@ class NMInfo(MakeBaseInfo):
 
         :param raw_data: output from load_data()
         """
-        d = {}
-        for key, value in raw_data.items():
-            item = NMItem(value, self)
-            if item.problem:
-                text = '{0} -- image was skipped because of: {1}'.format(
-                    item.ID, '\n'.join(item.problem))
-                pywikibot.output(text)
-                self.log.write(text)
-            else:
-                d[key] = item
-
-        self.data = d
+        self.data = {key: NMItem(value, self)
+                     for key, value in raw_data.items()}
 
     def generate_filename(self, item):
         """
@@ -223,13 +225,79 @@ class NMInfo(MakeBaseInfo):
 
     def generate_meta_cats(self, item, content_cats):
         """
-        Produce maintanance categories related to a media file.
+        Produce maintenance categories related to a media file.
 
-        @param item: the metadata for the media file in question
-        @param content_cats: any content categories for the file
-        @return: list of categories (without "Category:" prefix)
+        :param item: the metadata for the media file in question
+        :param content_cats: any content categories for the file
+        :return: list of categories (without "Category:" prefix)
         """
-        raise NotImplementedError
+        cats = set([self.make_maintenance_cat(cat) for cat in item.meta_cats])
+
+        # base cats already added by cooperation template? #@todo
+        cats.add(self.batch_cat)
+
+        # problem cats
+        if not content_cats:
+            cats.add(self.make_maintenance_cat('needing categorisation'))
+        # @todo any others?
+
+        # creator cats are classified as meta
+        creator_cats = item.get_creator_cat()
+        for creator_cat in creator_cats:
+            cats.add(creator_cat)
+
+        return list(cats)
+
+    def category_exists(self, cat):
+        """
+        Ensure a given category really exists on Commons.
+
+        The replies are cached to reduce the number of lookups.
+
+        :param cat: category name (with or without "Category" prefix)
+        :return: bool
+        """
+        cache = self.category_cache
+        if not cat.lower().startswith('category:'):
+            cat = 'Category:{0}'.format(cat)
+
+        if cat in cache:
+            return cache[cat]
+
+        exists = pywikibot.Page(self.commons, cat).exists()
+        cache[cat] = exists
+
+        return exists
+
+    def get_wikidata_info(self, qid):
+        """
+        Query Wikidata for additional info about an item.
+
+        The replies are cached to reduce the number of lookups.
+
+        :param qid: Qid for the Wikidata item
+        :return: bool
+        """
+        cache = self.wikidata_cache
+        if qid in cache:
+            return cache[qid]
+
+        item = pywikibot.ItemPage(self.wikidata, qid)
+        if not item.exists():
+            cache[qid] = {}
+        else:
+            commonscat = return_first_claim(item, 'P373')
+            creator = return_first_claim(item, 'P1472')
+            death_year = return_first_claim(item, 'P570')
+            if death_year:
+                death_year = death_year.year
+            cache[qid] = {
+                'commonscat': commonscat,
+                'creator': creator,
+                'death_year': death_year
+            }
+
+        return cache[qid]
 
     # @todo update
     @classmethod
@@ -283,7 +351,7 @@ class NMItem(object):
     # @todo: consider loading glam identifier from settings
     def get_glam_id(self):
         """Set the identifier used by the Nordic museum."""
-        for glam, idno in self.glam_id:
+        for (glam, idno) in self.glam_id:
             if glam == 'S-NM':
                 return idno
 
@@ -314,7 +382,7 @@ class NMItem(object):
         """Create the id link template."""
         series, _, idno = self.glam_id.partition('.')
         return '{{Nordiska museet link|{series}|{id}}}'.format(
-                series=series, id=idno)
+            series=series, id=idno)
 
     def get_source(self):
         """Produce a linked source statement."""
@@ -353,6 +421,32 @@ class NMItem(object):
             raise NotImplementedError
         return ''
 
+    def get_creator(self):
+        """Return correctly formated creator values in wikitext."""
+        mapping = self.nm_info.mappings.get('people')
+        persons = self.creation.get('related_persons')
+        display_names = []
+        for name in [person.get('name') for person in persons]:
+            display_name = name  # default
+            mapped_info = self.nm_info.mapped_and_wikidata(name, mapping)
+            if mapped_info.get('creator'):
+                display_name = '{{Creator:%s}}' % mapped_info.get('creator')
+            elif mapped_info.get('wikidata'):
+                display_name = '{{Item|%s}}' % mapped_info.get('wikidata')
+            display_names.append(display_name)
+        return ', '.join(display_names)
+
+    def get_creator_cat(self):
+        """Return the commonscat(s) for the creator(s)."""
+        mapping = self.nm_info.mappings.get('people')
+        persons = self.creation.get('related_persons')
+        cats = []
+        for name in [person.get('name') for person in persons]:
+            mapped_info = self.nm_info.mapped_and_wikidata(name, mapping)
+            if mapped_info.get('commonscat'):
+                cats.append(mapped_info.get('commonscat'))
+        return cats
+
     def get_materials(self):
         """Format at materials/technique statement."""
         # need to be run through the mappings and formatted accordingly
@@ -384,6 +478,29 @@ class NMItem(object):
         if self.see_also:
             raise NotImplementedError
         return ''
+
+    # @todo consider using other value here...
+    def get_title(self):
+        """Return the title element for the image."""
+        if self.title:
+            raise NotImplementedError
+        return ''
+
+
+def return_first_claim(item, prop):
+    """Return the first claim of a wikiata item for a given property."""
+    claims = item.claims.get(prop)
+    if claims:
+        claims[0].target
+
+
+# @todo move to batchuploads
+def pop(d, val):
+    """A poper which returns None if the value isn't present."""
+    try:
+        return d.pop(val)
+    except KeyError:
+        return None
 
 
 if __name__ == "__main__":
