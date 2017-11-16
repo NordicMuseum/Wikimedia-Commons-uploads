@@ -2,7 +2,7 @@
 # -*- coding: utf-8  -*-
 """Create or update mapping lists."""
 import os
-from collections import Counter
+from collections import Counter, OrderedDict
 
 
 import pywikibot
@@ -15,9 +15,7 @@ SETTINGS = "settings.json"
 MAPPINGS_DIR = 'mappings'
 HARVEST_FILE = 'dimu_harvest_data.json'
 # @todo:
-#   * add scraping to load_mappings
 #   * check for mappings through k_nav see check_indata.crunchKNavList
-#   * proper handling of places
 #   * is connection between place levels broken? Risk of mismatches?
 #   * ensure load_mappings can be used by make_NM...
 
@@ -28,6 +26,7 @@ class DiMuMappingUpdater(object):
     def __init__(self, options):
         """Initialise an mapping updater for a DigitaltMuseum harvest."""
         self.settings = options
+
         self.log = common.LogFile('', self.settings.get('mapping_log_file'))
         self.mappings = load_mappings(
             update_mappings=True,
@@ -35,70 +34,61 @@ class DiMuMappingUpdater(object):
         harvest_data = load_harvest_data(self.settings.get('harvest_file'))
 
         self.people_to_map = {}
-        self.places_to_map = {}
+        self.places_to_map = OrderedDict()
         self.subjects_to_map = Counter()
 
         self.parse_harvest_data(harvest_data)
         self.check_and_remove_code_place_entries()
         self.dump_to_wikifiles()
 
-    #does not correctly harvest places
     def dump_to_wikifiles(self):
         """Dump the mappings to wikitext files."""
-        # places
-        parameters = ['name', 'category', 'wikidata', 'frequency']
-        intro_text = (
-            'Places mapping table for [[Commons:Nordiska museet]].\n')
-        header = '{{User:André Costa (WMSE)/mapping-head|category=|wikidata=}}'
-        ml = MappingList(
-            page='Commons:Nordiska_museet/mapping/places',
-            parameters=parameters,
-            header_template=header,
-            mapping_dir=MAPPINGS_DIR)
-        wikitext = intro_text
+        self.dump_places()
+        self.dump_subjects()
+        self.dump_people()
+
+    def get_intro_text(self, key):
+        return (self.settings.get('intro_texts').get(key) or
+                self.settings.get('default_intro_text').format(key.title()))
+
+    def dump_places(self):
+        ml = make_places_list(
+            mapping_root=self.settings.get('wiki_mapping_root'))
+        intro_text = self.get_intro_text('places')
+        merged_places_data = {}
+        preserved_places_data = None
+        update = True
         for k, v in self.places_to_map.items():
-            merged_places = ml.merge_old_and_new_mappings(
-                v.most_common(), update=False)
-            wikitext += ml.mappings_to_wikipage(
-                merged_places, '==== {} ===='.format(k))
+            merged_places, preserved_places = ml.merge_old_and_new_mappings(
+                v.most_common(), update=update)
+            update = False  # only update first time
+            merged_places_data[k] = merged_places
 
-        wiki_file = os.path.join(
-            ml.wikitext_dir, 'commons-{}.wiki'.format(ml.page_name))
-        common.open_and_write_file(wiki_file, wikitext)
+            # combine entries to only keep those which are still unused
+            preserved_places = set(preserved_places)
+            if not preserved_places_data:
+                # first time aroung
+                preserved_places_data = preserved_places
+            preserved_places_data &= preserved_places
 
-        # subjects
-        parameters = ['name', 'category', 'frequency']
-        intro_text = (
-            'Keyword mapping table for [[Commons:Nordiska museet]]. '
-            'Originally populated from '
-            '[[Commons:Batch uploading/Nordiska Museet/keywords]].\n')
-        header = '{{User:André Costa (WMSE)/mapping-head|category=}}'
-        mk = MappingList(
-            page='Commons:Nordiska_museet/mapping/keywords',
-            parameters=parameters,
-            header_template=header,
-            mapping_dir=MAPPINGS_DIR)
-        merged_keywords = mk.merge_old_and_new_mappings(
+        ml.save_as_wikitext(
+            merged_places_data, preserved_places_data, intro_text)
+
+    def dump_subjects(self):
+        mk = make_keywords_list(
+            mapping_root=self.settings.get('wiki_mapping_root'))
+        intro_text = self.get_intro_text('keyword')
+        merged_keywords, preserved_keywords = mk.merge_old_and_new_mappings(
             self.subjects_to_map.most_common(), update=True)
-        mk.save_as_wikitext(merged_keywords, intro_text)
+        mk.save_as_wikitext(merged_keywords, preserved_keywords, intro_text)
 
-        # people
-        parameters = ['name', 'more', 'creator', 'category',
-                      'wikidata', 'other', 'frequency']
-        intro_text = (
-            'People mapping table for [[Commons:Nordiska museet]]. '
-            'Originally populated from '
-            '[[Commons:Batch uploading/Nordiska Museet/creators]].\n')
-        header = ('{{User:André Costa (WMSE)/mapping-head'
-                  '|category=|creator=|wikidata=|other=leftover comments}}')
-        mp = MappingList(
-            page='Commons:Nordiska museet/mapping/people',
-            parameters=parameters,
-            header_template=header,
-            mapping_dir=MAPPINGS_DIR)
-        merged_people = mp.merge_old_and_new_mappings(
+    def dump_people(self):
+        mp = make_people_list(
+            mapping_root=self.settings.get('wiki_mapping_root'))
+        intro_text = self.get_intro_text('people')
+        merged_people, preserved_people = mp.merge_old_and_new_mappings(
             self.format_person_data(), update=True)
-        mp.save_as_wikitext(merged_people, intro_text)
+        mp.save_as_wikitext(merged_people, preserved_people, intro_text)
 
         self.log.write('\n== people ==')
         for k, v in self.people_to_map.items():
@@ -190,12 +180,14 @@ def load_harvest_data(filename):
     return harvest_data
 
 
-def load_mappings(update_mappings, mappings_dir=None):
+def load_mappings(update_mappings, mappings_dir=None,
+                  load_mapping_lists=False):
     """
     Update mapping files, load these and package appropriately.
 
     :param update_mappings: whether to first download the latest mappings
     :param mappings_dir: path to directory in which mappings are found
+    :param load_mapping_lists: if mapping_lists should also be loaded
     """
     mappings = {}
     mappings_dir = mappings_dir or MAPPINGS_DIR
@@ -206,10 +198,6 @@ def load_mappings(update_mappings, mappings_dir=None):
     county_file = os.path.join(mappings_dir, 'lan.json')
     province_file = os.path.join(mappings_dir, 'province.json')
     country_file = os.path.join(mappings_dir, 'country.json')
-    people_file = os.path.join(mappings_dir, 'people.json')
-    #keywords_file = os.path.join(mappings_dir, 'keywords.json')
-
-    #photographer_page = 'Institution:Riksantikvarieämbetet/KMB/creators'
 
     if update_mappings:
         query_props = {'P373': 'commonscat'}
@@ -222,10 +210,6 @@ def load_mappings(update_mappings, mappings_dir=None):
         mappings['county'] = query_to_lookup(
             build_query('P507', optional_props=query_props.keys()),
             props=query_props)
-        #county
-        #land
-        #mappings['photographers'] = self.get_photographer_mapping(
-        #    photographer_page)
 
         # dump to mappings
         common.open_and_write_file(
@@ -234,9 +218,7 @@ def load_mappings(update_mappings, mappings_dir=None):
             muni_file, mappings['municipality'], as_json=True)
         common.open_and_write_file(
             county_file, mappings['county'], as_json=True)
-        #common.open_and_write_file(
-        #    photographer_file, self.mappings['photographers'],
-        #    as_json=True)
+
     else:
         mappings['parish'] = common.open_and_read_file(
             parish_file, as_json=True)
@@ -244,8 +226,6 @@ def load_mappings(update_mappings, mappings_dir=None):
             muni_file, as_json=True)
         mappings['county'] = common.open_and_read_file(
             county_file, as_json=True)
-        #mappings['photographers'] = common.open_and_read_file(
-        #    photographer_file, as_json=True)
 
     # static files
     mappings['province'] = common.open_and_read_file(
@@ -253,8 +233,81 @@ def load_mappings(update_mappings, mappings_dir=None):
     mappings['country'] = common.open_and_read_file(
         country_file, as_json=True)
 
+    if load_mapping_lists:
+        load_mapping_lists_mappings(mappings_dir, update_mappings, mappings)
+
     pywikibot.output('Loaded all mappings')
     return mappings
+
+
+def load_mapping_lists_mappings(mappings_dir, update=True, mappings=None):
+    """
+    Add mapping lists to the loaded mappings.
+
+    :param update: whether to first download the latest mappings
+    :param mappings_dir: path to directory in which mappings are found
+    :param mappings: dict to which mappings should be added. If None then a new
+        dict is returned.
+    """
+    mappings = mappings or {}
+    mappings_dir = mappings_dir or MAPPINGS_DIR
+
+    ml = make_places_list(mappings_dir)
+    mappings['places'] = ml.consume_entries(
+        ml.load_old_mappings(update=update), 'name',
+        require=['category', 'wikidata'])
+
+    mk = make_keywords_list(mappings_dir)
+    mappings['keywords'] = mk.consume_entries(
+        mk.load_old_mappings(update=update), 'name', require='category',
+        only='category')
+
+    mp = make_people_list(mappings_dir)
+    mappings['people'] = mp.consume_entries(
+        mp.load_old_mappings(update=update), 'name',
+        require=['creator', 'category', 'wikidata'])
+    return mappings
+
+
+def make_places_list(mapping_dir=None, mapping_root=None):
+    """Create a MappingList object for places."""
+    mapping_dir = mapping_dir or MAPPINGS_DIR
+    mapping_root = mapping_root or 'dummy'
+    parameters = ['name', 'category', 'wikidata', 'frequency']
+    header = '{{User:André Costa (WMSE)/mapping-head|category=|wikidata=}}'
+    return MappingList(
+        page='{}/places'.format(mapping_root),
+        parameters=parameters,
+        header_template=header,
+        mapping_dir=mapping_dir)
+
+
+def make_keywords_list(mapping_dir=None, mapping_root='dummy'):
+    """Create a MappingList object for keywords."""
+    mapping_dir = mapping_dir or MAPPINGS_DIR
+    mapping_root = mapping_root or 'dummy'
+    parameters = ['name', 'category', 'frequency']
+    header = '{{User:André Costa (WMSE)/mapping-head|category=}}'
+    return MappingList(
+        page='{}/keywords'.format(mapping_root),
+        parameters=parameters,
+        header_template=header,
+        mapping_dir=mapping_dir)
+
+
+def make_people_list(mapping_dir=None, mapping_root='dummy'):
+    """Create a MappingList object for people."""
+    mapping_dir = mapping_dir or MAPPINGS_DIR
+    mapping_root = mapping_root or 'dummy'
+    parameters = ['name', 'more', 'creator', 'category', 'wikidata', 'other',
+                  'frequency']
+    header = ('{{User:André Costa (WMSE)/mapping-head'
+              '|category=|creator=|wikidata=|other=leftover comments}}')
+    return MappingList(
+        page='{}/people'.format(mapping_root),
+        parameters=parameters,
+        header_template=header,
+        mapping_dir=mapping_dir)
 
 
 def build_query(main_prop, optional_props=None):
@@ -313,13 +366,27 @@ def query_to_lookup(query, item_label='item', value_label='value',
                 lookup[key][label] = entry[prop]
     return lookup
 
-#make this load settings appropriately
+
+# @todo: make this load settings appropriately (cf. harvester)
 def main():
     """Initialise and run the mapping updater."""
     options = {
         'harvest_file': 'nm_data.json',
         'mapping_log_file': 'nm_mappings.log',
-        'mappings_dir': 'mappings'
+        'mappings_dir': 'mappings',
+        'wiki_mapping_root': 'Commons:Nordiska_museet/mapping',
+        'default_intro_text': (
+            '{} mapping table for [[Commons:Nordiska museet]]\n'),
+        'intro_texts': {
+            'keyword': (
+                'Keyword mapping table for [[Commons:Nordiska museet]]. '
+                'Originally populated from '
+                '[[Commons:Batch uploading/Nordiska Museet/keywords]].\n'),
+            'people': (
+                'People mapping table for [[Commons:Nordiska museet]]. '
+                'Originally populated from '
+                '[[Commons:Batch uploading/Nordiska Museet/creators]].\n')
+        }
     }
     updater = DiMuMappingUpdater(options)
     pywikibot.output(updater.log.close_and_confirm())
