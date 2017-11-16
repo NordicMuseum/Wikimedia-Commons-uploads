@@ -45,10 +45,16 @@ class DiMuMappingUpdater(object):
         self.dump_people()
 
     def get_intro_text(self, key):
+        """Return the specific info text for a list or the default one."""
         return (self.settings.get('intro_texts').get(key) or
                 self.settings.get('default_intro_text').format(key.title()))
 
     def dump_places(self):
+        """
+        Dump the place mappings to wikitext files.
+
+        Although dumped to one page each type is dumped as a separate table
+        """
         ml = make_places_list(
             mapping_root=self.settings.get('wiki_mapping_root'))
         intro_text = self.get_intro_text('places')
@@ -72,6 +78,7 @@ class DiMuMappingUpdater(object):
             merged_places_data, preserved_places_data, intro_text)
 
     def dump_subjects(self):
+        """Dump the keyword/subject mappings to wikitext files."""
         mk = make_keywords_list(
             mapping_root=self.settings.get('wiki_mapping_root'))
         intro_text = self.get_intro_text('keyword')
@@ -80,6 +87,7 @@ class DiMuMappingUpdater(object):
         mk.save_as_wikitext(merged_keywords, preserved_keywords, intro_text)
 
     def dump_people(self):
+        """Dump the people mappings to wikitext files."""
         mp = make_people_list(
             mapping_root=self.settings.get('wiki_mapping_root'))
         intro_text = self.get_intro_text('people')
