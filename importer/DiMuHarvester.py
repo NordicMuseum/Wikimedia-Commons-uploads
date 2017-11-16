@@ -590,6 +590,7 @@ def handle_args(args, usage):
             options[option[1:]] = common.convert_from_commandline(value)
         else:
             pywikibot.output(usage)
+            exit()
 
     return options
 
