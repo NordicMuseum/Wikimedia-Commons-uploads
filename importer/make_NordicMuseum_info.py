@@ -37,8 +37,8 @@ class NMInfo(MakeBaseInfo):
         super(NMInfo, self).__init__(batch_cat, batch_date, **options)
 
         # black-listed values
-        self.bad_namn = (u'okänd fotograf', u'okänd konstnär')
-        self.bad_date = (u'odaterad', )
+        self.bad_namn = ('Nordiska museets arkiv', )
+        self.bad_date = ('odaterad', )
 
         #self.commons = pywikibot.Site('commons', 'commons')
         #self.wikidata = pywikibot.Site('wikidata', 'wikidata')
@@ -65,7 +65,8 @@ class NMInfo(MakeBaseInfo):
 
         :param update_mappings: whether to first download the latest mappings
         """
-        self.mappings = mapping_updater.load_mappings(update_mappings)
+        self.mappings = mapping_updater.load_mappings(
+            update_mappings, load_mapping_lists=True)
 
     def process_data(self, raw_data):
         """
@@ -319,7 +320,8 @@ class NMItem(object):
         """Produce a linked source statement."""
         template = '{{Nordiska museet cooperation project}}'
         txt = ''
-        if self.photographer:
+        if (self.photographer and
+                self.photographer not in self.nm_info.bad_names):
             txt += '{} / '.format(self.photographer)
         txt += 'Nordiska museet'
         return '[{url} {link_text}]\n{template}'.format(
@@ -373,13 +375,15 @@ class NMItem(object):
             date_val = self.creation['date']
             if isinstance(date_val, tuple):
                 return '{{other date|-|%s|%s}}' % date_val
-            else:
+            elif date_val not in self.nm_info.bad_dates:
                 return date_val
         return ''
 
     def get_other_versions(self):
         """Create a gallery for other images of the same object."""
-        raise NotImplementedError
+        if self.see_also:
+            raise NotImplementedError
+        return ''
 
 
 if __name__ == "__main__":
