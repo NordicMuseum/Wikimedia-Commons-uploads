@@ -14,10 +14,6 @@ from batchupload.listscraper import MappingList
 SETTINGS = "settings.json"
 MAPPINGS_DIR = 'mappings'
 HARVEST_FILE = 'dimu_harvest_data.json'
-# @todo:
-#   * check for mappings through k_nav see check_indata.crunchKNavList
-#   * is connection between place levels broken? Risk of mismatches?
-#   * ensure load_mappings can be used by make_NM...
 
 
 class DiMuMappingUpdater(object):
@@ -33,6 +29,7 @@ class DiMuMappingUpdater(object):
             mappings_dir=self.settings.get('mappings_dir'))
         harvest_data = load_harvest_data(self.settings.get('harvest_file'))
 
+        self.kulturnav_hits = load_kulturnav_data()
         self.people_to_map = {}
         self.places_to_map = OrderedDict()
         self.subjects_to_map = Counter()
@@ -103,6 +100,14 @@ class DiMuMappingUpdater(object):
             entry['name'] = data.get('name')
             entry['more'] = 'Roles: {}'.format('/'.join(data.get('roles')))
             if data.get('k_nav'):
+                knav_id = data.get('k_nav')
+                if knav_id in self.kulturnav_hits:
+                    knav_data = self.kulturnav_hits.get(knav_id)
+                    entry['wikidata'] = knav_data.get('wd')
+                    if knav_data.get('creator'):
+                        entry['creator'] = knav_data.get('creator')
+                    if knav_data.get('commonscat'):
+                        entry['category'] = knav_data.get('commonscat')
                 entry['more'] += ' [http://kulturnav.org/{0} {0}]'.format(
                     data.get('k_nav'))
             out_data.append((entry, v.get('count')))
@@ -134,6 +139,8 @@ class DiMuMappingUpdater(object):
                 for person in event.get('related_persons'):
                     self.parse_person(person)
 
+    # @todo: is connection between place levels broken by this?
+    #        Risk of mismatches?
     def parse_place(self, place_data):
         """Gather and combine place data."""
         del place_data['role']
@@ -308,6 +315,18 @@ def make_people_list(mapping_dir=None, mapping_root='dummy'):
         parameters=parameters,
         header_template=header,
         mapping_dir=mapping_dir)
+
+
+def load_kulturnav_data():
+    """
+    Load all known KulturNav entries (P1248) on Wikidata.
+
+    In addition to qid also load data on commonscat (P373) and
+    Creator templates (P1472).
+    """
+    query = build_query('P1248', ['P373', 'P1472'])
+    return query_to_lookup(
+        query, props={'P373': 'commonscat', 'P1472': 'creator'})
 
 
 def build_query(main_prop, optional_props=None):
