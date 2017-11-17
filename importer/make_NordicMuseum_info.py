@@ -23,11 +23,13 @@ import importer.DiMuMappingUpdater as mapping_updater
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 MAPPINGS_DIR = 'mappings'
-BATCH_CAT = 'Images from Nordiska museet'  # stem for maintenance categories (We use "Images from Nordiska museet" for both content and maintenance today, consider splitting these)
+BATCH_CAT = 'Images from Nordiska museet'  # stem for maintenance categories
 BATCH_DATE = '2017-11'  # branch for this particular batch upload
 LOGFILE = 'nm_processing_october.log'
 GEO_ORDER = ('other', 'parish', 'municipality', 'county', 'province',
              'country')
+# @todo: We use "Images from Nordiska museet" for both content and maintenance
+#        today, consider splitting these.
 
 
 class NMInfo(MakeBaseInfo):
@@ -35,8 +37,8 @@ class NMInfo(MakeBaseInfo):
 
     def __init__(self, **options):
         """Initialise a make_info object."""
-        batch_date = pop(options, 'batch_label') or BATCH_DATE
-        batch_cat = pop(options, 'base_meta_cat') or BATCH_CAT
+        batch_date = common.pop(options, 'batch_label') or BATCH_DATE
+        batch_cat = common.pop(options, 'base_meta_cat') or BATCH_CAT
         super(NMInfo, self).__init__(batch_cat, batch_date, **options)
 
         # black-listed values
@@ -370,9 +372,7 @@ class NMItem(object):
 
     # @todo: adapt for depicted person, other keywords
     def get_original_description(self):
-        """
-        Given an item get an appropriate original description
-        """
+        """Given an item get an appropriate original description."""
         original_desc = self.description
         if self.subjects:
             original_desc += '\n<br />{label}: {words}'.format(
@@ -420,7 +420,7 @@ class NMItem(object):
 
     def get_description(self, with_depicted=False):
         """
-        Given an item get an appropriate description
+        Given an item get an appropriate description.
 
         :param with_depicted: whether to also include depicted data
         """
@@ -629,8 +629,8 @@ class NMItem(object):
             raise NotImplementedError
         return ''
 
-    #@todo: Check CC version
-    #@todo: check pdm is never cc0, PD-Sweden-photo
+    # @todo: Check CC version
+    # @todo: check pdm is never cc0, PD-Sweden-photo
     def get_license_text(self):
         """Format a license template."""
         if self.copyright and self.default_copyright:
@@ -700,15 +700,6 @@ def return_first_claim(item, prop):
     claims = item.claims.get(prop)
     if claims:
         return claims[0].target
-
-
-# @todo move to batchuploads
-def pop(d, val):
-    """A poper which returns None if the value isn't present."""
-    try:
-        return d.pop(val)
-    except KeyError:
-        return None
 
 
 if __name__ == "__main__":
