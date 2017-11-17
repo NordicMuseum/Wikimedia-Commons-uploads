@@ -23,7 +23,7 @@ import importer.DiMuMappingUpdater as mapping_updater
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 MAPPINGS_DIR = 'mappings'
 BATCH_CAT = 'Images from Nordiska museet'  # stem for maintenance categories (We use "Images from Nordiska museet" for both content and maintenance today, consider splitting these)
-BATCH_DATE = '2017-10'  # branch for this particular batch upload
+BATCH_DATE = '2017-11'  # branch for this particular batch upload
 LOGFILE = 'nm_processing_october.log'
 
 
@@ -75,8 +75,7 @@ class NMInfo(MakeBaseInfo):
             mapped_info = mapping.get(entry)
             if mapped_info.get('wikidata'):
                 mapped_info.update(
-                    self.nm_info.get_wikidata_info(
-                        mapped_info.get('wikidata')))
+                    self.get_wikidata_info(mapped_info.get('wikidata')))
             return mapped_info
         return {}
 
@@ -113,9 +112,9 @@ class NMInfo(MakeBaseInfo):
         """
         if item.type == "Photograph":
             if item.is_photo:
-                self.make_photograph_template(item)
+                return self.make_photograph_template(item)
             else:
-                self.make_artwork_info(item)
+                return self.make_artwork_info(item)
         else:
             # haven't figured out Thing yet
             raise NotImplementedError
@@ -207,21 +206,20 @@ class NMInfo(MakeBaseInfo):
         return '{server}/image/{id}?dimension=max&filename={id}.jpg'.format(
             server=server, id=item.media_id)
 
-    # @todo: check need
-    def get_creator(self, creator):
-        """
-        given a creator (or creators) return the creator template,
-        linked entry or plain name
-        """
-        raise NotImplementedError
-
     def generate_content_cats(self, item):
         """
         Extract any mapped keyword categories or depicted categories.
 
-        @param item: the item to analyse
+        :param item: the NMItem to analyse
+        :return: list of categories (without "Category:" prefix)
         """
-        raise NotImplementedError
+        item.make_item_keyword_categories()
+
+        # Add parish/municipality categorisation when needed
+        if item.needs_place_cat:
+            item.make_place_category()
+
+        return list(item.content_cats)
 
     def generate_meta_cats(self, item, content_cats):
         """
@@ -344,9 +342,11 @@ class NMItem(object):
         self.content_cats = set()  # content relevant categories without prefix
         self.meta_cats = set()  # meta/maintenance proto categories
         self.nm_info = nm_info  # the NMInfo instance creating this NMItem
+        self.needs_place_cat = True  # if item needs categorisation by place
         self.log = nm_info.log
         self.commons = nm_info.commons
         self.glam_id = self.get_glam_id()  # set the id used by the glam
+        self.geo_data = self.get_geo_data()
 
     # @todo: consider loading glam identifier from settings
     def get_glam_id(self):
@@ -381,19 +381,24 @@ class NMItem(object):
     def get_id_link(self):
         """Create the id link template."""
         series, _, idno = self.glam_id.partition('.')
-        return '{{Nordiska museet link|{series}|{id}}}'.format(
+        return '{{{{Nordiska museet link|{series}|{id}}}}}'.format(
             series=series, id=idno)
 
-    def get_source(self):
-        """Produce a linked source statement."""
-        template = '{{Nordiska museet cooperation project}}'
+    def get_byline(self):
+        """Create a photographer/GLAM byline."""
         txt = ''
         if (self.photographer and
                 self.photographer not in self.nm_info.bad_names):
             txt += '{} / '.format(self.photographer)
         txt += 'Nordiska museet'
+        return txt
+
+    def get_source(self):
+        """Produce a linked source statement."""
+        template = '{{Nordiska museet cooperation project}}'
+        byline = self.get_byline()
         return '[{url} {link_text}]\n{template}'.format(
-            url=self.get_dimu_url(), link_text=txt, template=template)
+            url=self.get_dimu_url(), link_text=byline, template=template)
 
     def get_dimu_url(self):
         """Create the url for the item on DigitaltMuseum."""
@@ -415,11 +420,79 @@ class NMItem(object):
         #{{depicted place|%s}}' % (item.get_depicted_place(self.mappings),
         #{{depicted person|%s|style=information field}} ' % '|'.join(formatted_depicted) #<- run this through mapping to pick up links/wikidata
 
+    def get_geo_data(self):
+        """
+        Find commonscat and wikidata entries for each available place level.
+        
+        Returns an dict with the most specific wikidata entry and any matching
+        commonscats in decreasing order of relevance.
+        
+        If any 'other' value is matched the wikidata ids are returned and the
+        categories are added as content_cats.
+        """
+        if not self.depicted_place:
+            return []
+
+        # set up the geo_types and their corresponding mappings ordered
+        # most to least specific
+        geo_order = ('other', 'parish', 'municipality', 'county', 'province',
+                     'country')
+        geo_map = OrderedDict(
+            [(i, self.nm_info.mappings.get(i)) for i in geo_order])
+        role = self.depicted_place.pop('role')
+        
+        if any(key not in geo_map for key in self.depicted_place.keys()):
+            diff = set(self.depicted_place.keys())-set(geo_map.keys())
+            raise common.MyError(
+                '{} should be added to geo_order'.format(', '.join(diff)))
+        
+        # handle other separately
+        geo_map.pop('other')
+        other_wikidata = []
+        if self.depicted_place.get('other'):
+            for geo_type, value in self.depicted_place.get('other').items():
+                mapping = self.nm_info.mapped_and_wikidata(
+                    value, self.nm_info.mappings['places'])
+                if (mapping.get('category') and
+                        self.nm_info.category_exists(mapping.get('category'))):
+                    self.content_cats.add(mapping.get('category'))
+                    self.needs_place_cat = False
+                if mapping.get('wikidata'):
+                    other_wikidata.append(mapping.get('wikidata'))
+
+        wikidata = None
+        commonscats = []
+        for geo_type, mapping in geo_map.items():
+            if not self.depicted_place.get(geo_type):
+                continue
+            place = self.depicted_place.get(geo_type)
+            mapped_data = mapping.get(place)
+
+            if mapped_data.get('wd') and not wikidata:
+                wikidata = mapped_data.get('wd')
+            if mapped_data.get('commonscat'):
+                commonscats.append(mapped_data.get('commonscat'))
+        
+        return {
+            'role': role,
+            'wd': wikidata,
+            'commonscats': commonscats,
+            'other_wd': other_wikidata
+        }
+
     def get_depicted_place(self):
         """Format at depicted place statement."""
-        if self.depicted_place:
-            raise NotImplementedError
-        return ''
+        geo_order = ('other', 'parish', 'municipality', 'county', 'province',
+                     'country')
+        if not self.depicted_place:
+            return ''
+        role = self.depicted_place.pop('role')
+
+        #handled role=view_over
+        #add categories?
+        #output in geo_order (or reverse?) order. but can we skip some?
+        #output other
+        
 
     def get_creator(self):
         """Return correctly formated creator values in wikitext."""
@@ -444,8 +517,48 @@ class NMItem(object):
         for name in [person.get('name') for person in persons]:
             mapped_info = self.nm_info.mapped_and_wikidata(name, mapping)
             if mapped_info.get('commonscat'):
-                cats.append(mapped_info.get('commonscat'))
+                cat = mapped_info.get('commonscat')
+                if self.nm_info.category_exists(cat):
+                    cats.append(cat)
         return cats
+
+    def make_place_category(self):
+        """Add a the most specific geo category."""
+        for geo_cat in self.geo_data.get('commonscats'):
+            if self.nm_info.category_exists(geo_cat):
+                self.content_cats.add(geo_cat)
+                return True
+        
+        # no geo cats found
+        self.meta_cats.add('needing categorisation (place)')
+        return False
+
+    #@todo: combine with subjects2?
+    def make_item_keyword_categories(self):
+        """
+        Construct categories from the item keyword values.
+
+        :param cache: cache for category existence
+        """
+        keyword_map = self.nm_info.mappings['keywords']
+        for keyword in self.subjects:
+            if keyword not in keyword_map:
+                continue
+            for cat in keyword_map[keyword]:
+                match_on_first = True
+                found_testcat = False
+                for place_cat in self.geo_data.get('commonscats'):
+                    test_cat = '{cat} in {place}'.format(
+                        cat=cat, place=place_cat)
+                    if self.nm_info.category_exists(test_cat):
+                        self.content_cats.add(test_cat)
+                        found_testcat = True
+                        if match_on_first:
+                            self.needs_place_cat = False
+                        break
+                    match_on_first = False
+                if not found_testcat and self.nm_info.category_exists(cat):
+                    self.content_cats.add(cat)
 
     def get_materials(self):
         """Format at materials/technique statement."""
@@ -454,14 +567,41 @@ class NMItem(object):
             raise NotImplementedError
         return ''
 
+    #@todo: Check CC version
+    #@todo: check pdm is never cc0, PD-Sweden-photo
     def get_license_text(self):
         """Format a license template."""
-        # look at self.copyright and self.default_copyright
-        # map licenses to templates
-        # for PD try to get death date from creator (wikidata) else PD-70
-        # or are some cc0?
-        # use
-        raise NotImplementedError
+        if self.copyright and self.default_copyright:
+            # cannot deal with double license info yet
+            raise NotImplementedError
+
+        copyright = self.copyright or self.default_copyright
+
+        # CC licenses are used for modern photographs
+        if copyright.get('code') == 'by':
+            return '{{CC-BY-4.0|%s}}' % self.get_byline()
+        elif copyright.get('code') == 'by-sa':
+            return '{{CC-BY-SA-4.0|%s}}' % self.get_byline()
+        elif copyright.get('code') == 'pdm':
+            # for PD try to get death date from creator (wikidata) else PD-70
+            mapping = self.nm_info.mappings.get('people')
+            persons = (self.creation.get('related_persons') or
+                       copyright.get('persons') or self.photographer)
+            death_years = []
+            for person in persons:
+                name = person.get('name')
+                data = self.nm_info.mapped_and_wikidata(name, mapping)
+                death_years.append(data.get('death_year'))
+            death_years = list(filter(None, death_years))  # trim empties
+            if death_years:
+                return '{{PD-old-auto|deathyear=%s}}' % max(death_years)
+            else:
+                # normally the safest guess
+                return '{{PD-old-70}}'
+        else:
+            raise common.MyError(
+                'A non-supported license was encountered!: {}'.format(
+                    copyright.get('code')))
 
     def get_creation_date(self):
         """Format a creation date statement."""
@@ -491,7 +631,7 @@ def return_first_claim(item, prop):
     """Return the first claim of a wikiata item for a given property."""
     claims = item.claims.get(prop)
     if claims:
-        claims[0].target
+        return claims[0].target
 
 
 # @todo move to batchuploads
