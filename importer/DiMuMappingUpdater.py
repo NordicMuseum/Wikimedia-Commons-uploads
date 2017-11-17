@@ -217,15 +217,16 @@ def load_mappings(update_mappings, mappings_dir=None,
 
     if update_mappings:
         query_props = {'P373': 'commonscat'}
+        lang = 'sv'
         mappings['parish'] = query_to_lookup(
-            build_query('P777', optional_props=query_props.keys()),
-            props=query_props)
+            build_query('P777', optional_props=query_props.keys(), lang=lang),
+            props=query_props, lang=lang)
         mappings['municipality'] = query_to_lookup(
-            build_query('P525', optional_props=query_props.keys()),
-            props=query_props)
+            build_query('P525', optional_props=query_props.keys(), lang=lang),
+            props=query_props, lang=lang)
         mappings['county'] = query_to_lookup(
-            build_query('P507', optional_props=query_props.keys()),
-            props=query_props)
+            build_query('P507', optional_props=query_props.keys(), lang=lang),
+            props=query_props, lang=lang)
 
         # dump to mappings
         common.open_and_write_file(
@@ -344,7 +345,7 @@ def load_kulturnav_data():
         query, props={'P373': 'commonscat', 'P1472': 'creator'})
 
 
-def build_query(main_prop, optional_props=None):
+def build_query(main_prop, optional_props=None, lang=None):
     """
     Construct a sparql query returning items containing a given property.
 
@@ -354,21 +355,27 @@ def build_query(main_prop, optional_props=None):
     :param main_prop: property pid (with P-prefix) to require
     :param optional_props: list of other properties pids to include as
         optional
+    :param lang: language code to request the item label for
     """
     optional_props = optional_props or []
     query = 'SELECT ?item ?value '
     if optional_props:
         query += '?{0} '.format(' ?'.join(optional_props))
+    if lang:
+        query += '?itemLabel '
     query += 'WHERE { '
     query += '?item wdt:{0} ?value . '.format(main_prop)
     for prop in optional_props:
         query += 'OPTIONAL { ?item wdt:%s ?%s } ' % (prop, prop)
+    if lang:
+        query += ('SERVICE wikibase:label '
+                  '{ bd:serviceParam wikibase:language "%s". }' % lang)
     query += '}'
     return query
 
 
 def query_to_lookup(query, item_label='item', value_label='value',
-                    props=None):
+                    props=None, lang=None):
     """
     Fetch sparql result and return it as a lookup table for wikidata id.
 
@@ -380,8 +387,10 @@ def query_to_lookup(query, item_label='item', value_label='value',
     :param value_label: the label of the selected lookup key
     :param props: dict of other properties to save from the results using
         the format label_in_sparql:key_in_output.
+    :param lang: language code in which to expect an itemLabel
     :return: dict
     """
+    props = props or {}
     wdqs = sparql.SparqlQuery()
     result = wdqs.select(query, full_data=True)
     lookup = {}
@@ -390,7 +399,7 @@ def query_to_lookup(query, item_label='item', value_label='value',
             raise pywikibot.Error('Non-unique value in lookup')
         key = str(entry[value_label])
         qid = entry[item_label].getID()
-        if not props:
+        if not props and not lang:
             lookup[key] = qid
         else:
             lookup[key] = {'wd': qid}
@@ -398,6 +407,10 @@ def query_to_lookup(query, item_label='item', value_label='value',
                 if entry[prop] and not entry[prop].type:
                     entry[prop] = repr(entry[prop])
                 lookup[key][label] = entry[prop]
+            if lang:
+                if entry['itemLabel']:
+                    lang_label = entry['itemLabel'].value
+                    lookup[key]['label_{}'.format(lang)] = lang_label
     return lookup
 
 
