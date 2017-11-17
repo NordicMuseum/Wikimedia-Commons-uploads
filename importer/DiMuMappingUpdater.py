@@ -4,7 +4,6 @@
 import os
 from collections import Counter, OrderedDict
 
-
 import pywikibot
 from pywikibot.data import sparql
 
@@ -156,7 +155,7 @@ class DiMuMappingUpdater(object):
         for typ, value in place_data.items():
             if typ not in self.places_to_map:
                 self.places_to_map[typ] = Counter()
-            self.places_to_map[typ].update((value, ))
+            self.places_to_map[typ].update((value.get('code'), ))
 
     def parse_person(self, person_data):
         """Gather and combine person data."""
@@ -196,13 +195,14 @@ def load_harvest_data(filename):
 
 
 def load_mappings(update_mappings, mappings_dir=None,
-                  load_mapping_lists=False):
+                  load_mapping_lists=None):
     """
     Update mapping files, load these and package appropriately.
 
     :param update_mappings: whether to first download the latest mappings
     :param mappings_dir: path to directory in which mappings are found
-    :param load_mapping_lists: if mapping_lists should also be loaded
+    :param load_mapping_lists: the root path to any mapping_lists which should
+        be loaded.
     """
     mappings = {}
     mappings_dir = mappings_dir or MAPPINGS_DIR
@@ -216,15 +216,16 @@ def load_mappings(update_mappings, mappings_dir=None,
 
     if update_mappings:
         query_props = {'P373': 'commonscat'}
+        lang = 'sv'
         mappings['parish'] = query_to_lookup(
-            build_query('P777', optional_props=query_props.keys()),
-            props=query_props)
+            build_query('P777', optional_props=query_props.keys(), lang=lang),
+            props=query_props, lang=lang)
         mappings['municipality'] = query_to_lookup(
-            build_query('P525', optional_props=query_props.keys()),
-            props=query_props)
+            build_query('P525', optional_props=query_props.keys(), lang=lang),
+            props=query_props, lang=lang)
         mappings['county'] = query_to_lookup(
-            build_query('P507', optional_props=query_props.keys()),
-            props=query_props)
+            build_query('P507', optional_props=query_props.keys(), lang=lang),
+            props=query_props, lang=lang)
 
         # dump to mappings
         common.open_and_write_file(
@@ -249,13 +250,15 @@ def load_mappings(update_mappings, mappings_dir=None,
         country_file, as_json=True)
 
     if load_mapping_lists:
-        load_mapping_lists_mappings(mappings_dir, update_mappings, mappings)
+        load_mapping_lists_mappings(
+            mappings_dir, update_mappings, mappings, load_mapping_lists)
 
     pywikibot.output('Loaded all mappings')
     return mappings
 
 
-def load_mapping_lists_mappings(mappings_dir, update=True, mappings=None):
+def load_mapping_lists_mappings(
+        mappings_dir, update=True, mappings=None, mapping_root=None):
     """
     Add mapping lists to the loaded mappings.
 
@@ -263,21 +266,25 @@ def load_mapping_lists_mappings(mappings_dir, update=True, mappings=None):
     :param mappings_dir: path to directory in which mappings are found
     :param mappings: dict to which mappings should be added. If None then a new
         dict is returned.
+    :param mapping_root: root path for the mappings on wiki (required for an
+        update)
     """
     mappings = mappings or {}
     mappings_dir = mappings_dir or MAPPINGS_DIR
+    if update and not mapping_root:
+        raise common.MyError('A mapping root is needed to load new updates.')
 
-    ml = make_places_list(mappings_dir)
+    ml = make_places_list(mappings_dir, mapping_root)
     mappings['places'] = ml.consume_entries(
         ml.load_old_mappings(update=update), 'name',
         require=['category', 'wikidata'])
 
-    mk = make_keywords_list(mappings_dir)
+    mk = make_keywords_list(mappings_dir, mapping_root)
     mappings['keywords'] = mk.consume_entries(
         mk.load_old_mappings(update=update), 'name', require='category',
         only='category')
 
-    mp = make_people_list(mappings_dir)
+    mp = make_people_list(mappings_dir, mapping_root)
     mappings['people'] = mp.consume_entries(
         mp.load_old_mappings(update=update), 'name',
         require=['creator', 'category', 'wikidata'])
@@ -337,7 +344,7 @@ def load_kulturnav_data():
         query, props={'P373': 'commonscat', 'P1472': 'creator'})
 
 
-def build_query(main_prop, optional_props=None):
+def build_query(main_prop, optional_props=None, lang=None):
     """
     Construct a sparql query returning items containing a given property.
 
@@ -347,21 +354,27 @@ def build_query(main_prop, optional_props=None):
     :param main_prop: property pid (with P-prefix) to require
     :param optional_props: list of other properties pids to include as
         optional
+    :param lang: language code to request the item label for
     """
     optional_props = optional_props or []
     query = 'SELECT ?item ?value '
     if optional_props:
         query += '?{0} '.format(' ?'.join(optional_props))
+    if lang:
+        query += '?itemLabel '
     query += 'WHERE { '
     query += '?item wdt:{0} ?value . '.format(main_prop)
     for prop in optional_props:
         query += 'OPTIONAL { ?item wdt:%s ?%s } ' % (prop, prop)
+    if lang:
+        query += ('SERVICE wikibase:label '
+                  '{ bd:serviceParam wikibase:language "%s". }' % lang)
     query += '}'
     return query
 
 
 def query_to_lookup(query, item_label='item', value_label='value',
-                    props=None):
+                    props=None, lang=None):
     """
     Fetch sparql result and return it as a lookup table for wikidata id.
 
@@ -373,8 +386,10 @@ def query_to_lookup(query, item_label='item', value_label='value',
     :param value_label: the label of the selected lookup key
     :param props: dict of other properties to save from the results using
         the format label_in_sparql:key_in_output.
+    :param lang: language code in which to expect an itemLabel
     :return: dict
     """
+    props = props or {}
     wdqs = sparql.SparqlQuery()
     result = wdqs.select(query, full_data=True)
     lookup = {}
@@ -383,7 +398,7 @@ def query_to_lookup(query, item_label='item', value_label='value',
             raise pywikibot.Error('Non-unique value in lookup')
         key = str(entry[value_label])
         qid = entry[item_label].getID()
-        if not props:
+        if not props and not lang:
             lookup[key] = qid
         else:
             lookup[key] = {'wd': qid}
@@ -391,6 +406,10 @@ def query_to_lookup(query, item_label='item', value_label='value',
                 if entry[prop] and not entry[prop].type:
                     entry[prop] = repr(entry[prop])
                 lookup[key][label] = entry[prop]
+            if lang:
+                if entry['itemLabel']:
+                    lang_label = entry['itemLabel'].value
+                    lookup[key]['label_{}'.format(lang)] = lang_label
     return lookup
 
 

@@ -149,12 +149,13 @@ class DiMuHarvester(object):
             '{item}_{image}'.format(item=item_uuid, image=image.get('index'))
             for image in data.get('media').get('pictures')])
 
-        for image in data.get('media').get('pictures'):
+        for order, image in enumerate(data.get('media').get('pictures')):
             key = '{item}_{image}'.format(
                 item=item_uuid, image=image.get('index'))
             other_keys = all_image_keys - set([key])
 
-            image_data = self.make_image_object(image, parsed_data, other_keys)
+            image_data = self.make_image_object(
+                image, order, parsed_data, other_keys)
             if (image_data.get('copyright') or
                     image_data.get('default_copyright')):
                 self.data[key] = image_data
@@ -189,8 +190,8 @@ class DiMuHarvester(object):
         self.active_uuid = raw_data.get('uuid')
         data = {}
         data['dimu_id'] = raw_data.get('dimuCode')
-        data['glam_id'] = (raw_data.get('identifier').get('owner'),
-                           raw_data.get('identifier').get('id'))
+        data['glam_id'] = [(raw_data.get('identifier').get('owner'),
+                            raw_data.get('identifier').get('id'))]
         data['type'] = raw_data.get('artifactType')
 
         data['filename'] = self.parse_alternative_id(
@@ -220,6 +221,10 @@ class DiMuHarvester(object):
             raw_data, 'measures')
         data['classification'] = self.not_implemented_yet_waring(
             raw_data, 'classifications')
+        data['technique'] = self.not_implemented_yet_waring(
+            raw_data, 'technique')
+        data['material'] = self.not_implemented_yet_waring(
+            raw_data, 'material')
 
         return data
 
@@ -324,13 +329,18 @@ class DiMuHarvester(object):
                 if place_type == 'parish':
                     # correct use of parish codes has them zero padded
                     field['code'] = field.get('code').zfill(4)
-                place[place_type] = field.get('code') or field.get('value')
+                place[place_type] = {'label': field.get('value')}
+                place[place_type]['code'] = (field.get('code') or
+                                             field.get('value'))
             elif place_type:
                 self.log.write(
                     '{}: encountered an unknown place_type "{}".'.format(
                         self.active_uuid, place_type))
             else:
-                place['other'][field.get('name')] = field.get('value')
+                place['other'][field.get('name')] = {
+                    'label': field.get('value'),
+                    'code':  field.get('value')
+                }
 
         place['role'] = self.map_place_role(place_data.get('role'))
 
@@ -515,11 +525,13 @@ class DiMuHarvester(object):
 
         return data
 
-    def make_image_object(self, image_data, item_data, other_keys):
+    def make_image_object(self, image_data, order, item_data, other_keys):
         """
         Construct a data object for a single image.
 
         :param image_data: the unique data for the image
+        :param order: the order of the image, used for getting right hit in
+            the slider.
         :param item_data: the shared data for all images of this item
         :param other_keys: the keys to other images of the same object
         """
@@ -530,6 +542,7 @@ class DiMuHarvester(object):
         image['copyright'] = self.parse_license_info(
             image_data.get('licenses'))
         image['media_id'] = image_data.get('identifier')
+        image['slider_order'] = order
         image['see_also'] = list(other_keys)
         return image
 
@@ -582,6 +595,7 @@ def handle_args(args, usage):
             options[option[1:]] = common.convert_from_commandline(value)
         else:
             pywikibot.output(usage)
+            exit()
 
     return options
 
