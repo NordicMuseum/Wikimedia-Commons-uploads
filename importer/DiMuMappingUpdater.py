@@ -196,13 +196,14 @@ def load_harvest_data(filename):
 
 
 def load_mappings(update_mappings, mappings_dir=None,
-                  load_mapping_lists=False):
+                  load_mapping_lists=None):
     """
     Update mapping files, load these and package appropriately.
 
     :param update_mappings: whether to first download the latest mappings
     :param mappings_dir: path to directory in which mappings are found
-    :param load_mapping_lists: if mapping_lists should also be loaded
+    :param load_mapping_lists: the root path to any mapping_lists which should
+        be loaded.
     """
     mappings = {}
     mappings_dir = mappings_dir or MAPPINGS_DIR
@@ -249,13 +250,15 @@ def load_mappings(update_mappings, mappings_dir=None,
         country_file, as_json=True)
 
     if load_mapping_lists:
-        load_mapping_lists_mappings(mappings_dir, update_mappings, mappings)
+        load_mapping_lists_mappings(
+            mappings_dir, update_mappings, mappings, load_mapping_lists)
 
     pywikibot.output('Loaded all mappings')
     return mappings
 
 
-def load_mapping_lists_mappings(mappings_dir, update=True, mappings=None):
+def load_mapping_lists_mappings(
+        mappings_dir, update=True, mappings=None, mapping_root=None):
     """
     Add mapping lists to the loaded mappings.
 
@@ -263,21 +266,25 @@ def load_mapping_lists_mappings(mappings_dir, update=True, mappings=None):
     :param mappings_dir: path to directory in which mappings are found
     :param mappings: dict to which mappings should be added. If None then a new
         dict is returned.
+    :param mapping_root: root path for the mappings on wiki (required for an
+        update)
     """
     mappings = mappings or {}
     mappings_dir = mappings_dir or MAPPINGS_DIR
+    if update and not mapping_root:
+        raise common.MyError('A mapping root is needed to load new updates.')
 
-    ml = make_places_list(mappings_dir)
+    ml = make_places_list(mappings_dir, mapping_root)
     mappings['places'] = ml.consume_entries(
         ml.load_old_mappings(update=update), 'name',
         require=['category', 'wikidata'])
 
-    mk = make_keywords_list(mappings_dir)
+    mk = make_keywords_list(mappings_dir, mapping_root)
     mappings['keywords'] = mk.consume_entries(
         mk.load_old_mappings(update=update), 'name', require='category',
         only='category')
 
-    mp = make_people_list(mappings_dir)
+    mp = make_people_list(mappings_dir, mapping_root)
     mappings['people'] = mp.consume_entries(
         mp.load_old_mappings(update=update), 'name',
         require=['creator', 'category', 'wikidata'])

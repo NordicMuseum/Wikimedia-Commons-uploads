@@ -67,7 +67,8 @@ class NMInfo(MakeBaseInfo):
         :param update_mappings: whether to first download the latest mappings
         """
         self.mappings = mapping_updater.load_mappings(
-            update_mappings, load_mapping_lists=True)
+            update_mappings,
+            load_mapping_lists='Commons:Nordiska_museet/mapping')
 
     def mapped_and_wikidata(self, entry, mapping):
         """Add the linked wikidata info to a mapping."""
@@ -381,8 +382,7 @@ class NMItem(object):
     def get_id_link(self):
         """Create the id link template."""
         series, _, idno = self.glam_id.partition('.')
-        return '{{{{Nordiska museet link|{series}|{id}}}}}'.format(
-            series=series, id=idno)
+        return '{{Nordiska museet link|%s|%s}}' % (series, idno)
 
     def get_byline(self):
         """Create a photographer/GLAM byline."""
@@ -423,10 +423,10 @@ class NMItem(object):
     def get_geo_data(self):
         """
         Find commonscat and wikidata entries for each available place level.
-        
+
         Returns an dict with the most specific wikidata entry and any matching
         commonscats in decreasing order of relevance.
-        
+
         If any 'other' value is matched the wikidata ids are returned and the
         categories are added as content_cats.
         """
@@ -440,12 +440,12 @@ class NMItem(object):
         geo_map = OrderedDict(
             [(i, self.nm_info.mappings.get(i)) for i in geo_order])
         role = self.depicted_place.pop('role')
-        
+
         if any(key not in geo_map for key in self.depicted_place.keys()):
             diff = set(self.depicted_place.keys())-set(geo_map.keys())
             raise common.MyError(
                 '{} should be added to geo_order'.format(', '.join(diff)))
-        
+
         # handle other separately
         geo_map.pop('other')
         other_wikidata = []
@@ -472,7 +472,7 @@ class NMItem(object):
                 wikidata = mapped_data.get('wd')
             if mapped_data.get('commonscat'):
                 commonscats.append(mapped_data.get('commonscat'))
-        
+
         return {
             'role': role,
             'wd': wikidata,
@@ -492,7 +492,6 @@ class NMItem(object):
         #add categories?
         #output in geo_order (or reverse?) order. but can we skip some?
         #output other
-        
 
     def get_creator(self):
         """Return correctly formated creator values in wikitext."""
@@ -528,19 +527,21 @@ class NMItem(object):
             if self.nm_info.category_exists(geo_cat):
                 self.content_cats.add(geo_cat)
                 return True
-        
+
         # no geo cats found
         self.meta_cats.add('needing categorisation (place)')
         return False
 
-    #@todo: combine with subjects2?
     def make_item_keyword_categories(self):
         """
         Construct categories from the item keyword values.
 
         :param cache: cache for category existence
         """
+        if self.subjects_2:
+            raise NotImplementedError
         keyword_map = self.nm_info.mappings['keywords']
+
         for keyword in self.subjects:
             if keyword not in keyword_map:
                 continue
@@ -548,17 +549,25 @@ class NMItem(object):
                 match_on_first = True
                 found_testcat = False
                 for place_cat in self.geo_data.get('commonscats'):
-                    test_cat = '{cat} in {place}'.format(
-                        cat=cat, place=place_cat)
-                    if self.nm_info.category_exists(test_cat):
-                        self.content_cats.add(test_cat)
-                        found_testcat = True
-                        if match_on_first:
-                            self.needs_place_cat = False
+                    found_testcat = self.try_cat_patterns(
+                        cat, place_cat, match_on_first)
+                    if found_testcat:
                         break
                     match_on_first = False
                 if not found_testcat and self.nm_info.category_exists(cat):
                     self.content_cats.add(cat)
+
+    def try_cat_patterns(self, base_cat, place_cat, match_on_first):
+        """Test various combinations to construct a geographic subcategory."""
+        test_cat_patterns = ('{cat} in {place}', '{cat} of {place}')
+        for pattern in test_cat_patterns:
+            test_cat = pattern.format(cat=base_cat, place=place_cat)
+            if self.nm_info.category_exists(test_cat):
+                self.content_cats.add(test_cat)
+                if match_on_first:
+                    self.needs_place_cat = False
+                return True
+        return False
 
     def get_materials(self):
         """Format at materials/technique statement."""
