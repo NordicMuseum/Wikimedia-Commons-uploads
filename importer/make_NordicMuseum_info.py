@@ -11,20 +11,23 @@ BatchUploadTools compliant json file.
 """
 import os.path
 from collections import OrderedDict
+from datetime import datetime
 
 import pywikibot
 
 import batchupload.common as common
 import batchupload.helpers as helpers
 from batchupload.make_info import MakeBaseInfo
-import importer.DiMuMappingUpdater as mapping_updater
 
+import importer.DiMuMappingUpdater as mapping_updater
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 MAPPINGS_DIR = 'mappings'
 BATCH_CAT = 'Images from Nordiska museet'  # stem for maintenance categories (We use "Images from Nordiska museet" for both content and maintenance today, consider splitting these)
 BATCH_DATE = '2017-11'  # branch for this particular batch upload
 LOGFILE = 'nm_processing_october.log'
+GEO_ORDER = ('other', 'parish', 'municipality', 'county', 'province',
+             'country')
 
 
 class NMInfo(MakeBaseInfo):
@@ -44,9 +47,8 @@ class NMInfo(MakeBaseInfo):
         self.wikidata = pywikibot.Site('wikidata', 'wikidata')
         self.category_cache = {}  # cache for category_exists()
         self.wikidata_cache = {}  # cache for Wikidata results
-        #self.k_nav_list = {}
-        #self.photographer_cache = {}
         self.log = common.LogFile('', LOGFILE)
+        self.pd_year = datetime.now().year - 70
 
     def load_data(self, in_file):
         """
@@ -182,7 +184,7 @@ class NMInfo(MakeBaseInfo):
         template_data['references'] = ''
         template_data['object history'] = ''
         template_data['credit line'] = ''
-        template_data['inscriptions'] = ''
+        template_data['inscriptions'] = item.get_inscriptions()
         template_data['notes'] = ''
         template_data['accession number'] = item.get_id_link()
         template_data['source'] = item.get_source()
@@ -373,11 +375,22 @@ class NMItem(object):
         """
         original_desc = self.description
         if self.subjects:
-            original_desc += '<br />{label}: {words}'.format(
+            original_desc += '\n<br />{label}: {words}'.format(
                 label=helpers.bolden('Ämnesord'),
                 words='; '.join(self.subjects))
 
-        return '{{Nordiska museet description|1=%s}}' % original_desc
+        role_dict = {
+            'depicted_place': 'Avbildad plats',
+            'view_over': 'Vy över'
+        }
+        if self.depicted_place:
+            places = self.geo_data.get('labels').values()
+            role = self.geo_data.get('role')
+            original_desc += '\n<br />{label}: {words}'.format(
+                label=helpers.bolden(role_dict.get(role)),
+                words='; '.join(places))
+
+        return '{{Nordiska museet description|1=%s}}' % original_desc.strip()
 
     def get_id_link(self):
         """Create the id link template."""
@@ -405,7 +418,7 @@ class NMItem(object):
         return 'https://digitaltmuseum.se/{id}/?slide={order}'.format(
             id=self.dimu_id, order=self.slider_order)
 
-    def get_description(self, with_depicted=True):
+    def get_description(self, with_depicted=False):
         """
         Given an item get an appropriate description
 
@@ -413,12 +426,57 @@ class NMItem(object):
         """
         desc = '{{sv|%s}}' % self.description
 
-        return desc
-        #Use get_depicted_place
-        #handle view over
-        #get_depicted_object(item, typ='person')
-        #{{depicted place|%s}}' % (item.get_depicted_place(self.mappings),
-        #{{depicted person|%s|style=information field}} ' % '|'.join(formatted_depicted) #<- run this through mapping to pick up links/wikidata
+        if with_depicted:
+            desc += '\n{}'.format(self.get_depicted_place(wrap=True))
+
+        return desc.strip()
+
+    def get_depicted_place(self, wrap=False):
+        """
+        Format at depicted place statement.
+
+        Always output all "other" values. Then output other places values until
+        the first one mapped to Wikidata is encountered.
+
+        :param wrap: whether to wrap the result in {{depicted place}}.
+        """
+        if self.description_place:
+            raise NotImplementedError
+
+        if not self.geo_data:
+            return ''
+        role = self.geo_data.get('role')
+        wikidata = self.geo_data.get('wd')
+        labels = self.geo_data.get('labels')
+
+        depicted = []
+        # handle 'other' separately
+        for geo_type in self.depicted_place.get('other').keys():
+            value = labels.get(geo_type)
+            if geo_type in wikidata:
+                value = '{{item|%s}}' % wikidata.get(geo_type)
+            depicted.append('{val} ({key})'.format(
+                key=helpers.italicize(geo_type), val=value))
+
+        for geo_type in GEO_ORDER:
+            if not self.depicted_place.get(geo_type) or geo_type == 'other':
+                continue
+            if geo_type in wikidata:
+                depicted.append('{{item|%s}}' % wikidata.get(geo_type))
+                break
+            else:
+                value = labels.get(geo_type)
+                depicted.append('{val} ({key})'.format(
+                    key=helpers.italicize(geo_type), val=value))
+
+        depicted_str = ', '.join(depicted)
+        if not wrap:
+            return depicted_str
+        elif role == 'depicted_place':
+            return '{{depicted place|%s}}' % depicted_str
+        else:
+            return '{{depicted place|%s|comment=}}' % (
+                depicted_str, role.replace('_', ' '))
 
     def get_geo_data(self):
         """
@@ -431,67 +489,55 @@ class NMItem(object):
         categories are added as content_cats.
         """
         if not self.depicted_place:
-            return []
+            return {}
 
-        # set up the geo_types and their corresponding mappings ordered
+        if (self.depicted_place.get('country') and
+                self.depicted_place.get('country').get('code') != 'Sverige'):
+            self.meta_cats.add('needing categorisation (not from Sweden)')
+
+        # set up the geo_types and their corresponding mappings ordered from
         # most to least specific
-        geo_order = ('other', 'parish', 'municipality', 'county', 'province',
-                     'country')
         geo_map = OrderedDict(
-            [(i, self.nm_info.mappings.get(i)) for i in geo_order])
+            [(i, self.nm_info.mappings.get(i)) for i in GEO_ORDER])
         role = self.depicted_place.pop('role')
 
         if any(key not in geo_map for key in self.depicted_place.keys()):
             diff = set(self.depicted_place.keys())-set(geo_map.keys())
             raise common.MyError(
-                '{} should be added to geo_order'.format(', '.join(diff)))
+                '{} should be added to GEO_ORDER'.format(', '.join(diff)))
 
+        wikidata = {}
+        commonscats = []
+        labels = OrderedDict()
         # handle other separately
         geo_map.pop('other')
-        other_wikidata = []
         if self.depicted_place.get('other'):
-            for geo_type, value in self.depicted_place.get('other').items():
+            for geo_type, data in self.depicted_place.get('other').items():
                 mapping = self.nm_info.mapped_and_wikidata(
-                    value, self.nm_info.mappings['places'])
-                if (mapping.get('category') and
-                        self.nm_info.category_exists(mapping.get('category'))):
-                    self.content_cats.add(mapping.get('category'))
-                    self.needs_place_cat = False
+                    data.get('code'), self.nm_info.mappings['places'])
+                if mapping.get('category'):
+                    commonscats.append(mapping.get('category'))
                 if mapping.get('wikidata'):
-                    other_wikidata.append(mapping.get('wikidata'))
+                    wikidata[geo_type] = mapping.get('wikidata')
+                labels[geo_type] = data.get('label')
 
-        wikidata = None
-        commonscats = []
         for geo_type, mapping in geo_map.items():
             if not self.depicted_place.get(geo_type):
                 continue
-            place = self.depicted_place.get(geo_type)
-            mapped_data = mapping.get(place)
-
-            if mapped_data.get('wd') and not wikidata:
-                wikidata = mapped_data.get('wd')
+            data = self.depicted_place.get(geo_type)
+            mapped_data = mapping.get(data.get('code'))
+            if mapped_data.get('wd'):
+                wikidata[geo_type] = mapped_data.get('wd')
             if mapped_data.get('commonscat'):
                 commonscats.append(mapped_data.get('commonscat'))
+            labels[geo_type] = data.get('label')
 
         return {
             'role': role,
             'wd': wikidata,
             'commonscats': commonscats,
-            'other_wd': other_wikidata
+            'labels': labels
         }
-
-    def get_depicted_place(self):
-        """Format at depicted place statement."""
-        geo_order = ('other', 'parish', 'municipality', 'county', 'province',
-                     'country')
-        if not self.depicted_place:
-            return ''
-        role = self.depicted_place.pop('role')
-
-        #handled role=view_over
-        #add categories?
-        #output in geo_order (or reverse?) order. but can we skip some?
-        #output other
 
     def get_creator(self):
         """Return correctly formated creator values in wikitext."""
@@ -538,7 +584,7 @@ class NMItem(object):
 
         :param cache: cache for category existence
         """
-        if self.subjects_2:
+        if self.subjects_2 or self.tags:
             raise NotImplementedError
         keyword_map = self.nm_info.mappings['keywords']
 
@@ -570,9 +616,16 @@ class NMItem(object):
         return False
 
     def get_materials(self):
-        """Format at materials/technique statement."""
+        """Format a materials/technique statement."""
         # need to be run through the mappings and formatted accordingly
         if self.technique or self.material:
+            raise NotImplementedError
+        return ''
+
+    def get_inscriptions(self):
+        """Format an inscription statement."""
+        # need an example to investigate
+        if self.inscriptions:
             raise NotImplementedError
         return ''
 
@@ -602,10 +655,16 @@ class NMItem(object):
                 data = self.nm_info.mapped_and_wikidata(name, mapping)
                 death_years.append(data.get('death_year'))
             death_years = list(filter(None, death_years))  # trim empties
-            if death_years:
-                return '{{PD-old-auto|deathyear=%s}}' % max(death_years)
+            death_year = max(death_years)
+            if death_year and death_year < self.nm_info.pd_year:
+                return '{{PD-old-auto|deathyear=%s}}' % death_year
+            elif death_year and not self.is_photo:
+                raise common.MyError(
+                    'The creator death year is not late enough for PD and '
+                    'this does not seeme to be a photo')
+            elif self.is_photo:
+                return '{{PD-Sweden-photo}}'
             else:
-                # normally the safest guess
                 return '{{PD-old-70}}'
         else:
             raise common.MyError(

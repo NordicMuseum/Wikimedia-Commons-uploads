@@ -4,7 +4,6 @@
 import os
 from collections import Counter, OrderedDict
 
-
 import pywikibot
 from pywikibot.data import sparql
 
