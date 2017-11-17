@@ -516,7 +516,7 @@ class NMItem(object):
                 mapping = self.nm_info.mapped_and_wikidata(
                     data.get('code'), self.nm_info.mappings['places'])
                 if mapping.get('category'):
-                    commonscats.append(mapping.get('category'))
+                    commonscats += mapping.get('category')  # this is a list
                 if mapping.get('wikidata'):
                     wikidata[geo_type] = mapping.get('wikidata')
                 labels[geo_type] = data.get('label')

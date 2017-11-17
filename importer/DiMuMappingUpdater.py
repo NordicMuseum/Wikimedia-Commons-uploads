@@ -60,21 +60,24 @@ class DiMuMappingUpdater(object):
         merged_places_data = {}
         preserved_places_data = None
         update = True
-        for k, v in self.places_to_map.items():
+        for place_key in sorted(self.places_to_map.keys()):
             merged_places, preserved_places = ml.merge_old_and_new_mappings(
-                v.most_common(), update=update)
+                self.places_to_map.get(place_key).most_common(), update=update)
             update = False  # only update first time
-            merged_places_data[k] = merged_places
+            merged_places_data[place_key] = merged_places
 
             # combine entries to only keep those which are still unused
-            preserved_places = set(preserved_places)
+            preserved_keys = [place.get('name') for place in preserved_places]
             if not preserved_places_data:
-                # first time aroung
-                preserved_places_data = preserved_places
-            preserved_places_data &= preserved_places
+                # first time around
+                preserved_places_data = {place.get('name'): place for
+                                         place in preserved_places}
+            for key in list(preserved_places_data.keys()):
+                if key not in preserved_keys:
+                    del preserved_places_data[key]
 
         ml.save_as_wikitext(
-            merged_places_data, preserved_places_data, intro_text)
+            merged_places_data, preserved_places_data.values(), intro_text)
 
     def dump_subjects(self):
         """Dump the keyword/subject mappings to wikitext files."""
