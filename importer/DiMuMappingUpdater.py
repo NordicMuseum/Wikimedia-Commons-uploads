@@ -156,7 +156,7 @@ class DiMuMappingUpdater(object):
         for typ, value in place_data.items():
             if typ not in self.places_to_map:
                 self.places_to_map[typ] = Counter()
-            self.places_to_map[typ].update((value, ))
+            self.places_to_map[typ].update((value.get('code'), ))
 
     def parse_person(self, person_data):
         """Gather and combine person data."""

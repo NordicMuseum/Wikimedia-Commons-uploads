@@ -329,13 +329,18 @@ class DiMuHarvester(object):
                 if place_type == 'parish':
                     # correct use of parish codes has them zero padded
                     field['code'] = field.get('code').zfill(4)
-                place[place_type] = field.get('code') or field.get('value')
+                place[place_type] = {'label': field.get('value')}
+                place[place_type]['code'] = (field.get('code') or
+                                             field.get('value'))
             elif place_type:
                 self.log.write(
                     '{}: encountered an unknown place_type "{}".'.format(
                         self.active_uuid, place_type))
             else:
-                place['other'][field.get('name')] = field.get('value')
+                place['other'][field.get('name')] = {
+                    'label': field.get('value'),
+                    'code':  field.get('value')
+                }
 
         place['role'] = self.map_place_role(place_data.get('role'))
 
