@@ -1,6 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
-"""Download and process DiMu data for folder of images and store as json."""
+"""
+Download and process DiMu data for folder of images and store as json.
+
+
+usage:
+    python importer/DiMuHarvester.py [OPTIONS]
+
+&params;
+"""
 import requests
 
 import pywikibot
@@ -11,6 +19,34 @@ import batchupload.helpers as helpers
 SETTINGS = "settings.json"
 LOGFILE = 'dimu_harvest.log'
 OUTPUT_FILE = 'dimu_harvest_data.json'
+
+DEFAULT_OPTIONS = {
+    'settings_file': SETTINGS,
+    'api_key': 'demo',
+    'glam_code': None,
+    'log_file': LOGFILE,
+    'output_file': OUTPUT_FILE,
+    'verbose': False,
+    'cutoff': None,
+    'folder_id': None
+}
+PARAMETER_HELP = u"""\
+Basic DiMuHarvester options (can also be supplied via the settings file):
+-settings_file:PATH path to settings file (DEF: {settings_file})
+-api_key:STR        key used to access DiMu API (DEF: {api_key})
+-glam_code:STR      DiMu code for the institution, e.g. "S-NM" \
+(DEF: {glam_code})
+-log_file:PATH      path to log file (DEF: {log_file})
+-output_file:PATH   path to output file (DEF: {output_file})
+-verbose:BOOL       if verbose output is desired (DEF: {verbose})
+-cutoff:INT         if run should be terminated after these many hits. \
+All are processed if not present (DEF: {cutoff})
+
+Can also handle any pywikibot options. Most importantly:
+-simulate           don't write to database
+-help               output all available options
+"""
+docuReplacements = {'&params;': PARAMETER_HELP.format(**DEFAULT_OPTIONS)}
 
 ## use person role (in license etc.) to set data['creator']
 ## consider merging copyright and default_copyright into one tag
@@ -608,34 +644,9 @@ def load_settings(args):
     Any command line values takes precedence over setting file values.
     If neither is present then defaults are used.
     """
-    default_options = {
-        'settings_file': SETTINGS,
-        'api_key': 'demo',
-        'glam_code': None,
-        'log_file': LOGFILE,
-        'output_file': OUTPUT_FILE,
-        'verbose': False,
-        'cutoff': None,
-        'folder_id': None
-    }
-    usage = (
-        'Usage:'
-        '\tpython DiMuHarvester.py with one of the following args (can also '
-        'be supplied via the settings file)\n'
-        '\t-settings_file:PATH path to settings file (DEF: {settings_file})\n'
-        '\t-api_key:STR key used to access DiMu API (DEF: {api_key})\n'
-        '\t-glam_code:STR DiMu code for the institution, e.g. "S-NM" '
-        '(DEF: {glam_code})\n'
-        '\t-log_file:PATH path to log file (DEF: {log_file})\n'
-        '\t-output_file:PATH path to output file (DEF: {output_file})\n'
-        '\t-verbose:BOOL if verbose output is desired (DEF: {verbose})\n'
-        '\t-cutoff:INT if run should be terminated after these many hits. All '
-        'are processed if not present (DEF: {cutoff})\n'
-        '\t-folder_id:STR the unique id or uuid for the DiMu starting folder '
-        '(DEF: {folder_id})\n'
-    ).format(**default_options)
+    default_options = DEFAULT_OPTIONS.copy()
 
-    options = handle_args(args, usage)
+    options = handle_args(args, PARAMETER_HELP.format(**default_options))
 
     # settings_file must be handled first
     options['settings_file'] = (options.get('settings_file') or
