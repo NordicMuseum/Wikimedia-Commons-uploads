@@ -11,3 +11,16 @@ command if you are running a different version of pywikibot from the required on
 
 This is a work in progress during the fall of 2017. For more details, contact
 [Aron Ambrosiani](https://github.com/Ambrosiani).
+
+## Usage
+
+The basic workflow is the following:
+
+1. Create settings.json including the folder to be uploaded
+2. Create user-config.py with the bot username
+3. Create user-password.py with the bot username & password
+4. Run `python importer/DiMuHarvester.py` to scrape info from the DiMu API
+5. Run `python importer/DiMuMappingUpdater.py` to generate mapping files for Wikimedia Commons
+6. Upload the mappings to Wikimedia Commons
+7. Run `python importer/make_NordicMuseum_info.py -in_file:nm_data.json -base_name:nm_output -update_mappings:True` to prepare the batch file
+8. Run `python importer/uploader.py -in_path:nm_output.json -type:URL` to perform the actual batch upload. `-cutoff:X` limits the number of files uploaded to `X`
