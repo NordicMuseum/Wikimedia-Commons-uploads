@@ -3,7 +3,6 @@
 """
 Download and process DiMu data for folder of images and store as json.
 
-
 usage:
     python importer/DiMuHarvester.py [OPTIONS]
 
