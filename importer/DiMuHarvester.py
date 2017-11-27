@@ -24,6 +24,7 @@ class DiMuHarvester(object):
         self.data = {}  # data container for harvested info
         self.settings = options
         self.log = common.LogFile('', self.settings.get('log_file'))
+        self.log.write_w_timestamp('Harvester started...')
 
     def save_data(self, filename=None):
         """Dump data as json blob."""
@@ -662,6 +663,7 @@ def main(*args):
     harvester = DiMuHarvester(options)
     harvester.load_collection(options.get('folder_id'))
     harvester.save_data()
+    harvester.log.write_w_timestamp('...Harvester finished\n')
     pywikibot.output(harvester.log.close_and_confirm())
 
 

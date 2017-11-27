@@ -23,6 +23,7 @@ class DiMuMappingUpdater(object):
         self.settings = options
 
         self.log = common.LogFile('', self.settings.get('mapping_log_file'))
+        self.log.write_w_timestamp('Updater started...')
         self.mappings = load_mappings(
             update_mappings=True,
             mappings_dir=self.settings.get('mappings_dir'))
@@ -438,6 +439,7 @@ def main():
         }
     }
     updater = DiMuMappingUpdater(options)
+    updater.log.write_w_timestamp('...Updater finished\n')
     pywikibot.output(updater.log.close_and_confirm())
 
 

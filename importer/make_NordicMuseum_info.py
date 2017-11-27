@@ -50,6 +50,7 @@ class NMInfo(MakeBaseInfo):
         self.category_cache = {}  # cache for category_exists()
         self.wikidata_cache = {}  # cache for Wikidata results
         self.log = common.LogFile('', LOGFILE)
+        self.log.write_w_timestamp('Make info started...')
         self.pd_year = datetime.now().year - 70
 
     def load_data(self, in_file):
@@ -330,6 +331,7 @@ class NMInfo(MakeBaseInfo):
         )
         info = super(NMInfo, cls).main(usage=usage, *args)
         if info:
+            info.log.write_w_timestamp('...Make info finished\n')
             pywikibot.output(info.log.close_and_confirm())
 
 
