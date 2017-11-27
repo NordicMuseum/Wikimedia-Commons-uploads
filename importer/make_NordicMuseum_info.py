@@ -88,12 +88,22 @@ class NMInfo(MakeBaseInfo):
         """
         Take the loaded data and construct a NMItem for each.
 
-        Populates self.data.
+        Populates self.data but filters out, and logs, any problematic entries.
 
         :param raw_data: output from load_data()
         """
         self.data = {key: NMItem(value, self)
                      for key, value in raw_data.items()}
+
+        # remove all problematic entries
+        problematic = list(
+            filter(lambda x: self.data[x].problems, self.data.keys()))
+        for key in problematic:
+            item = self.data.pop(key)
+            text = '{0} -- image was skipped because of: {1}'.format(
+                item.dimu_id, '\n'.join(item.problems))
+            pywikibot.output(text)
+            self.log.write(text)
 
     def generate_filename(self, item):
         """
@@ -344,6 +354,7 @@ class NMItem(object):
             setattr(self, key, value)
 
         self.wd = {}  # store for relevant Wikidata identifiers
+        self.problems = []  # any reasons for not uploading the image
         self.content_cats = set()  # content relevant categories without prefix
         self.meta_cats = set()  # meta/maintenance proto categories
         self.nm_info = nm_info  # the NMInfo instance creating this NMItem
@@ -440,8 +451,7 @@ class NMItem(object):
 
         :param wrap: whether to wrap the result in {{depicted place}}.
         """
-        if self.description_place:
-            raise NotImplementedError
+        depicted_place = self.depicted_place or self.description_place
 
         if not self.geo_data:
             return ''
@@ -451,15 +461,16 @@ class NMItem(object):
 
         depicted = []
         # handle 'other' separately
-        for geo_type in self.depicted_place.get('other').keys():
-            value = labels.get(geo_type)
-            if geo_type in wikidata:
-                value = '{{item|%s}}' % wikidata.get(geo_type)
-            depicted.append('{val} ({key})'.format(
-                key=helpers.italicize(geo_type), val=value))
+        if depicted_place.get('other'):
+            for geo_type in depicted_place.get('other').keys():
+                value = labels.get(geo_type)
+                if geo_type in wikidata:
+                    value = '{{item|%s}}' % wikidata.get(geo_type)
+                depicted.append('{val} ({key})'.format(
+                    key=helpers.italicize(geo_type), val=value))
 
         for geo_type in GEO_ORDER:
-            if not self.depicted_place.get(geo_type) or geo_type == 'other':
+            if not depicted_place.get(geo_type) or geo_type == 'other':
                 continue
             if geo_type in wikidata:
                 depicted.append('{{item|%s}}' % wikidata.get(geo_type))
@@ -475,7 +486,7 @@ class NMItem(object):
         elif role == 'depicted_place':
             return '{{depicted place|%s}}' % depicted_str
         else:
-            return '{{depicted place|%s|comment=}}' % (
+            return '{{depicted place|%s|comment=%s}}' % (
                 depicted_str, role.replace('_', ' '))
 
     def get_geo_data(self):
@@ -488,21 +499,29 @@ class NMItem(object):
         If any 'other' value is matched the wikidata ids are returned and the
         categories are added as content_cats.
         """
-        if not self.depicted_place:
+        if (self.description_place and self.depicted_place and
+                (self.description_place != self.depicted_place)):
+            self.problems.append(
+                'Cannot handle differing depicted_place and description_place:'
+                '\nDepicted_place: {0}\nDescription_place: {1}'.format(
+                    self.depicted_place, self.description_place))
+
+        depicted_place = self.depicted_place or self.description_place
+        if not depicted_place:
             return {}
 
-        if (self.depicted_place.get('country') and
-                self.depicted_place.get('country').get('code') != 'Sverige'):
+        if (depicted_place.get('country') and
+                depicted_place.get('country').get('code') != 'Sverige'):
             self.meta_cats.add('needing categorisation (not from Sweden)')
 
         # set up the geo_types and their corresponding mappings ordered from
         # most to least specific
         geo_map = OrderedDict(
             [(i, self.nm_info.mappings.get(i)) for i in GEO_ORDER])
-        role = self.depicted_place.pop('role')
+        role = depicted_place.pop('role')
 
-        if any(key not in geo_map for key in self.depicted_place.keys()):
-            diff = set(self.depicted_place.keys())-set(geo_map.keys())
+        if any(key not in geo_map for key in depicted_place.keys()):
+            diff = set(depicted_place.keys())-set(geo_map.keys())
             raise common.MyError(
                 '{} should be added to GEO_ORDER'.format(', '.join(diff)))
 
@@ -511,8 +530,8 @@ class NMItem(object):
         labels = OrderedDict()
         # handle other separately
         geo_map.pop('other')
-        if self.depicted_place.get('other'):
-            for geo_type, data in self.depicted_place.get('other').items():
+        if depicted_place.get('other'):
+            for geo_type, data in depicted_place.get('other').items():
                 mapping = self.nm_info.mapped_and_wikidata(
                     data.get('code'), self.nm_info.mappings['places'])
                 if mapping.get('category'):
@@ -522,9 +541,9 @@ class NMItem(object):
                 labels[geo_type] = data.get('label')
 
         for geo_type, mapping in geo_map.items():
-            if not self.depicted_place.get(geo_type):
+            if not depicted_place.get(geo_type):
                 continue
-            data = self.depicted_place.get(geo_type)
+            data = depicted_place.get(geo_type)
             mapped_data = mapping.get(data.get('code'))
             if mapped_data.get('wd'):
                 wikidata[geo_type] = mapped_data.get('wd')
