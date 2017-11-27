@@ -19,7 +19,7 @@ import batchupload.common as common
 import batchupload.helpers as helpers
 from batchupload.make_info import MakeBaseInfo
 
-import importer.DiMuMappingUpdater as mapping_updater
+import DiMuMappingUpdater as mapping_updater
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 MAPPINGS_DIR = 'mappings'
