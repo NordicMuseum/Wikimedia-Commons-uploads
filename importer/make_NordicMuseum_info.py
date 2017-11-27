@@ -650,8 +650,6 @@ class NMItem(object):
             raise NotImplementedError
         return ''
 
-    # @todo: Check CC version
-    # @todo: check pdm is never cc0, PD-Sweden-photo
     def get_license_text(self):
         """Format a license template."""
         if self.copyright and self.default_copyright:
