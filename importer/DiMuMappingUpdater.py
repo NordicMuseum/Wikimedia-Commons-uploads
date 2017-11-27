@@ -58,7 +58,7 @@ class DiMuMappingUpdater(object):
         ml = make_places_list(
             mapping_root=self.settings.get('wiki_mapping_root'))
         intro_text = self.get_intro_text('places')
-        merged_places_data = {}
+        merged_places_data = OrderedDict()
         preserved_places_data = None
         update = True
         for place_key in sorted(self.places_to_map.keys()):
