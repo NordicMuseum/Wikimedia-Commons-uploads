@@ -5,5 +5,5 @@
 
 mylang = 'commons'
 family = 'commons'
-usernames['commons']['commons'] = 'Example'
+usernames['commons']['commons'] = 'ExampleUser'
 password_file = "user-password.py"

@@ -1,1 +1,1 @@
-('User', 'Password')
+(u'ExampleUser', BotPassword(u'ExampleBotSuffix', u'ExampleBotPassword'))
