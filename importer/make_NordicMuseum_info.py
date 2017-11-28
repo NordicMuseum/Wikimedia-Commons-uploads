@@ -553,6 +553,10 @@ class NMItem(object):
                 commonscats.append(mapped_data.get('commonscat'))
             labels[geo_type] = data.get('label')
 
+        # just knowing country is pretty bad
+        if len(commonscats) <= 1:
+            self.meta_cats.add('needing categorisation (place)')
+
         return {
             'role': role,
             'wd': wikidata,
