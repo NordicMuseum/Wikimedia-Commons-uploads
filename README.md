@@ -12,6 +12,12 @@ command if you are running a different version of pywikibot from the required on
 This is a work in progress during the fall of 2017. For more details, contact
 [Aron Ambrosiani](https://github.com/Ambrosiani).
 
+## User account
+
+The script must be run from an account which has the `upload_by_url` user right.
+On Wikimedia Commons this is limited to users with one of the `image-reviewer`,
+`bot`, `gwtoolset` or `sysop` flags.
+
 ## Usage
 
 The basic workflow is the following:
