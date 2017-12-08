@@ -24,7 +24,7 @@ import DiMuMappingUpdater as mapping_updater
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 MAPPINGS_DIR = 'mappings'
 BATCH_CAT = 'Images from Nordiska museet'  # stem for maintenance categories
-BATCH_DATE = '2017-11'  # branch for this particular batch upload
+BATCH_DATE = '2017-12'  # branch for this particular batch upload
 LOGFILE = 'nm_processing_october.log'
 GEO_ORDER = ('other', 'parish', 'municipality', 'county', 'province',
              'country')
