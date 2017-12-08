@@ -15,3 +15,10 @@ user-config.py
 *.ctrl
 *.lwp
 apicache
+user-password.py
+nm_output.filenames.txt
+connections/commons-keywords.wiki
+connections/commons-people.wiki
+connections/commons-places.wiki
+scripts/*
+pwb.py
