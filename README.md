@@ -28,7 +28,7 @@ The `settings.json` file should contain the following settings:
 * **output_file**: path to desired output file (default: false)
 * **verbose**: bool on whether verbose output is desired
 * **cutoff**: integer stating how many results to process (remove to process everything in folder)
-* **folder_id**: unique `id` (10 digits) or `uuid` (8-4-4-4-12 hexadecimal digits) of the Digitalt Museum folder used
+* **folder_id**: unique id (12 digits) or uuid (8-4-4-4-12 hexadecimal digits) of the Digitalt Museum folder used
 
 ## Usage
 
