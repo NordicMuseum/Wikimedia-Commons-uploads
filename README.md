@@ -20,7 +20,7 @@ On Wikimedia Commons this is limited to users with one of the `image-reviewer`,
 
 ## Settings
 
-The `settings.example.json` file contains the following settings:
+The `settings.json` file should contain the following settings:
 
 * **api_key**: your Digitalt museum API key (as provided by [KulturIT](mailto:support@kulturit.no))
 * **glam_code**: institution code in Digitalt Museum. [List of institution codes for Swedish museums](http://api.dimu.org/api/owners?country=se&api.key=demo)
@@ -33,13 +33,12 @@ The `settings.example.json` file contains the following settings:
 ## Usage
 
 ### The basic workflow is the following:
-1. Create settings.json including the folder ID of the Digitalt museum folder to be uploaded
+1. Create settings.json (see above)
 2. Create user-config.py with the bot username
 3. Create user-password.py with the bot username & password. [Generate a bot password](https://commons.wikimedia.org/wiki/Special:BotPasswords).
 
 ### The following commands are run from the root folder of your installation:
 4. Run `python importer/DiMuHarvester.py` to scrape info from the DiMu API
 5. Run `python importer/DiMuMappingUpdater.py` to generate mapping files for Wikimedia Commons
-6. Upload the mappings to Wikimedia Commons
-7. Run `python importer/make_NordicMuseum_info.py -in_file:nm_data.json -base_name:nm_output -update_mappings:True` to prepare the batch file
-8. Run `python importer/uploader.py -in_path:nm_output.json -type:URL` to perform the actual batch upload. `-cutoff:X` limits the number of files uploaded to `X` (this will override settings)
+6. Run `python importer/make_NordicMuseum_info.py -in_file:nm_data.json -base_name:nm_output -update_mappings:True` to prepare the batch file
+7. Run `python importer/uploader.py -in_path:nm_output.json -type:URL` to perform the actual batch upload. `-cutoff:X` limits the number of files uploaded to `X` (this will override settings)
