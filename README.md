@@ -12,7 +12,9 @@ command if you are running a different version of pywikibot from the required on
 This is a work in progress during the fall of 2017. For more details, contact
 [Aron Ambrosiani](https://github.com/Ambrosiani).
 
-**Additional reading:** [blog post (in Swedish)](http://nyamedier.blogg.nordiskamuseet.se/2017/12/att-flytta-bilder-fran-digitalt-museum-till-wikimedia-commons/) about how to copy images from Digitalt museum to Wikimedia Commons using this repository
+**Additional reading:** 
+* [blog post (in Swedish)](http://nyamedier.blogg.nordiskamuseet.se/2017/12/att-flytta-bilder-fran-digitalt-museum-till-wikimedia-commons/) about how to copy images from Digitalt museum to Wikimedia Commons using this repository
+* [Documentation of the Digitalt Museum API](https://github.com/NordicMuseum/DiMu-API-documentation)
 
 ## User account
 
