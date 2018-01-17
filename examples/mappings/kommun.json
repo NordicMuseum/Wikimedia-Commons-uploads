@@ -1,0 +1,1942 @@
+{
+    "0114": {
+        "commonscat": "Upplands Väsby Municipality",
+        "label_sv": "Upplands Väsby kommun",
+        "wd": "Q499425"
+    },
+    "0115": {
+        "commonscat": "Vallentuna Municipality",
+        "label_sv": "Vallentuna kommun",
+        "wd": "Q501526"
+    },
+    "0117": {
+        "commonscat": null,
+        "label_sv": "Österåkers kommun",
+        "wd": "Q15079364"
+    },
+    "0119": {
+        "commonscat": null,
+        "label_sv": "Djurö kommun",
+        "wd": "Q14943049"
+    },
+    "0120": {
+        "commonscat": "Värmdö Municipality",
+        "label_sv": "Värmdö kommun",
+        "wd": "Q493841"
+    },
+    "0121": {
+        "commonscat": null,
+        "label_sv": "Gustavsbergs kommun",
+        "wd": "Q14948372"
+    },
+    "0123": {
+        "commonscat": "Järfälla Municipality",
+        "label_sv": "Järfälla kommun",
+        "wd": "Q301259"
+    },
+    "0125": {
+        "commonscat": "Ekerö Municipality",
+        "label_sv": "Ekerö kommun",
+        "wd": "Q492614"
+    },
+    "0126": {
+        "commonscat": "Huddinge Municipality",
+        "label_sv": "Huddinge kommun",
+        "wd": "Q492575"
+    },
+    "0127": {
+        "commonscat": "Botkyrka Municipality",
+        "label_sv": "Botkyrka kommun",
+        "wd": "Q113718"
+    },
+    "0128": {
+        "commonscat": null,
+        "label_sv": "Salems kommun",
+        "wd": "Q14943851"
+    },
+    "0133": {
+        "commonscat": null,
+        "label_sv": "Sorunda kommun",
+        "wd": "Q15042000"
+    },
+    "0134": {
+        "commonscat": null,
+        "label_sv": "Ösmo kommun",
+        "wd": "Q15042003"
+    },
+    "0136": {
+        "commonscat": "Haninge Municipality",
+        "label_sv": "Haninge kommun",
+        "wd": "Q113692"
+    },
+    "0138": {
+        "commonscat": "Tyresö Municipality",
+        "label_sv": "Tyresö kommun",
+        "wd": "Q113730"
+    },
+    "0139": {
+        "commonscat": "Upplands-Bro Municipality",
+        "label_sv": "Upplands-Bro kommun",
+        "wd": "Q113673"
+    },
+    "0140": {
+        "commonscat": "Nykvarn Municipality",
+        "label_sv": "Nykvarns kommun",
+        "wd": "Q499460"
+    },
+    "0160": {
+        "commonscat": "Täby Municipality",
+        "label_sv": "Täby kommun",
+        "wd": "Q493066"
+    },
+    "0162": {
+        "commonscat": "Danderyd Municipality",
+        "label_sv": "Danderyds kommun",
+        "wd": "Q113679"
+    },
+    "0163": {
+        "commonscat": "Sollentuna Municipality",
+        "label_sv": "Sollentuna kommun",
+        "wd": "Q503746"
+    },
+    "0180": {
+        "commonscat": "Stockholm",
+        "label_sv": "Stockholms kommun",
+        "wd": "Q506250"
+    },
+    "0181": {
+        "commonscat": "Södertälje Municipality",
+        "label_sv": "Södertälje kommun",
+        "wd": "Q516336"
+    },
+    "0182": {
+        "commonscat": "Nacka Municipality",
+        "label_sv": "Nacka kommun",
+        "wd": "Q946647"
+    },
+    "0183": {
+        "commonscat": "Sundbyberg",
+        "label_sv": "Sundbybergs kommun",
+        "wd": "Q972564"
+    },
+    "0184": {
+        "commonscat": "Solna",
+        "label_sv": "Solna kommun",
+        "wd": "Q109010"
+    },
+    "0186": {
+        "commonscat": "Lidingö",
+        "label_sv": "Lidingö kommun",
+        "wd": "Q3120654"
+    },
+    "0187": {
+        "commonscat": "Vaxholm",
+        "label_sv": "Vaxholms kommun",
+        "wd": "Q500090"
+    },
+    "0188": {
+        "commonscat": "Norrtälje Municipality",
+        "label_sv": "Norrtälje kommun",
+        "wd": "Q214048"
+    },
+    "0191": {
+        "commonscat": "Sigtuna Municipality",
+        "label_sv": "Sigtuna kommun",
+        "wd": "Q216915"
+    },
+    "0192": {
+        "commonscat": "Nynäshamn",
+        "label_sv": "Nynäshamns kommun",
+        "wd": "Q505090"
+    },
+    "0305": {
+        "commonscat": "Håbo Municipality",
+        "label_sv": "Håbo kommun",
+        "wd": "Q511253"
+    },
+    "0312": {
+        "commonscat": null,
+        "label_sv": "Olands kommun",
+        "wd": "Q13883038"
+    },
+    "0313": {
+        "commonscat": null,
+        "label_sv": "Dannemora kommun",
+        "wd": "Q14914665"
+    },
+    "0316": {
+        "commonscat": null,
+        "label_sv": "Vendels kommun",
+        "wd": "Q14915592"
+    },
+    "0317": {
+        "commonscat": null,
+        "label_sv": "Tierpsbygdens kommun",
+        "wd": "Q13853453"
+    },
+    "0318": {
+        "commonscat": null,
+        "label_sv": "Söderfors kommun",
+        "wd": "Q14920380"
+    },
+    "0319": {
+        "commonscat": "Älvkarleby Municipality",
+        "label_sv": "Älvkarleby kommun",
+        "wd": "Q59858"
+    },
+    "0320": {
+        "commonscat": null,
+        "label_sv": "Västlands kommun",
+        "wd": "Q14919771"
+    },
+    "0321": {
+        "commonscat": null,
+        "label_sv": "Österlövsta kommun",
+        "wd": "Q14917255"
+    },
+    "0322": {
+        "commonscat": null,
+        "label_sv": "Hållnäs kommun",
+        "wd": "Q14916455"
+    },
+    "0330": {
+        "commonscat": "Knivsta Municipality",
+        "label_sv": "Knivsta kommun",
+        "wd": "Q504465"
+    },
+    "0331": {
+        "commonscat": "Heby Municipality",
+        "label_sv": "Heby kommun",
+        "wd": "Q516308"
+    },
+    "0360": {
+        "commonscat": "Tierp Municipality",
+        "label_sv": "Tierps kommun",
+        "wd": "Q510198"
+    },
+    "0380": {
+        "commonscat": "Uppsala Municipality",
+        "label_sv": "Uppsala kommun",
+        "wd": "Q59091"
+    },
+    "0380T0656": {
+        "commonscat": "Uppsala",
+        "label_sv": "Uppsala",
+        "wd": "Q25286"
+    },
+    "0381": {
+        "commonscat": "Enköping Municipality",
+        "label_sv": "Enköpings kommun",
+        "wd": "Q509568"
+    },
+    "0382": {
+        "commonscat": "Östhammar Municipality",
+        "label_sv": "Östhammars kommun",
+        "wd": "Q59093"
+    },
+    "0408": {
+        "commonscat": null,
+        "label_sv": "Vagnhärads kommun",
+        "wd": "Q15093364"
+    },
+    "0411": {
+        "commonscat": null,
+        "label_sv": "Daga kommun",
+        "wd": "Q15060406"
+    },
+    "0428": {
+        "commonscat": "Vingåker Municipality",
+        "label_sv": "Vingåkers kommun",
+        "wd": "Q249378"
+    },
+    "0461": {
+        "commonscat": null,
+        "label_sv": "Gnesta kommun",
+        "wd": "Q15088430"
+    },
+    "0480": {
+        "commonscat": "Nyköping Municipality",
+        "label_sv": "Nyköpings kommun",
+        "wd": "Q500267"
+    },
+    "0481": {
+        "commonscat": "Oxelösund",
+        "label_sv": "Oxelösunds kommun",
+        "wd": "Q505246"
+    },
+    "0482": {
+        "commonscat": "Flen Municipality",
+        "label_sv": "Flens kommun",
+        "wd": "Q27982"
+    },
+    "0483": {
+        "commonscat": "Katrineholm Municipality",
+        "label_sv": "Katrineholms kommun",
+        "wd": "Q508140"
+    },
+    "0484": {
+        "commonscat": "Eskilstuna Municipality",
+        "label_sv": "Eskilstuna kommun",
+        "wd": "Q503144"
+    },
+    "0486": {
+        "commonscat": "Strängnäs Municipality",
+        "label_sv": "Strängnäs kommun",
+        "wd": "Q501532"
+    },
+    "0488": {
+        "commonscat": null,
+        "label_sv": "Trosa kommun",
+        "wd": "Q15093355"
+    },
+    "0502": {
+        "commonscat": null,
+        "label_sv": "Tjällmo kommun",
+        "wd": "Q15140047"
+    },
+    "0505": {
+        "commonscat": null,
+        "label_sv": "Aska kommun",
+        "wd": "Q15132549"
+    },
+    "0509": {
+        "commonscat": "Ödeshög",
+        "label_sv": "Ödeshögs kommun",
+        "wd": "Q293970"
+    },
+    "0512": {
+        "commonscat": "Ydre Municipality",
+        "label_sv": "Ydre kommun",
+        "wd": "Q515699"
+    },
+    "0513": {
+        "commonscat": null,
+        "label_sv": "Västra Kinda kommun",
+        "wd": "Q14934211"
+    },
+    "0514": {
+        "commonscat": null,
+        "label_sv": "Södra Kinda kommun",
+        "wd": "Q15138617"
+    },
+    "0515": {
+        "commonscat": null,
+        "label_sv": "Norra Kinda kommun",
+        "wd": "Q15130388"
+    },
+    "0531": {
+        "commonscat": null,
+        "label_sv": "Vikbolandets kommun",
+        "wd": "Q15142515"
+    },
+    "0533": {
+        "commonscat": null,
+        "label_sv": "Stegeborgs kommun",
+        "wd": "Q15137290"
+    },
+    "0560": {
+        "commonscat": "Boxholm",
+        "label_sv": "Boxholms kommun",
+        "wd": "Q509514"
+    },
+    "0561": {
+        "commonscat": "Åtvidaberg",
+        "label_sv": "Åtvidabergs kommun",
+        "wd": "Q271340"
+    },
+    "0562": {
+        "commonscat": "Finspång",
+        "label_sv": "Finspångs kommun",
+        "wd": "Q503180"
+    },
+    "0563": {
+        "commonscat": "Valdemarsvik",
+        "label_sv": "Valdemarsviks kommun",
+        "wd": "Q509997"
+    },
+    "0580": {
+        "commonscat": "Linköping",
+        "label_sv": "Linköpings kommun",
+        "wd": "Q499410"
+    },
+    "0581": {
+        "commonscat": "Norrköping Municipality",
+        "label_sv": "Norrköpings kommun",
+        "wd": "Q504676"
+    },
+    "0582": {
+        "commonscat": "Söderköping Municipality",
+        "label_sv": "Söderköpings kommun",
+        "wd": "Q515680"
+    },
+    "0583": {
+        "commonscat": "Motala Municipality",
+        "label_sv": "Motala kommun",
+        "wd": "Q508108"
+    },
+    "0584": {
+        "commonscat": null,
+        "label_sv": "Vadstena kommun",
+        "wd": "Q15155416"
+    },
+    "0586": {
+        "commonscat": "Mjölby Municipality",
+        "label_sv": "Mjölby kommun",
+        "wd": "Q267030"
+    },
+    "0604": {
+        "commonscat": "Aneby",
+        "label_sv": "Aneby kommun",
+        "wd": "Q503167"
+    },
+    "0616": {
+        "commonscat": null,
+        "label_sv": "Södra Mo kommun",
+        "wd": "Q15197720"
+    },
+    "0617": {
+        "commonscat": "Gnosjö",
+        "label_sv": "Gnosjö kommun",
+        "wd": "Q509609"
+    },
+    "0619": {
+        "commonscat": null,
+        "label_sv": "Villstads kommun",
+        "wd": "Q15214217"
+    },
+    "0620": {
+        "commonscat": null,
+        "label_sv": "Burseryds kommun",
+        "wd": "Q15155587"
+    },
+    "0622": {
+        "commonscat": null,
+        "label_sv": "Unnaryds kommun",
+        "wd": "Q15205707"
+    },
+    "0623": {
+        "commonscat": null,
+        "label_sv": "Reftele kommun",
+        "wd": "Q15179611"
+    },
+    "0633": {
+        "commonscat": null,
+        "label_sv": "Hjälmseryds kommun",
+        "wd": "Q15176463"
+    },
+    "0642": {
+        "commonscat": "Mullsjö Municipality",
+        "label_sv": "Mullsjö kommun",
+        "wd": "Q505076"
+    },
+    "0643": {
+        "commonscat": "Habo Municipality",
+        "label_sv": "Habo kommun",
+        "wd": "Q503198"
+    },
+    "0662": {
+        "commonscat": "Gislaved",
+        "label_sv": "Gislaveds kommun",
+        "wd": "Q505259"
+    },
+    "0665": {
+        "commonscat": "Vaggeryd Municipality",
+        "label_sv": "Vaggeryds kommun",
+        "wd": "Q605329"
+    },
+    "0666": {
+        "commonscat": null,
+        "label_sv": "Anderstorps kommun",
+        "wd": "Q15149386"
+    },
+    "0680": {
+        "commonscat": null,
+        "label_sv": "Idas skola",
+        "wd": "Q42308216"
+    },
+    "0682": {
+        "commonscat": "Nässjö Municipality",
+        "label_sv": "Nässjö kommun",
+        "wd": "Q505096"
+    },
+    "0683": {
+        "commonscat": "Värnamo",
+        "label_sv": "Värnamo kommun",
+        "wd": "Q280562"
+    },
+    "0684": {
+        "commonscat": "Sävsjö Municipality",
+        "label_sv": "Sävsjö kommun",
+        "wd": "Q505239"
+    },
+    "0685": {
+        "commonscat": "Vetlanda",
+        "label_sv": "Vetlanda kommun",
+        "wd": "Q505052"
+    },
+    "0686": {
+        "commonscat": "Eksjö Municipality",
+        "label_sv": "Eksjö kommun",
+        "wd": "Q512035"
+    },
+    "0687": {
+        "commonscat": "Tranås Municipality",
+        "label_sv": "Tranås kommun",
+        "wd": "Q505071"
+    },
+    "0760": {
+        "commonscat": "Uppvidinge Municipality",
+        "label_sv": "Uppvidinge kommun",
+        "wd": "Q515505"
+    },
+    "0761": {
+        "commonscat": "Lessebo Municipality",
+        "label_sv": "Lessebo kommun",
+        "wd": "Q509488"
+    },
+    "0763": {
+        "commonscat": "Tingsryd Municipality",
+        "label_sv": "Tingsryds kommun",
+        "wd": "Q515491"
+    },
+    "0764": {
+        "commonscat": "Alvesta Municipality",
+        "label_sv": "Alvesta kommun",
+        "wd": "Q182007"
+    },
+    "0765": {
+        "commonscat": "Älmhult Municipality",
+        "label_sv": "Älmhults kommun",
+        "wd": "Q254799"
+    },
+    "0767": {
+        "commonscat": "Markaryd Municipality",
+        "label_sv": "Markaryds kommun",
+        "wd": "Q240574"
+    },
+    "0780": {
+        "commonscat": "Växjö Municipality",
+        "label_sv": "Växjö kommun",
+        "wd": "Q500217"
+    },
+    "0781": {
+        "commonscat": "Ljungby Municipality",
+        "label_sv": "Ljungby kommun",
+        "wd": "Q504235"
+    },
+    "0821": {
+        "commonscat": "Högsby Municipality",
+        "label_sv": "Högsby kommun",
+        "wd": "Q510233"
+    },
+    "0822": {
+        "commonscat": null,
+        "label_sv": "Fliseryds kommun",
+        "wd": "Q15240496"
+    },
+    "0824": {
+        "commonscat": null,
+        "label_sv": "Ålems kommun",
+        "wd": "Q15253362"
+    },
+    "0834": {
+        "commonscat": "Torsås Municipality",
+        "label_sv": "Torsås kommun",
+        "wd": "Q515551"
+    },
+    "0836": {
+        "commonscat": null,
+        "label_sv": "Ölands-Åkerbo kommun",
+        "wd": "Q15272214"
+    },
+    "0839": {
+        "commonscat": null,
+        "label_sv": "Torslunda kommun",
+        "wd": "Q15243279"
+    },
+    "0840": {
+        "commonscat": "Mörbylånga Municipality",
+        "label_sv": "Mörbylånga kommun",
+        "wd": "Q514756"
+    },
+    "0860": {
+        "commonscat": "Hultsfred Municipality",
+        "label_sv": "Hultsfreds kommun",
+        "wd": "Q512002"
+    },
+    "0861": {
+        "commonscat": "Mönsterås Municipality",
+        "label_sv": "Mönsterås kommun",
+        "wd": "Q515250"
+    },
+    "0862": {
+        "commonscat": "Emmaboda Municipality",
+        "label_sv": "Emmaboda kommun",
+        "wd": "Q509452"
+    },
+    "0880": {
+        "commonscat": "Kalmar",
+        "label_sv": "Kalmar kommun",
+        "wd": "Q508153"
+    },
+    "0881": {
+        "commonscat": "Nybro Municipality",
+        "label_sv": "Nybro kommun",
+        "wd": "Q515318"
+    },
+    "0882": {
+        "commonscat": "Oskarshamn Municipality",
+        "label_sv": "Oskarshamns kommun",
+        "wd": "Q505006"
+    },
+    "0883": {
+        "commonscat": "Västervik Municipality",
+        "label_sv": "Västerviks kommun",
+        "wd": "Q515477"
+    },
+    "0884": {
+        "commonscat": "Vimmerby",
+        "label_sv": "Vimmerby kommun",
+        "wd": "Q505057"
+    },
+    "0885": {
+        "commonscat": "Borgholm Municipality",
+        "label_sv": "Borgholms kommun",
+        "wd": "Q509546"
+    },
+    "0980": {
+        "commonscat": "Gotland",
+        "label_sv": "Region Gotland",
+        "wd": "Q374794"
+    },
+    "1001": {
+        "commonscat": null,
+        "label_sv": "Jämjö kommun",
+        "wd": "Q15389301"
+    },
+    "1005": {
+        "commonscat": null,
+        "label_sv": "Rödeby kommun",
+        "wd": "Q15406473"
+    },
+    "1006": {
+        "commonscat": null,
+        "label_sv": "Fridlevstads kommun",
+        "wd": "Q15354356"
+    },
+    "1007": {
+        "commonscat": null,
+        "label_sv": "Nättraby kommun",
+        "wd": "Q15400678"
+    },
+    "1008": {
+        "commonscat": null,
+        "label_sv": "Hasslö kommun",
+        "wd": "Q15373523"
+    },
+    "1060": {
+        "commonscat": "Olofström Municipality",
+        "label_sv": "Olofströms kommun",
+        "wd": "Q504257"
+    },
+    "1080": {
+        "commonscat": "Karlskrona Municipality",
+        "label_sv": "Karlskrona kommun",
+        "wd": "Q1128384"
+    },
+    "1081": {
+        "commonscat": "Ronneby Municipality",
+        "label_sv": "Ronneby kommun",
+        "wd": "Q515373"
+    },
+    "1082": {
+        "commonscat": "Karlshamn Municipality",
+        "label_sv": "Karlshamns kommun",
+        "wd": "Q510223"
+    },
+    "1083": {
+        "commonscat": "Sölvesborg Municipality",
+        "label_sv": "Sölvesborgs kommun",
+        "wd": "Q515409"
+    },
+    "1108": {
+        "commonscat": null,
+        "label_sv": "Kiviks kommun",
+        "wd": "Q15528601"
+    },
+    "1110": {
+        "commonscat": null,
+        "label_sv": "Degeberga kommun",
+        "wd": "Q15471602"
+    },
+    "1112": {
+        "commonscat": null,
+        "label_sv": "Tollarps kommun",
+        "wd": "Q15663506"
+    },
+    "1118": {
+        "commonscat": null,
+        "label_sv": "Näsums kommun",
+        "wd": "Q15623555"
+    },
+    "1119": {
+        "commonscat": null,
+        "label_sv": "Oppmanna och Vånga kommun",
+        "wd": "Q15633360"
+    },
+    "1120": {
+        "commonscat": null,
+        "label_sv": "Hjärsås kommun",
+        "wd": "Q15063037"
+    },
+    "1121": {
+        "commonscat": null,
+        "label_sv": "Knislinge kommun",
+        "wd": "Q15072261"
+    },
+    "1123": {
+        "commonscat": null,
+        "label_sv": "Broby kommun",
+        "wd": "Q15057053"
+    },
+    "1124": {
+        "commonscat": null,
+        "label_sv": "Glimåkra kommun",
+        "wd": "Q15058334"
+    },
+    "1125": {
+        "commonscat": null,
+        "label_sv": "Örkeneds kommun",
+        "wd": "Q15726251"
+    },
+    "1126": {
+        "commonscat": null,
+        "label_sv": "Loshults kommun",
+        "wd": "Q15622699"
+    },
+    "1128": {
+        "commonscat": null,
+        "label_sv": "Hästveda kommun",
+        "wd": "Q15484676"
+    },
+    "1129": {
+        "commonscat": null,
+        "label_sv": "Vittsjö kommun",
+        "wd": "Q15710218"
+    },
+    "1130": {
+        "commonscat": null,
+        "label_sv": "Bjärnums kommun",
+        "wd": "Q15120913"
+    },
+    "1132": {
+        "commonscat": null,
+        "label_sv": "Vinslövs kommun",
+        "wd": "Q15707051"
+    },
+    "1133": {
+        "commonscat": null,
+        "label_sv": "Sösdala kommun",
+        "wd": "Q15648262"
+    },
+    "1134": {
+        "commonscat": null,
+        "label_sv": "Tyringe kommun",
+        "wd": "Q15703031"
+    },
+    "1135": {
+        "commonscat": null,
+        "label_sv": "Riseberga kommun",
+        "wd": "Q15645716"
+    },
+    "1137": {
+        "commonscat": "Örkelljunga Municipality",
+        "label_sv": "Örkelljunga kommun",
+        "wd": "Q297936"
+    },
+    "1139": {
+        "commonscat": null,
+        "label_sv": "Östra Ljungby kommun",
+        "wd": "Q15728774"
+    },
+    "1140": {
+        "commonscat": null,
+        "label_sv": "Kvidinge kommun",
+        "wd": "Q15621679"
+    },
+    "1164": {
+        "commonscat": null,
+        "label_sv": "Vinslövs centralkommun",
+        "wd": "Q15709121"
+    },
+    "1207": {
+        "commonscat": null,
+        "label_sv": "Billesholms kommun",
+        "wd": "Q15731381"
+    },
+    "1209": {
+        "commonscat": null,
+        "label_sv": "Ekeby kommun",
+        "wd": "Q15762648"
+    },
+    "1212": {
+        "commonscat": null,
+        "label_sv": "Härslövs kommun",
+        "wd": "Q15122662"
+    },
+    "1214": {
+        "commonscat": "Svalöv Municipality",
+        "label_sv": "Svalövs kommun",
+        "wd": "Q504227"
+    },
+    "1221": {
+        "commonscat": null,
+        "label_sv": "Löddeköpinge kommun",
+        "wd": "Q15814213"
+    },
+    "1225": {
+        "commonscat": null,
+        "label_sv": "Södra Sandby kommun",
+        "wd": "Q15894293"
+    },
+    "1226": {
+        "commonscat": null,
+        "label_sv": "Dalby kommun",
+        "wd": "Q15740742"
+    },
+    "1227": {
+        "commonscat": null,
+        "label_sv": "Genarps kommun",
+        "wd": "Q15782113"
+    },
+    "1228": {
+        "commonscat": null,
+        "label_sv": "Veberöds kommun",
+        "wd": "Q15903687"
+    },
+    "1229": {
+        "commonscat": null,
+        "label_sv": "Bara kommun",
+        "wd": "Q15729603"
+    },
+    "1230": {
+        "commonscat": "Staffanstorp Municipality",
+        "label_sv": "Staffanstorps kommun",
+        "wd": "Q504609"
+    },
+    "1231": {
+        "commonscat": "Burlöv Municipality",
+        "label_sv": "Burlövs kommun",
+        "wd": "Q186662"
+    },
+    "1233": {
+        "commonscat": "Vellinge Municipality",
+        "label_sv": "Vellinge kommun",
+        "wd": "Q511338"
+    },
+    "1234": {
+        "commonscat": null,
+        "label_sv": "Rängs kommun",
+        "wd": "Q15839302"
+    },
+    "1236": {
+        "commonscat": null,
+        "label_sv": "Månstorps kommun",
+        "wd": "Q15831729"
+    },
+    "1246": {
+        "commonscat": null,
+        "label_sv": "Blentarps kommun",
+        "wd": "Q15736013"
+    },
+    "1247": {
+        "commonscat": null,
+        "label_sv": "Östra Färs kommun",
+        "wd": "Q15934585"
+    },
+    "1248": {
+        "commonscat": null,
+        "label_sv": "Vollsjö kommun",
+        "wd": "Q15920022"
+    },
+    "1249": {
+        "commonscat": null,
+        "label_sv": "Bjärsjölagårds kommun",
+        "wd": "Q15733186"
+    },
+    "1256": {
+        "commonscat": "Östra Göinge Municipality",
+        "label_sv": "Östra Göinge kommun",
+        "wd": "Q307370"
+    },
+    "1257": {
+        "commonscat": "Örkelljunga Municipality",
+        "label_sv": "Örkelljunga kommun",
+        "wd": "Q297936"
+    },
+    "1260": {
+        "commonscat": "Bjuv Municipality",
+        "label_sv": "Bjuvs kommun",
+        "wd": "Q511310"
+    },
+    "1261": {
+        "commonscat": "Kävlinge Municipality",
+        "label_sv": "Kävlinge kommun",
+        "wd": "Q513370"
+    },
+    "1262": {
+        "commonscat": "Lomma Municipality",
+        "label_sv": "Lomma kommun",
+        "wd": "Q427991"
+    },
+    "1263": {
+        "commonscat": "Svedala Municipality",
+        "label_sv": "Svedala kommun",
+        "wd": "Q515706"
+    },
+    "1264": {
+        "commonscat": "Skurup Municipality",
+        "label_sv": "Skurups kommun",
+        "wd": "Q515266"
+    },
+    "1265": {
+        "commonscat": "Sjöbo Municipality",
+        "label_sv": "Sjöbo kommun",
+        "wd": "Q504601"
+    },
+    "1266": {
+        "commonscat": "Hörby Municipality",
+        "label_sv": "Hörby kommun",
+        "wd": "Q504619"
+    },
+    "1267": {
+        "commonscat": "Höör Municipality",
+        "label_sv": "Höörs kommun",
+        "wd": "Q266401"
+    },
+    "1270": {
+        "commonscat": "Tomelilla Municipality",
+        "label_sv": "Tomelilla kommun",
+        "wd": "Q515519"
+    },
+    "1272": {
+        "commonscat": "Bromölla Municipality",
+        "label_sv": "Bromölla kommun",
+        "wd": "Q514830"
+    },
+    "1273": {
+        "commonscat": "Osby Municipality",
+        "label_sv": "Osby kommun",
+        "wd": "Q504594"
+    },
+    "1275": {
+        "commonscat": "Perstorp Municipality",
+        "label_sv": "Perstorps kommun",
+        "wd": "Q504249"
+    },
+    "1276": {
+        "commonscat": "Klippan Municipality",
+        "label_sv": "Klippans kommun",
+        "wd": "Q504614"
+    },
+    "1277": {
+        "commonscat": "Åstorp Municipality",
+        "label_sv": "Åstorps kommun",
+        "wd": "Q201813"
+    },
+    "1278": {
+        "commonscat": "Båstad Municipality",
+        "label_sv": "Båstads kommun",
+        "wd": "Q499464"
+    },
+    "1280": {
+        "commonscat": "Malmö",
+        "label_sv": "Malmö kommun",
+        "wd": "Q503361"
+    },
+    "1281": {
+        "commonscat": "Lund Municipality",
+        "label_sv": "Lunds kommun",
+        "wd": "Q505018"
+    },
+    "1282": {
+        "commonscat": "Landskrona Municipality",
+        "label_sv": "Landskrona kommun",
+        "wd": "Q502298"
+    },
+    "1283": {
+        "commonscat": "Helsingborg Municipality",
+        "label_sv": "Helsingborgs kommun",
+        "wd": "Q487648"
+    },
+    "1284": {
+        "commonscat": "Höganäs Municipality",
+        "label_sv": "Höganäs kommun",
+        "wd": "Q505013"
+    },
+    "1285": {
+        "commonscat": "Eslöv Municipality",
+        "label_sv": "Eslövs kommun",
+        "wd": "Q1130264"
+    },
+    "1286": {
+        "commonscat": "Ystad Municipality",
+        "label_sv": "Ystads kommun",
+        "wd": "Q505102"
+    },
+    "1287": {
+        "commonscat": "Trelleborg Municipality",
+        "label_sv": "Trelleborgs kommun",
+        "wd": "Q504219"
+    },
+    "1288": {
+        "commonscat": null,
+        "label_sv": "Skanör med Falsterbo kommun",
+        "wd": "Q15846450"
+    },
+    "1290": {
+        "commonscat": "Kristianstad Municipality",
+        "label_sv": "Kristianstads kommun",
+        "wd": "Q498857"
+    },
+    "1291": {
+        "commonscat": "Simrishamn Municipality",
+        "label_sv": "Simrishamns kommun",
+        "wd": "Q504626"
+    },
+    "1292": {
+        "commonscat": "Ängelholm Municipality",
+        "label_sv": "Ängelholms kommun",
+        "wd": "Q255206"
+    },
+    "1293": {
+        "commonscat": "Hässleholm Municipality",
+        "label_sv": "Hässleholms kommun",
+        "wd": "Q508125"
+    },
+    "1301": {
+        "commonscat": null,
+        "label_sv": "Hishults kommun",
+        "wd": "Q15975416"
+    },
+    "1305": {
+        "commonscat": null,
+        "label_sv": "Knäreds kommun",
+        "wd": "Q15977296"
+    },
+    "1308": {
+        "commonscat": null,
+        "label_sv": "Eldsberga kommun",
+        "wd": "Q15940883"
+    },
+    "1312": {
+        "commonscat": null,
+        "label_sv": "Getinge kommun",
+        "wd": "Q15962221"
+    },
+    "1314": {
+        "commonscat": null,
+        "label_sv": "Enslövs kommun",
+        "wd": "Q15950157"
+    },
+    "1315": {
+        "commonscat": null,
+        "label_sv": "Torups kommun",
+        "wd": "Q15303537"
+    },
+    "1329": {
+        "commonscat": null,
+        "label_sv": "Fjärås kommun",
+        "wd": "Q15958772"
+    },
+    "1380": {
+        "commonscat": "Halmstad Municipality",
+        "label_sv": "Halmstads kommun",
+        "wd": "Q504692"
+    },
+    "1381": {
+        "commonscat": "Laholm Municipality",
+        "label_sv": "Laholms kommun",
+        "wd": "Q487502"
+    },
+    "1382": {
+        "commonscat": "Falkenberg Municipality",
+        "label_sv": "Falkenbergs kommun",
+        "wd": "Q508168"
+    },
+    "1383": {
+        "commonscat": "Varberg Municipality",
+        "label_sv": "Varbergs kommun",
+        "wd": "Q179180"
+    },
+    "1384": {
+        "commonscat": "Kungsbacka Municipality",
+        "label_sv": "Kungsbacka kommun",
+        "wd": "Q499380"
+    },
+    "1401": {
+        "commonscat": "Härryda",
+        "label_sv": "Härryda kommun",
+        "wd": "Q500125"
+    },
+    "1402": {
+        "commonscat": "Partille",
+        "label_sv": "Partille kommun",
+        "wd": "Q125222"
+    },
+    "1407": {
+        "commonscat": "Öckerö",
+        "label_sv": "Öckerö kommun",
+        "wd": "Q293928"
+    },
+    "1415": {
+        "commonscat": "Stenungsund Municipality",
+        "label_sv": "Stenungsunds kommun",
+        "wd": "Q511438"
+    },
+    "1419": {
+        "commonscat": "Tjörn",
+        "label_sv": "Tjörns kommun",
+        "wd": "Q501448"
+    },
+    "1421": {
+        "commonscat": "Orust",
+        "label_sv": "Orusts kommun",
+        "wd": "Q338752"
+    },
+    "1427": {
+        "commonscat": "Sotenäs Municipality",
+        "label_sv": "Sotenäs kommun",
+        "wd": "Q501420"
+    },
+    "1430": {
+        "commonscat": "Munkedal",
+        "label_sv": "Munkedals kommun",
+        "wd": "Q389040"
+    },
+    "1435": {
+        "commonscat": "Tanum",
+        "label_sv": "Tanums kommun",
+        "wd": "Q511228"
+    },
+    "1438": {
+        "commonscat": "Dals-Ed Municipality",
+        "label_sv": "Dals-Eds kommun",
+        "wd": "Q503132"
+    },
+    "1439": {
+        "commonscat": "Färgelanda",
+        "label_sv": "Färgelanda kommun",
+        "wd": "Q499441"
+    },
+    "1440": {
+        "commonscat": "Ale Municipality",
+        "label_sv": "Ale kommun",
+        "wd": "Q498470"
+    },
+    "1441": {
+        "commonscat": "Lerum",
+        "label_sv": "Lerums kommun",
+        "wd": "Q503188"
+    },
+    "1442": {
+        "commonscat": "Vårgårda Municipality",
+        "label_sv": "Vårgårda kommun",
+        "wd": "Q511297"
+    },
+    "1443": {
+        "commonscat": "Bollebygd",
+        "label_sv": "Bollebygds kommun",
+        "wd": "Q503102"
+    },
+    "1444": {
+        "commonscat": "Grästorp Municipality",
+        "label_sv": "Grästorps kommun",
+        "wd": "Q503148"
+    },
+    "1445": {
+        "commonscat": "Essunga Municipality",
+        "label_sv": "Essunga kommun",
+        "wd": "Q503127"
+    },
+    "1446": {
+        "commonscat": "Karlsborg Municipality",
+        "label_sv": "Karlsborgs kommun",
+        "wd": "Q499435"
+    },
+    "1446T5324": {
+        "commonscat": "Karlsborg",
+        "label_sv": "Karlsborg",
+        "wd": "Q760222"
+    },
+    "1447": {
+        "commonscat": "Gullspång Municipality",
+        "label_sv": "Gullspångs kommun",
+        "wd": "Q503193"
+    },
+    "1452": {
+        "commonscat": "Tranemo",
+        "label_sv": "Tranemo kommun",
+        "wd": "Q501479"
+    },
+    "1460": {
+        "commonscat": "Bengtsfors",
+        "label_sv": "Bengtsfors kommun",
+        "wd": "Q267462"
+    },
+    "1461": {
+        "commonscat": "Mellerud",
+        "label_sv": "Melleruds kommun",
+        "wd": "Q501438"
+    },
+    "1462": {
+        "commonscat": "Lilla Edet",
+        "label_sv": "Lilla Edets kommun",
+        "wd": "Q511241"
+    },
+    "1463": {
+        "commonscat": "Mark Municipality",
+        "label_sv": "Marks kommun",
+        "wd": "Q500153"
+    },
+    "1465": {
+        "commonscat": "Svenljunga Municipality",
+        "label_sv": "Svenljunga kommun",
+        "wd": "Q501487"
+    },
+    "1466": {
+        "commonscat": "Herrljunga Municipality",
+        "label_sv": "Herrljunga kommun",
+        "wd": "Q503111"
+    },
+    "1470": {
+        "commonscat": "Vara Municipality",
+        "label_sv": "Vara kommun",
+        "wd": "Q501428"
+    },
+    "1471": {
+        "commonscat": "Götene Municipality",
+        "label_sv": "Götene kommun",
+        "wd": "Q511281"
+    },
+    "1472": {
+        "commonscat": "Tibro Municipality",
+        "label_sv": "Tibro kommun",
+        "wd": "Q501432"
+    },
+    "1473": {
+        "commonscat": "Töreboda Municipality",
+        "label_sv": "Töreboda kommun",
+        "wd": "Q501470"
+    },
+    "1480": {
+        "commonscat": "Göteborg",
+        "label_sv": "Göteborgs kommun",
+        "wd": "Q52502"
+    },
+    "1481": {
+        "commonscat": "Mölndal",
+        "label_sv": "Mölndals kommun",
+        "wd": "Q511270"
+    },
+    "1482": {
+        "commonscat": "Kungälv Municipality",
+        "label_sv": "Kungälvs kommun",
+        "wd": "Q511394"
+    },
+    "1484": {
+        "commonscat": "Lysekil Municipality",
+        "label_sv": "Lysekils kommun",
+        "wd": "Q503173"
+    },
+    "1485": {
+        "commonscat": "Uddevalla Municipality",
+        "label_sv": "Uddevalla kommun",
+        "wd": "Q501442"
+    },
+    "1486": {
+        "commonscat": "Strömstad Municipality",
+        "label_sv": "Strömstads kommun",
+        "wd": "Q501424"
+    },
+    "1487": {
+        "commonscat": "Vänersborg Municipality",
+        "label_sv": "Vänersborgs kommun",
+        "wd": "Q511426"
+    },
+    "1488": {
+        "commonscat": "Trollhättan Municipality",
+        "label_sv": "Trollhättans kommun",
+        "wd": "Q28532"
+    },
+    "1489": {
+        "commonscat": "Alingsås",
+        "label_sv": "Alingsås kommun",
+        "wd": "Q503162"
+    },
+    "1490": {
+        "commonscat": "Borås Municipality",
+        "label_sv": "Borås kommun",
+        "wd": "Q894327"
+    },
+    "1491": {
+        "commonscat": "Ulricehamn Municipality",
+        "label_sv": "Ulricehamns kommun",
+        "wd": "Q382808"
+    },
+    "1492": {
+        "commonscat": "Åmål",
+        "label_sv": "Åmåls kommun",
+        "wd": "Q271079"
+    },
+    "1493": {
+        "commonscat": "Mariestad Municipality",
+        "label_sv": "Mariestads kommun",
+        "wd": "Q427422"
+    },
+    "1494": {
+        "commonscat": "Lidköping Municipality",
+        "label_sv": "Lidköpings kommun",
+        "wd": "Q515358"
+    },
+    "1495": {
+        "commonscat": "Skara Municipality",
+        "label_sv": "Skara kommun",
+        "wd": "Q499421"
+    },
+    "1496": {
+        "commonscat": "Skövde Municipality",
+        "label_sv": "Skövde kommun",
+        "wd": "Q501452"
+    },
+    "1497": {
+        "commonscat": "Hjo Municipality",
+        "label_sv": "Hjo kommun",
+        "wd": "Q428749"
+    },
+    "1498": {
+        "commonscat": "Tidaholm Municipality",
+        "label_sv": "Tidaholms kommun",
+        "wd": "Q501459"
+    },
+    "1499": {
+        "commonscat": "Falköping Municipality",
+        "label_sv": "Falköpings kommun",
+        "wd": "Q503214"
+    },
+    "1533": {
+        "commonscat": null,
+        "label_sv": "Fristads landskommun",
+        "wd": "Q16267951"
+    },
+    "1623": {
+        "commonscat": "Habo Municipality",
+        "label_sv": "Habo kommun",
+        "wd": "Q503198"
+    },
+    "1715": {
+        "commonscat": "Kil Municipality",
+        "label_sv": "Kils kommun",
+        "wd": "Q499393"
+    },
+    "1730": {
+        "commonscat": "Eda",
+        "label_sv": "Eda kommun",
+        "wd": "Q498447"
+    },
+    "1737": {
+        "commonscat": "Torsby",
+        "label_sv": "Torsby kommun",
+        "wd": "Q510135"
+    },
+    "1760": {
+        "commonscat": "Storfors",
+        "label_sv": "Storfors kommun",
+        "wd": "Q505936"
+    },
+    "1761": {
+        "commonscat": "Hammarö Municipality",
+        "label_sv": "Hammarö kommun",
+        "wd": "Q499359"
+    },
+    "1762": {
+        "commonscat": "Munkfors",
+        "label_sv": "Munkfors kommun",
+        "wd": "Q501494"
+    },
+    "1763": {
+        "commonscat": "Forshaga Municipality",
+        "label_sv": "Forshaga kommun",
+        "wd": "Q499385"
+    },
+    "1764": {
+        "commonscat": "Grums Municipality",
+        "label_sv": "Grums kommun",
+        "wd": "Q503122"
+    },
+    "1765": {
+        "commonscat": "Årjäng",
+        "label_sv": "Årjängs kommun",
+        "wd": "Q2777887"
+    },
+    "1766": {
+        "commonscat": "Sunne",
+        "label_sv": "Sunne kommun",
+        "wd": "Q501205"
+    },
+    "1780": {
+        "commonscat": "Karlstad",
+        "label_sv": "Karlstads kommun",
+        "wd": "Q498453"
+    },
+    "1781": {
+        "commonscat": "Kristinehamn",
+        "label_sv": "Kristinehamns kommun",
+        "wd": "Q510364"
+    },
+    "1782": {
+        "commonscat": "Filipstad Municipality",
+        "label_sv": "Filipstads kommun",
+        "wd": "Q503204"
+    },
+    "1783": {
+        "commonscat": "Hagfors Municipality",
+        "label_sv": "Hagfors kommun",
+        "wd": "Q511407"
+    },
+    "1784": {
+        "commonscat": "Arvika Municipality",
+        "label_sv": "Arvika kommun",
+        "wd": "Q511365"
+    },
+    "1785": {
+        "commonscat": "Säffle",
+        "label_sv": "Säffle kommun",
+        "wd": "Q511326"
+    },
+    "1814": {
+        "commonscat": "Lekeberg Municipality",
+        "label_sv": "Lekebergs kommun",
+        "wd": "Q515282"
+    },
+    "1860": {
+        "commonscat": "Laxå Municipality",
+        "label_sv": "Laxå kommun",
+        "wd": "Q515326"
+    },
+    "1861": {
+        "commonscat": "Hallsberg",
+        "label_sv": "Hallsbergs kommun",
+        "wd": "Q508180"
+    },
+    "1862": {
+        "commonscat": "Degerfors Municipality",
+        "label_sv": "Degerfors kommun",
+        "wd": "Q509469"
+    },
+    "1863": {
+        "commonscat": "Hällefors Municipality",
+        "label_sv": "Hällefors kommun",
+        "wd": "Q220881"
+    },
+    "1864": {
+        "commonscat": "Ljusnarsberg Municipality",
+        "label_sv": "Ljusnarsbergs kommun",
+        "wd": "Q514739"
+    },
+    "1880": {
+        "commonscat": "Örebro",
+        "label_sv": "Örebro kommun",
+        "wd": "Q297718"
+    },
+    "1881": {
+        "commonscat": "Kumla Municipality",
+        "label_sv": "Kumla kommun",
+        "wd": "Q504988"
+    },
+    "1882": {
+        "commonscat": "Askersund",
+        "label_sv": "Askersunds kommun",
+        "wd": "Q509501"
+    },
+    "1883": {
+        "commonscat": "Karlskoga",
+        "label_sv": "Karlskoga kommun",
+        "wd": "Q509634"
+    },
+    "1884": {
+        "commonscat": "Nora Municipality",
+        "label_sv": "Nora kommun",
+        "wd": "Q285894"
+    },
+    "1885": {
+        "commonscat": "Lindesberg Municipality",
+        "label_sv": "Lindesbergs kommun",
+        "wd": "Q514858"
+    },
+    "1904": {
+        "commonscat": "Skinnskatteberg Municipality",
+        "label_sv": "Skinnskattebergs kommun",
+        "wd": "Q37462"
+    },
+    "1907": {
+        "commonscat": "Surahammar Municipality",
+        "label_sv": "Surahammars kommun",
+        "wd": "Q34078"
+    },
+    "1960": {
+        "commonscat": "Kungsör Municipality",
+        "label_sv": "Kungsörs kommun",
+        "wd": "Q47169"
+    },
+    "1961": {
+        "commonscat": "Hallstahammar Municipality",
+        "label_sv": "Hallstahammars kommun",
+        "wd": "Q47019"
+    },
+    "1962": {
+        "commonscat": "Norberg Municipality",
+        "label_sv": "Norbergs kommun",
+        "wd": "Q37404"
+    },
+    "1980": {
+        "commonscat": "Västerås Municipality",
+        "label_sv": "Västerås kommun",
+        "wd": "Q34550"
+    },
+    "1981": {
+        "commonscat": "Sala Municipality, Sweden",
+        "label_sv": "Sala kommun",
+        "wd": "Q37399"
+    },
+    "1982": {
+        "commonscat": "Fagersta Municipality",
+        "label_sv": "Fagersta kommun",
+        "wd": "Q47018"
+    },
+    "1983": {
+        "commonscat": "Köping Municipality",
+        "label_sv": "Köpings kommun",
+        "wd": "Q42009"
+    },
+    "1984": {
+        "commonscat": "Arboga",
+        "label_sv": "Arboga kommun",
+        "wd": "Q431271"
+    },
+    "2021": {
+        "commonscat": "Vansbro",
+        "label_sv": "Vansbro kommun",
+        "wd": "Q501551"
+    },
+    "2023": {
+        "commonscat": "Malung-Sälen Municipality",
+        "label_sv": "Malung-Sälens kommun",
+        "wd": "Q504266"
+    },
+    "2026": {
+        "commonscat": "Gagnef Municipality",
+        "label_sv": "Gagnefs kommun",
+        "wd": "Q2642771"
+    },
+    "2029": {
+        "commonscat": "Leksand Municipality",
+        "label_sv": "Leksands kommun",
+        "wd": "Q509651"
+    },
+    "2031": {
+        "commonscat": "Rättvik Municipality",
+        "label_sv": "Rättviks kommun",
+        "wd": "Q504244"
+    },
+    "2033": {
+        "commonscat": null,
+        "label_sv": "Ore kommun",
+        "wd": "Q15058802"
+    },
+    "2034": {
+        "commonscat": "Orsa Municipality",
+        "label_sv": "Orsa kommun",
+        "wd": "Q504630"
+    },
+    "2039": {
+        "commonscat": "Älvdalen Municipality",
+        "label_sv": "Älvdalens kommun",
+        "wd": "Q123855"
+    },
+    "2061": {
+        "commonscat": "Smedjebacken Municipality",
+        "label_sv": "Smedjebackens kommun",
+        "wd": "Q505046"
+    },
+    "2062": {
+        "commonscat": "Mora Municipality",
+        "label_sv": "Mora kommun",
+        "wd": "Q504239"
+    },
+    "2080": {
+        "commonscat": "Falun",
+        "label_sv": "Falu kommun",
+        "wd": "Q501545"
+    },
+    "2081": {
+        "commonscat": "Borlänge",
+        "label_sv": "Borlänge kommun",
+        "wd": "Q503209"
+    },
+    "2082": {
+        "commonscat": "Säter Municipality",
+        "label_sv": "Säters kommun",
+        "wd": "Q1345439"
+    },
+    "2083": {
+        "commonscat": "Hedemora Municipality",
+        "label_sv": "Hedemora kommun",
+        "wd": "Q507684"
+    },
+    "2084": {
+        "commonscat": "Avesta Municipality",
+        "label_sv": "Avesta kommun",
+        "wd": "Q500071"
+    },
+    "2085": {
+        "commonscat": "Ludvika Municipality",
+        "label_sv": "Ludvika kommun",
+        "wd": "Q503184"
+    },
+    "2101": {
+        "commonscat": "Ockelbo",
+        "label_sv": "Ockelbo kommun",
+        "wd": "Q505109"
+    },
+    "2104": {
+        "commonscat": "Hofors",
+        "label_sv": "Hofors kommun",
+        "wd": "Q62464"
+    },
+    "2121": {
+        "commonscat": "Ovanåker Municipality",
+        "label_sv": "Ovanåkers kommun",
+        "wd": "Q505085"
+    },
+    "2132": {
+        "commonscat": "Nordanstig Municipality",
+        "label_sv": "Nordanstigs kommun",
+        "wd": "Q514805"
+    },
+    "2161": {
+        "commonscat": "Ljusdal Municipality",
+        "label_sv": "Ljusdals kommun",
+        "wd": "Q515235"
+    },
+    "2180": {
+        "commonscat": "Gävle Municipality",
+        "label_sv": "Gävle kommun",
+        "wd": "Q510010"
+    },
+    "2181": {
+        "commonscat": "Sandviken Municipality",
+        "label_sv": "Sandvikens kommun",
+        "wd": "Q149539"
+    },
+    "2182": {
+        "commonscat": "Söderhamn",
+        "label_sv": "Söderhamns kommun",
+        "wd": "Q145835"
+    },
+    "2183": {
+        "commonscat": "Bollnäs",
+        "label_sv": "Bollnäs kommun",
+        "wd": "Q62469"
+    },
+    "2184": {
+        "commonscat": "Hudiksvall Municipality",
+        "label_sv": "Hudiksvalls kommun",
+        "wd": "Q29963"
+    },
+    "2204": {
+        "commonscat": null,
+        "label_sv": "Stöde kommun",
+        "wd": "Q14930439"
+    },
+    "2206": {
+        "commonscat": null,
+        "label_sv": "Matfors kommun",
+        "wd": "Q14928074"
+    },
+    "2208": {
+        "commonscat": null,
+        "label_sv": "Njurunda kommun",
+        "wd": "Q14927304"
+    },
+    "2210": {
+        "commonscat": null,
+        "label_sv": "Indals-Lidens kommun",
+        "wd": "Q14912483"
+    },
+    "2214": {
+        "commonscat": null,
+        "label_sv": "Noraströms kommun",
+        "wd": "Q14877250"
+    },
+    "2215": {
+        "commonscat": null,
+        "label_sv": "Nordingrå kommun",
+        "wd": "Q14878334"
+    },
+    "2216": {
+        "commonscat": null,
+        "label_sv": "Ullångers kommun",
+        "wd": "Q14898904"
+    },
+    "2217": {
+        "commonscat": null,
+        "label_sv": "Bjärtrå kommun",
+        "wd": "Q14856970"
+    },
+    "2218": {
+        "commonscat": null,
+        "label_sv": "Boteå kommun",
+        "wd": "Q14900304"
+    },
+    "2219": {
+        "commonscat": null,
+        "label_sv": "Ytterlännäs landskommun",
+        "wd": "Q10723852"
+    },
+    "2223": {
+        "commonscat": null,
+        "label_sv": "Ramsele kommun",
+        "wd": "Q14905983"
+    },
+    "2226": {
+        "commonscat": null,
+        "label_sv": "Fjällsjö kommun",
+        "wd": "Q14911768"
+    },
+    "2260": {
+        "commonscat": "Ånge Municipality",
+        "label_sv": "Ånge kommun",
+        "wd": "Q271107"
+    },
+    "2262": {
+        "commonscat": "Timrå Municipality",
+        "label_sv": "Timrå kommun",
+        "wd": "Q504983"
+    },
+    "2280": {
+        "commonscat": "Härnösand Municipality",
+        "label_sv": "Härnösands kommun",
+        "wd": "Q209634"
+    },
+    "2281": {
+        "commonscat": "Sundsvall Municipality",
+        "label_sv": "Sundsvalls kommun",
+        "wd": "Q504994"
+    },
+    "2282": {
+        "commonscat": "Kramfors Municipality",
+        "label_sv": "Kramfors kommun",
+        "wd": "Q514815"
+    },
+    "2283": {
+        "commonscat": "Sollefteå Municipality",
+        "label_sv": "Sollefteå kommun",
+        "wd": "Q221990"
+    },
+    "2284": {
+        "commonscat": "Örnsköldsvik Municipality",
+        "label_sv": "Örnsköldsviks kommun",
+        "wd": "Q298003"
+    },
+    "2303": {
+        "commonscat": "Ragunda Municipality",
+        "label_sv": "Ragunda kommun",
+        "wd": "Q515342"
+    },
+    "2305": {
+        "commonscat": "Bräcke Municipality",
+        "label_sv": "Bräcke kommun",
+        "wd": "Q504261"
+    },
+    "2309": {
+        "commonscat": "Krokom Municipality",
+        "label_sv": "Krokoms kommun",
+        "wd": "Q514707"
+    },
+    "2313": {
+        "commonscat": "Strömsund Municipality",
+        "label_sv": "Strömsunds kommun",
+        "wd": "Q514770"
+    },
+    "2321": {
+        "commonscat": "Åre Municipality",
+        "label_sv": "Åre kommun",
+        "wd": "Q271153"
+    },
+    "2326": {
+        "commonscat": "Berg Municipality",
+        "label_sv": "Bergs kommun",
+        "wd": "Q845930"
+    },
+    "2361": {
+        "commonscat": "Härjedalen Municipality",
+        "label_sv": "Härjedalens kommun",
+        "wd": "Q513421"
+    },
+    "2380": {
+        "commonscat": "Östersund",
+        "label_sv": "Östersunds kommun",
+        "wd": "Q306789"
+    },
+    "2401": {
+        "commonscat": "Nordmaling",
+        "label_sv": "Nordmalings kommun",
+        "wd": "Q514722"
+    },
+    "2403": {
+        "commonscat": "Bjurholm",
+        "label_sv": "Bjurholms kommun",
+        "wd": "Q376003"
+    },
+    "2404": {
+        "commonscat": "Vindeln Municipality",
+        "label_sv": "Vindelns kommun",
+        "wd": "Q504505"
+    },
+    "2407": {
+        "commonscat": null,
+        "label_sv": "Sävars kommun",
+        "wd": "Q15114213"
+    },
+    "2409": {
+        "commonscat": "Robertsfors",
+        "label_sv": "Robertsfors kommun",
+        "wd": "Q507670"
+    },
+    "2417": {
+        "commonscat": "Norsjö",
+        "label_sv": "Norsjö kommun",
+        "wd": "Q507644"
+    },
+    "2418": {
+        "commonscat": "Malå",
+        "label_sv": "Malå kommun",
+        "wd": "Q501540"
+    },
+    "2421": {
+        "commonscat": "Storuman Municipality",
+        "label_sv": "Storumans kommun",
+        "wd": "Q499415"
+    },
+    "2422": {
+        "commonscat": "Sorsele Municipality",
+        "label_sv": "Sorsele kommun",
+        "wd": "Q501463"
+    },
+    "2425": {
+        "commonscat": "Dorotea",
+        "label_sv": "Dorotea kommun",
+        "wd": "Q132334"
+    },
+    "2460": {
+        "commonscat": "Vännäs Municipality",
+        "label_sv": "Vännäs kommun",
+        "wd": "Q500210"
+    },
+    "2462": {
+        "commonscat": "Vilhelmina Municipality",
+        "label_sv": "Vilhelmina kommun",
+        "wd": "Q515861"
+    },
+    "2463": {
+        "commonscat": "Åsele",
+        "label_sv": "Åsele kommun",
+        "wd": "Q271274"
+    },
+    "2480": {
+        "commonscat": "Umeå Municipality",
+        "label_sv": "Umeå kommun",
+        "wd": "Q507709"
+    },
+    "2481": {
+        "commonscat": "Lycksele Municipality",
+        "label_sv": "Lycksele kommun",
+        "wd": "Q948462"
+    },
+    "2482": {
+        "commonscat": "Skellefteå",
+        "label_sv": "Skellefteå kommun",
+        "wd": "Q430780"
+    },
+    "2505": {
+        "commonscat": "Arvidsjaur",
+        "label_sv": "Arvidsjaurs kommun",
+        "wd": "Q499404"
+    },
+    "2506": {
+        "commonscat": "Arjeplog Municipality",
+        "label_sv": "Arjeplogs kommun",
+        "wd": "Q493855"
+    },
+    "2510": {
+        "commonscat": "Jokkmokk",
+        "label_sv": "Jokkmokks kommun",
+        "wd": "Q512048"
+    },
+    "2513": {
+        "commonscat": "Överkalix",
+        "label_sv": "Överkalix kommun",
+        "wd": "Q307569"
+    },
+    "2514": {
+        "commonscat": "Kalix",
+        "label_sv": "Kalix kommun",
+        "wd": "Q117091"
+    },
+    "2518": {
+        "commonscat": "Övertorneå",
+        "label_sv": "Övertorneå kommun",
+        "wd": "Q307603"
+    },
+    "2521": {
+        "commonscat": "Pajala Municipality",
+        "label_sv": "Pajala kommun",
+        "wd": "Q186230"
+    },
+    "2523": {
+        "commonscat": "Gällivare",
+        "label_sv": "Gällivare kommun",
+        "wd": "Q493815"
+    },
+    "2560": {
+        "commonscat": "Älvsbyn",
+        "label_sv": "Älvsbyns kommun",
+        "wd": "Q255025"
+    },
+    "2580": {
+        "commonscat": "Luleå Municipality",
+        "label_sv": "Luleå kommun",
+        "wd": "Q177019"
+    },
+    "2581": {
+        "commonscat": "Piteå",
+        "label_sv": "Piteå kommun",
+        "wd": "Q507656"
+    },
+    "2582": {
+        "commonscat": "Boden",
+        "label_sv": "Bodens kommun",
+        "wd": "Q509476"
+    },
+    "2583": {
+        "commonscat": "Haparanda",
+        "label_sv": "Haparanda kommun",
+        "wd": "Q510310"
+    },
+    "2584": {
+        "commonscat": "Kiruna Municipality",
+        "label_sv": "Kiruna kommun",
+        "wd": "Q499474"
+    }
+}

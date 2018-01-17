@@ -1,0 +1,117 @@
+{
+    "01": {
+        "commonscat": "Stockholm County",
+        "label_sv": "Stockholms län",
+        "wd": "Q104231"
+    },
+    "03": {
+        "commonscat": "Uppsala County",
+        "label_sv": "Uppsala län",
+        "wd": "Q104926"
+    },
+    "04": {
+        "commonscat": "Södermanland County",
+        "label_sv": "Södermanlands län",
+        "wd": "Q106915"
+    },
+    "05": {
+        "commonscat": "Östergötland County",
+        "label_sv": "Östergötlands län",
+        "wd": "Q104940"
+    },
+    "06": {
+        "commonscat": "Jönköping County",
+        "label_sv": "Jönköpings län",
+        "wd": "Q103672"
+    },
+    "07": {
+        "commonscat": "Kronoberg County",
+        "label_sv": "Kronobergs län",
+        "wd": "Q104746"
+    },
+    "08": {
+        "commonscat": "Kalmar County",
+        "label_sv": "Kalmar län",
+        "wd": "Q103707"
+    },
+    "09": {
+        "commonscat": "Gotland",
+        "label_sv": "Gotlands län",
+        "wd": "Q103738"
+    },
+    "10": {
+        "commonscat": "Blekinge",
+        "label_sv": "Blekinge län",
+        "wd": "Q102377"
+    },
+    "11": {
+        "commonscat": "Kristianstad County",
+        "label_sv": "Kristianstads län",
+        "wd": "Q339637"
+    },
+    "12": {
+        "commonscat": "Malmöhus County",
+        "label_sv": "Malmöhus län",
+        "wd": "Q533915"
+    },
+    "13": {
+        "commonscat": "Halland County",
+        "label_sv": "Hallands län",
+        "wd": "Q103691"
+    },
+    "14": {
+        "commonscat": "Göteborgs och Bohus County",
+        "label_sv": "Göteborgs och Bohus län",
+        "wd": "Q579801"
+    },
+    "16": {
+        "commonscat": "Skaraborg County",
+        "label_sv": "Skaraborgs län",
+        "wd": "Q922842"
+    },
+    "17": {
+        "commonscat": "Värmland County",
+        "label_sv": "Värmlands län",
+        "wd": "Q106789"
+    },
+    "18": {
+        "commonscat": "Örebro County",
+        "label_sv": "Örebro län",
+        "wd": "Q104257"
+    },
+    "19": {
+        "commonscat": "Västmanland County",
+        "label_sv": "Västmanlands län",
+        "wd": "Q105075"
+    },
+    "20": {
+        "commonscat": "Dalarna",
+        "label_sv": "Dalarnas län",
+        "wd": "Q103732"
+    },
+    "21": {
+        "commonscat": "Gävleborg County",
+        "label_sv": "Gävleborgs län",
+        "wd": "Q103699"
+    },
+    "22": {
+        "commonscat": "Västernorrland County",
+        "label_sv": "Västernorrlands län",
+        "wd": "Q104891"
+    },
+    "23": {
+        "commonscat": "Jämtland",
+        "label_sv": "Jämtlands län",
+        "wd": "Q103679"
+    },
+    "24": {
+        "commonscat": "Västerbotten County",
+        "label_sv": "Västerbottens län",
+        "wd": "Q104877"
+    },
+    "25": {
+        "commonscat": "Norrbotten County",
+        "label_sv": "Norrbottens län",
+        "wd": "Q103686"
+    }
+}

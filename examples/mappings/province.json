@@ -1,0 +1,127 @@
+{
+    "Bl": {
+        "commonscat": "Blekinge",
+        "label_sv": "Blekinge",
+        "wd": "Q675653"
+    },
+    "Vs": {
+        "commonscat": "Västmanland",
+        "label_sv": "Västmanland",
+        "wd": "Q321430"
+    },
+    "Vg": {
+        "commonscat": "Västergötland",
+        "label_sv": "Västergötland",
+        "wd": "Q213551"
+    },
+    "Vb": {
+        "commonscat": "Västerbotten",
+        "label_sv": "Västerbotten",
+        "wd": "Q211652"
+    },
+    "Vr": {
+        "commonscat": "Värmland",
+        "label_sv": "Värmland",
+        "wd": "Q211638"
+    },
+    "Up": {
+        "commonscat": "Uppland",
+        "label_sv": "Uppland",
+        "wd": "Q203509"
+    },
+    "Sö": {
+        "commonscat": "Södermanland",
+        "label_sv": "Södermanland",
+        "wd": "Q626062"
+    },
+    "Sm": {
+        "commonscat": "Småland",
+        "label_sv": "Småland",
+        "wd": "Q199957"
+    },
+    "Sk": {
+        "commonscat": "Skåne",
+        "label_sv": "Skåne",
+        "wd": "Q180756"
+    },
+    "Ög": {
+        "commonscat": "Östergötland",
+        "label_sv": "Östergötland",
+        "wd": "Q214829"
+    },
+    "Öl": {
+        "commonscat": "Öland",
+        "label_sv": "Öland",
+        "wd": "Q15981396"
+    },
+    "Nb": {
+        "commonscat": "Norrbotten",
+        "label_sv": "Norrbotten",
+        "wd": "Q211649"
+    },
+    "Nä": {
+        "commonscat": "Närke",
+        "label_sv": "Närke",
+        "wd": "Q216687"
+    },
+    "Me": {
+        "commonscat": "Medelpad",
+        "label_sv": "Medelpad",
+        "wd": "Q210687"
+    },
+    "La": {
+        "commonscat": "Lappland",
+        "label_sv": "Lappland",
+        "wd": "Q212640"
+    },
+    "Jä": {
+        "commonscat": "Jämtland",
+        "label_sv": "Jämtland",
+        "wd": "Q211661"
+    },
+    "Hr": {
+        "commonscat": "Härjedalen",
+        "label_sv": "Härjedalen",
+        "wd": "Q207444"
+    },
+    "Hs": {
+        "commonscat": "Hälsingland",
+        "label_sv": "Hälsingland",
+        "wd": "Q206564"
+    },
+    "Ha": {
+        "commonscat": "Halland",
+        "label_sv": "Halland",
+        "wd": "Q626045"
+    },
+    "Go": {
+        "commonscat": "Gotland",
+        "label_sv": "Gotland",
+        "wd": "Q1027830"
+    },
+    "Gä": {
+        "commonscat": "Gästrikland",
+        "label_sv": "Gästrikland",
+        "wd": "Q183459"
+    },
+    "Ds": {
+        "commonscat": "Dalsland",
+        "label_sv": "Dalsland",
+        "wd": "Q214806"
+    },
+    "Dr": {
+        "commonscat": "Dalarna",
+        "label_sv": "Dalarna",
+        "wd": "Q205218"
+    },
+    "Bo": {
+        "commonscat": "Bohuslän",
+        "label_sv": "Bohuslän",
+        "wd": "Q209523"
+    },
+    "Ån": {
+        "commonscat": "Ångermanland",
+        "label_sv": "Ångermanland",
+        "wd": "Q209853"
+    }
+}

@@ -1,0 +1,2859 @@
+[
+    {
+        "category": [
+            "Drawings"
+        ],
+        "creator": "",
+        "frequency": "779",
+        "link": "",
+        "more": "",
+        "name": "Konst : Teckning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Buildings"
+        ],
+        "creator": "",
+        "frequency": "774",
+        "link": "",
+        "more": "",
+        "name": "Bebyggelse",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Towns"
+        ],
+        "creator": "",
+        "frequency": "33",
+        "link": "",
+        "more": "",
+        "name": "Stad",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Streets"
+        ],
+        "creator": "",
+        "frequency": "14",
+        "link": "",
+        "more": "",
+        "name": "Gata",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Winter"
+        ],
+        "creator": "",
+        "frequency": "10",
+        "link": "",
+        "more": "",
+        "name": "Årstider : Vinter",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Houses in Sweden"
+        ],
+        "creator": "",
+        "frequency": "9",
+        "link": "",
+        "more": "",
+        "name": "Bebyggelse : Bostadshus",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Churches"
+        ],
+        "creator": "",
+        "frequency": "7",
+        "link": "",
+        "more": "",
+        "name": "Bebyggelse : Kyrka",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Boats"
+        ],
+        "creator": "",
+        "frequency": "5",
+        "link": "",
+        "more": "",
+        "name": "Båt",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Ports and harbours"
+        ],
+        "creator": "",
+        "frequency": "3",
+        "link": "",
+        "more": "",
+        "name": "Hamn",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Workshops"
+        ],
+        "creator": "",
+        "frequency": "2",
+        "link": "",
+        "more": "",
+        "name": "Verkstad",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Pedestrian transport"
+        ],
+        "creator": "",
+        "frequency": "2",
+        "link": "",
+        "more": "",
+        "name": "Fotgängare",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Lighting"
+        ],
+        "creator": "",
+        "frequency": "2",
+        "link": "",
+        "more": "",
+        "name": "Belysning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Water supply"
+        ],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Vattenförsörjning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Water"
+        ],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Vatten",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Gardens"
+        ],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Trädgård",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Sociala frågor",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Parks in Sweden"
+        ],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Park",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Women"
+        ],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Kvinna",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Girls"
+        ],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Flicka",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Fishing"
+        ],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Fiske",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Exteriör",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Mansions"
+        ],
+        "creator": "",
+        "frequency": "1",
+        "link": "",
+        "more": "",
+        "name": "Bebyggelse : Herrgård",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Spring"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Årstider : Vår",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Summer"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Årstider : Sommar",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Midsummer"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Årets högtider : Midsommar",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Saint Lucy's Day"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Årets högtider : Lucia",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Christmas"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Årets högtider : Jul",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "1st of May in Sweden"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Årets högtider : Första maj",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Lent"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Årets högtider : Fasta",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Old people"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Ålderdom",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Plants"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Växter",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Roads"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Väg",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Snowfall"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Väder : Snöfall",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Rest"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Vila",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Weapons"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Vapen",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Exhibitions"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Utställning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Flirting"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Uppvaktning/Romantik",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Uniforms"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Uniform",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Youth"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Ungdom",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "education"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Undervisning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Laundry"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tvätt",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Tourism"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Turism",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "prints"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Trycksak",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Belief"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tro",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Transport"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Transport",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Traffic"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Trafik",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Traditions"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tradition",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Urban squares"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Torg",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Servants"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tjänstefolk",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "1970s"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1970-tal",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "1960s"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1960-tal",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "1940s"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1940-tal",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "1910s"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1910-tal",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "1850s"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1800-talets mitt",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "19th century"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1800-talets andra hälft",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "19th century"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1800-tal",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "18th century"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1700-talets andra hälft",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "17th century"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidsanda : 1600-tal",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Timekeeping"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Tidmätning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Textiles"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Textil",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Mechanics"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Teknik : Finmekanik",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Theatre"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Teater",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Sweet food"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Sötsaker",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Punishments"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Straff",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Art Nouveau"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Stil : Jugend",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Baroque art"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Stil : Barock",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Infants"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Spädbarn",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "games"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Spel",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Grief"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Sorg",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Jewellery"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Smycken",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Crafts"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Slöjd",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Kinship"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Släkt",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Beauty"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Skönhetsvård",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Archipelagoes of Sweden"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Skärgård",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Schools"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Skola",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Forests"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Skog",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Water transport"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Sjöfart",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Health care"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Sjukvård",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Sexuality"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Sexualitet",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Serving food"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Servering",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "holidays"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Semester",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Stages <!-- ?? -->"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Scen",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Law of Sweden"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Rättsväsen",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Technical drawings"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Ritning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Restaurants"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Restaurangverksamhet",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Travel"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Resa",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Religion"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Religion",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Advertisements"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Reklam",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "tools"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Redskap/Verktyg",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Audiences"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Publik",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Post"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Postväsen",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Politics"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Politik",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Police"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Polis",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Boys"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Pojke",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Secret societies"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Ordensväsen",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Accidents"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Olycka",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Entertainment"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Nöjen",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Nature"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Natur",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Furniture"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Möbler",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Meals"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Måltid",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Government agencies"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Myndigheter",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Musical instruments"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Musikinstrument",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Music"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Musik",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "museums"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Museiverksamhet",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Still life"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Motivkategori : Stilleben",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Cityscapes"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Motivkategori : Stadsbild",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Portraits"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Motivkategori : Porträtt",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Landscapes"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Motivkategori : Landskap",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Interiors"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Motivkategori : Interiör",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Objects"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Motivkategori : Föremål",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Figures"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Motivkategori : Figur",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Fashion"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Mode",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Sami people"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Minoriteter : Samer",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Military"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Militärväsen",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Migration"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Migration",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Cooking"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Matlagning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Food"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Mat",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Men"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Man",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Food"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Livsmedel",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "University and college graduations"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Livets högtider : Studentexamen",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Confirmation"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Livets högtider : Konfirmation",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Marriage"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Livets högtider : Bröllop/Vigsel",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Toys"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Leksak",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Play"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Lek",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Rural landscapes"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Landsbygd",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Celebrities"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Känd person",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Royalty"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kunglighet",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Crime"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kriminalitet",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Offices"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kontor",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Artists"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Konstnär",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Sculptures"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Konst : Skulptur",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Painting"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Konst : Måleri",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Prints"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Konst : Grafik",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Art"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Konst",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Communication"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kommunikation",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Allotments"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Koloniträdgård",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Clothing"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Ytterkläder",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Shoes"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Skor",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Nightclothes"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Nattkläder",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Headgear"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Huvudbonad",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Male clothing"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Herrkläder",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "National costumes"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Folkdräkt",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Female clothing"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Damkläder",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Children's clothing"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Barnkläder",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Accessories"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder : Accessoarer och tillbehör",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Clothing"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Kläder",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Maps"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Karta",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Railroads"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Järnväg",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Agricultural labour"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Jordbruksarbete",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Agriculture"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Jordbruk",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Hunting"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Jakt/Fångst",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "living rooms"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Interiör : Vardagsrum",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Bedrooms"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Interiör : Sovrum",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Salons"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Interiör : Salong",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Dining rooms"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Interiör : Matsal",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Kitchens"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Interiör : Kök",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Studies"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Interiör : Arbetsrum",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Interiors"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Interiör",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Interior decoration"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Inredning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Industries"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Industri",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Sports"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Idrott/Sport",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Volunteering"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Ideellt arbete",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Hair"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Hår",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Hygiene"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Hygien",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Housekeeping"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Hushållsarbete",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Kitchen utensils"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Husgeråd",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Dairy farming"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Husdjursskötsel : Mjölkhushållning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Domesticated animals",
+            "Animal care"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Husdjursskötsel",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Humour in art"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Humor",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Hotels"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Hotellverksamhet",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Crafts"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Hantverk",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Commerce"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Handel",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Arts and crafts"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Handarbete",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Pregnancy"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Graviditet",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Storage"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Förvaring",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Writers"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Författare",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Voluntary associations"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Föreningsliv",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Prisons"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fängelse",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Disabilities"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Funktionshinder/Funktionsnedsättning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Hobbies"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fritidssysselsättning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Outdoor recreation"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Friluftsliv",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Research"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Forskning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Cultural heritage monuments"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fornminne",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Motor vehicles"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fordon : Motorfordon",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Bicycles"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fordon : Cykel",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Automobiles"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fordon : Bilism",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Vehicles"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fordon",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Crowds"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Folksamling",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Alternative medicine"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Folkmedicin",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Flying"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Flygning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Mountains of Sweden"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fjällvärld",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Parties"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fest",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Ships"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Fartyg",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Family"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Familj",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Beverages"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Dryck",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Wild animals"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Djur : Vilda djur",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Pets"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Djur : Sällskapsdjur",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Domesticated animals"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Djur : Husdjur",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Animals"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Djur",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Demonstrations"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Demonstration",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Dance"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Dans",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Architectural elements"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Byggnadsdetalj",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Buildings"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Byggnad",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Towns"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Brukssamhälle",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Design of books"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Bokkonst/Bokhantverk",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Cemeteries"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Begravningsplats",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Castles"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Bebyggelse : Slott",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Mills"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Bebyggelse : Kvarn",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Children"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Barn",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Baking"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Bakning",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "resorts"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Badort",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Baths"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Bad",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Ateliers"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Ateljé",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Architecture"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Arkitektur",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Workers"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Arbetstagare",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Workplace"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Arbetsplats",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Work"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Arbete",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Advertising"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Annonsering",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Civil engineering"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Anläggningsarbete",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    },
+    {
+        "category": [
+            "Alcohol"
+        ],
+        "creator": "",
+        "frequency": "0",
+        "link": "",
+        "more": "",
+        "name": "Alkohol",
+        "other": "",
+        "technique": [],
+        "wikidata": ""
+    }
+]
