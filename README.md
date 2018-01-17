@@ -28,7 +28,7 @@ On Wikimedia Commons this is limited to users with one of the `image-reviewer`,
 
 The `settings.json` file should contain the following settings:
 
-* **api_key**: your Digitalt museum API key (as provided by [KulturIT](mailto:support@kulturit.no))
+* **api_key**: your [Digitalt museum API key](https://dok.digitaltmuseum.org/sv/api) (as provided by [KulturIT](mailto:support@kulturit.no)).
 * **glam_code**: institution code in Digitalt Museum. [List of institution codes for Swedish museums](http://api.dimu.org/api/owners?country=se&api.key=demo)
 * **log_file**: path to desired log file
 * **output_file**: path to desired output file (default: false)
