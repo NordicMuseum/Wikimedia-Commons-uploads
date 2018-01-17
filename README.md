@@ -1,6 +1,15 @@
-## About this repository
+## About This Repository
 This repository contains the python3 scripts used by the Nordic Museum to upload images
 to Wikimedia Commons. It is based on [lokal-profil/upload-batches](https://github.com/lokal-profil/upload-batches).
+
+This is a work in progress during the fall of 2017 and winter of 2018. For more details, contact
+[Aron Ambrosiani](https://github.com/Ambrosiani).
+
+### Additional Reading:
+* [blog post (in Swedish)](http://nyamedier.blogg.nordiskamuseet.se/2017/12/att-flytta-bilder-fran-digitalt-museum-till-wikimedia-commons/) about how to copy images from Digitalt museum to Wikimedia Commons using this repository
+* [Documentation of the Digitalt Museum API](https://github.com/NordicMuseum/DiMu-API-documentation)
+
+## Requirements
 
 To run it you will have to install [`BatchUploadTools`](https://github.com/lokal-profil/BatchUploadTools)
 and [`pywikibot`](https://github.com/wikimedia/pywikibot-core) using:
@@ -9,14 +18,7 @@ and [`pywikibot`](https://github.com/wikimedia/pywikibot-core) using:
 *Note*: You might have to add the `--process-dependency-links` flag to the above
 command if you are running a different version of pywikibot from the required one.
 
-This is a work in progress during the fall of 2017. For more details, contact
-[Aron Ambrosiani](https://github.com/Ambrosiani).
-
-**Additional reading:** 
-* [blog post (in Swedish)](http://nyamedier.blogg.nordiskamuseet.se/2017/12/att-flytta-bilder-fran-digitalt-museum-till-wikimedia-commons/) about how to copy images from Digitalt museum to Wikimedia Commons using this repository
-* [Documentation of the Digitalt Museum API](https://github.com/NordicMuseum/DiMu-API-documentation)
-
-## User account
+## User Account
 
 The script must be run from an account which has the `upload_by_url` user right.
 On Wikimedia Commons this is limited to users with one of the `image-reviewer`,
