@@ -106,11 +106,12 @@ class DiMuHarvester(object):
 
         return data.get('response')
 
-    def load_collection(self, idno):
+    def load_collection(self, idno, strict=False):
         """
         Process the collection/folder with the given id.
 
         :param idno: either the uuid or uniqueId for the folder
+        :param strict: if True then crash on unrecognized entries
         """
         self.folder_uuid = self.load_collection_object(idno)
 
@@ -140,6 +141,8 @@ class DiMuHarvester(object):
                         continue
                     self.process_single_object(item.get('artifact.uuid'))
                 else:
+                    if not strict:
+                        continue
                     raise pywikibot.Error(
                         'Unexpected aritfact type: {}'.format(item_type))
             if not stop:
@@ -396,11 +399,11 @@ class DiMuHarvester(object):
                     '{0}: Found an unexpected alternative identifiers type '
                     '("{1}"), unsure how to deal with this.'.format(
                         self.active_uuid, alt_id_data[0].get('type')))
+            else:
+                return alt_id_data[0].get('identifier')
 
         if problem:
             self.verbose_output(problem)
-        else:
-            return alt_id_data[0].get('identifier')
 
     def parse_license_info(self, license_data):
         """Parse data about licensing."""
@@ -443,11 +446,11 @@ class DiMuHarvester(object):
         """
         mapped_roles = {
             "21": 'depicted_place',
-            "25": 'view_over'
+            "25": 'view_over',
+            "10": False  # Fotograf, ort
         }
-        mapped_value = mapped_roles.get(role.get('code'))
-        if mapped_value:
-            return mapped_value
+        if role.get('code') in mapped_roles:
+            return mapped_roles.get(role.get('code'))
         else:
             self.verbose_output(
                 'The place role "{0}" ("{1}") is unmapped'.format(
@@ -459,13 +462,16 @@ class DiMuHarvester(object):
 
         These are mapped to Commons values at a later stage.
         """
-        #map to false to tell the calling function to discard that entry
+        # map to false to tell the calling function to discard that entry
         mapped_roles = {
-            "11K": 'creator',  # artist
+            '11K': 'creator',  # artist
+            '10': 'creator',  # Fotograf
+            '21': 'depicted',  # Avbildad - namn
+            '17': False,  # beställare
+            '74': False  # Historisk händelse, namn med anknytning till föremålet  # noqa
         }
-        mapped_value = mapped_roles.get(role.get('code'))
-        if mapped_value:
-            return mapped_value
+        if role.get('code') in mapped_roles:
+            return mapped_roles.get(role.get('code'))
         else:
             self.verbose_output(
                 'The person role "{0}" ("{1}") is unmapped'.format(
@@ -552,12 +558,13 @@ class DiMuHarvester(object):
         for place in event_data.get('relatedPlaces'):
             data['related_places'].append(self.parse_place(place))
 
-        from_year = event_data.get('timespan').get('fromYear')
-        to_year = event_data.get('timespan').get('toYear')
-        if from_year == to_year:
-            data['date'] = from_year
-        else:
-            data['date'] = (from_year, to_year)
+        if event_data.get('timespan'):
+            from_year = event_data.get('timespan').get('fromYear')
+            to_year = event_data.get('timespan').get('toYear')
+            if from_year == to_year:
+                data['date'] = from_year
+            else:
+                data['date'] = (from_year, to_year)
 
         return data
 
