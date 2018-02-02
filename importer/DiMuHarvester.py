@@ -106,12 +106,11 @@ class DiMuHarvester(object):
 
         return data.get('response')
 
-    def load_collection(self, idno, strict=False):
+    def load_collection(self, idno):
         """
         Process the collection/folder with the given id.
 
         :param idno: either the uuid or uniqueId for the folder
-        :param strict: if True then crash on unrecognized entries
         """
         self.folder_uuid = self.load_collection_object(idno)
 
@@ -141,10 +140,10 @@ class DiMuHarvester(object):
                         continue
                     self.process_single_object(item.get('artifact.uuid'))
                 else:
-                    if not strict:
-                        continue
-                    raise pywikibot.Error(
-                        'Unexpected aritfact type: {}'.format(item_type))
+                    pywikibot.warning(
+                        '{uuid}: The artifact type {typ} is not yet supported.'
+                        ' Skipping!'.format(
+                            uuid=item.get('artifact.uuid'), typ=item_type))
             if not stop:
                 start += num_hits
                 search_data = self.get_search_record_from_url(
@@ -250,21 +249,21 @@ class DiMuHarvester(object):
         self.parse_tags(data, raw_data.get('tags'))
 
         # not implemented yet
-        data['title'] = self.not_implemented_yet_waring(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
-        data['coordinate'] = self.not_implemented_yet_waring(
+        data['title'] = self.not_implemented_yet_warning(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
+        data['coordinate'] = self.not_implemented_yet_warning(
             raw_data, 'coordinates')
-        data['inscriptions'] = self.not_implemented_yet_waring(
+        data['inscriptions'] = self.not_implemented_yet_warning(
             raw_data, 'inscriptions')
-        data['subjects_2'] = self.not_implemented_yet_waring(  # subjects also exist within motif  # noqa
+        data['subjects_2'] = self.not_implemented_yet_warning(  # subjects also exist within motif  # noqa
             raw_data, 'subjects')
-        data['names'] = self.not_implemented_yet_waring(raw_data, 'names')
-        data['measures'] = self.not_implemented_yet_waring(
+        data['names'] = self.not_implemented_yet_warning(raw_data, 'names')
+        data['measures'] = self.not_implemented_yet_warning(
             raw_data, 'measures')
-        data['classification'] = self.not_implemented_yet_waring(
+        data['classification'] = self.not_implemented_yet_warning(
             raw_data, 'classifications')
-        data['technique'] = self.not_implemented_yet_waring(
+        data['technique'] = self.not_implemented_yet_warning(
             raw_data, 'technique')
-        data['material'] = self.not_implemented_yet_waring(
+        data['material'] = self.not_implemented_yet_warning(
             raw_data, 'material')
 
         return data
@@ -609,7 +608,7 @@ class DiMuHarvester(object):
         for uuid in uuid_list:
             self.process_single_object(uuid)
 
-    def not_implemented_yet_waring(self, raw_data, method):
+    def not_implemented_yet_warning(self, raw_data, method):
         """Raise a pywikibot warning that a method has not been implemented."""
         if raw_data.get(method):
             pywikibot.warning(
