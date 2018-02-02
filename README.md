@@ -3,7 +3,7 @@ This repository contains the python3 scripts used by the Nordic Museum to upload
 to Wikimedia Commons. It is based on [lokal-profil/upload_batches](https://github.com/lokal-profil/upload_batches).
 
 This is a work in progress during the fall of 2017 and winter of 2018. For more details, contact
-[Aron Ambrosiani](https://github.com/Ambrosiani). The remaining work is listed as [Issues](issues). Most importantly, artifacts of the type "Thing" are not included in the upload to Wikimedia Commons as they have a separate metadata structure than photographs.
+[Aron Ambrosiani](https://github.com/Ambrosiani). The remaining work is listed as [Issues](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/issues). Most importantly, artifacts of the type "Thing" are not included in the upload to Wikimedia Commons as they have a separate metadata structure than photographs.
 
 ### Additional Reading:
 * [blog post (in Swedish)](http://nyamedier.blogg.nordiskamuseet.se/2017/12/att-flytta-bilder-fran-digitalt-museum-till-wikimedia-commons/) about how to copy images from Digitalt museum to Wikimedia Commons using this repository
