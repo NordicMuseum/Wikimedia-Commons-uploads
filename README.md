@@ -47,7 +47,7 @@ The `settings.json` file should contain the following settings:
 4. Run `python importer/DiMuHarvester.py` to scrape info from the DiMu API. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/dimu_harvest_data.json)
 5. Run `python importer/DiMuMappingUpdater.py` to generate mapping files for Wikimedia Commons
 
-### 
+### Upload mappings to Wikimedia Commons
 6. Upload the generated mappings files in the `/connections` folder to Wikimedia Commons. Example: location of the [Nordic Museum mappings](https://commons.wikimedia.org/wiki/Special:PrefixIndex/Commons:Nordiska_museet/)
 
 ### After uploading the mappings to Wikimedia Commons, the following commands are run from the root folder of your installation:
