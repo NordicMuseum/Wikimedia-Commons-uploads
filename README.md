@@ -1,9 +1,9 @@
 ## About This Repository
 This repository contains the python3 scripts used by the Nordic Museum to upload images
-to Wikimedia Commons. It is based on [lokal-profil/upload-batches](https://github.com/lokal-profil/upload-batches).
+to Wikimedia Commons. It is based on [lokal-profil/upload_batches](https://github.com/lokal-profil/upload_batches).
 
 This is a work in progress during the fall of 2017 and winter of 2018. For more details, contact
-[Aron Ambrosiani](https://github.com/Ambrosiani).
+[Aron Ambrosiani](https://github.com/Ambrosiani). The remaining work is listed as [Issues](issues). Most importantly, artifacts of the type "Thing" are not included in the upload to Wikimedia Commons as they have a separate metadata structure than photographs.
 
 ### Additional Reading:
 * [blog post (in Swedish)](http://nyamedier.blogg.nordiskamuseet.se/2017/12/att-flytta-bilder-fran-digitalt-museum-till-wikimedia-commons/) about how to copy images from Digitalt museum to Wikimedia Commons using this repository
@@ -46,5 +46,10 @@ The `settings.json` file should contain the following settings:
 ### The following commands are run from the root folder of your installation:
 4. Run `python importer/DiMuHarvester.py` to scrape info from the DiMu API. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/dimu_harvest_data.json)
 5. Run `python importer/DiMuMappingUpdater.py` to generate mapping files for Wikimedia Commons
-6. Run `python importer/make_NordicMuseum_info.py -in_file:dimu_harvest_data.json -base_name:nm_output -update_mappings:True` to prepare the batch file. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/nm_output.json)
-7. Run `python importer/uploader.py -in_path:nm_output.json -type:URL` to perform the actual batch upload. `-cutoff:X` limits the number of files uploaded to `X` (this will override settings)
+
+### 
+6. Upload the generated mappings files in the `/connections` folder to Wikimedia Commons. Example: location of the [Nordic Museum mappings](https://commons.wikimedia.org/wiki/Special:PrefixIndex/Commons:Nordiska_museet/)
+
+### After uploading the mappings to Wikimedia Commons, the following commands are run from the root folder of your installation:
+7. Run `python importer/make_NordicMuseum_info.py -in_file:dimu_harvest_data.json -base_name:nm_output -update_mappings:True` to prepare the batch file. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/nm_output.json)
+8. Run `python importer/uploader.py -in_path:nm_output.json -type:URL` to perform the actual batch upload. `-cutoff:X` limits the number of files uploaded to `X` (this will override settings)
