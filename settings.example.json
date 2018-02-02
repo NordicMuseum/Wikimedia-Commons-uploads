@@ -2,7 +2,7 @@
     "api_key": "YOUR API KEY",
     "glam_code": "institution code in DiMu",
     "log_file": "path to desired log file",
-    "output_file": "path to desired output file",
+    "harvest_file": "path to desired output file",
     "verbose": "bool on whether verbose output is desired",
     "cutoff": "int stating how many results to process, remove to process all",
     "folder_id": "unique id or uuid for the DiMu starting folder"

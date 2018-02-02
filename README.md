@@ -44,12 +44,12 @@ The `settings.json` file should contain the following settings:
 3. Create user-password.py with the bot username & password. [Generate a bot password](https://commons.wikimedia.org/wiki/Special:BotPasswords).
 
 ### The following commands are run from the root folder of your installation:
-4. Run `python importer/DiMuHarvester.py` to scrape info from the DiMu API. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/dimu_harvest_data.json)
-5. Run `python importer/DiMuMappingUpdater.py` to generate mapping files for Wikimedia Commons
+4. Run `python importer/DiMuHarvester.py` to scrape info from the DiMu API and generate a "harvest file". [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/dimu_harvest_data.json)
+5. Run `python importer/DiMuMappingUpdater.py` to pull the harvest file and generate mapping files for Wikimedia Commons
 
 ### Upload mappings to Wikimedia Commons
 6. Upload the generated mappings files in the `/connections` folder to Wikimedia Commons. Example: location of the [Nordic Museum mappings](https://commons.wikimedia.org/wiki/Special:PrefixIndex/Commons:Nordiska_museet/)
 
 ### After uploading the mappings to Wikimedia Commons, the following commands are run from the root folder of your installation:
-7. Run `python importer/make_NordicMuseum_info.py -in_file:dimu_harvest_data.json -base_name:nm_output -update_mappings:True` to prepare the batch file. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/nm_output.json)
+7. Run `python importer/make_NordicMuseum_info.py -harvest_file:dimu_harvest_data.json -base_name:nm_output -update_mappings:True` to pull the harvest file and mappings and prepare the batch file. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/nm_output.json)
 8. Run `python importer/uploader.py -in_path:nm_output.json -type:URL` to perform the actual batch upload. `-cutoff:X` limits the number of files uploaded to `X` (this will override settings)

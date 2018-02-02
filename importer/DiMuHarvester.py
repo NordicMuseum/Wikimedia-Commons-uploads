@@ -17,14 +17,14 @@ import batchupload.helpers as helpers
 
 SETTINGS = "settings.json"
 LOGFILE = 'dimu_harvest.log'
-OUTPUT_FILE = 'dimu_harvest_data.json'
+HARVEST_FILE = 'dimu_harvest_data.json'
 
 DEFAULT_OPTIONS = {
     'settings_file': SETTINGS,
     'api_key': 'demo',
     'glam_code': None,
     'log_file': LOGFILE,
-    'output_file': OUTPUT_FILE,
+    'harvest_file': HARVEST_FILE,
     'verbose': False,
     'cutoff': None,
     'folder_id': None
@@ -36,7 +36,7 @@ Basic DiMuHarvester options (can also be supplied via the settings file):
 -glam_code:STR      DiMu code for the institution, e.g. "S-NM" \
 (DEF: {glam_code})
 -log_file:PATH      path to log file (DEF: {log_file})
--output_file:PATH   path to output file (DEF: {output_file})
+-harvest_file:PATH   path to harvest file (DEF: {harvest_file})
 -verbose:BOOL       if verbose output is desired (DEF: {verbose})
 -cutoff:INT         if run should be terminated after these many hits. \
 All are processed if not present (DEF: {cutoff})
@@ -63,7 +63,7 @@ class DiMuHarvester(object):
 
     def save_data(self, filename=None):
         """Dump data as json blob."""
-        filename = filename or self.settings.get('output_file')
+        filename = filename or self.settings.get('harvest_file')
         common.open_and_write_file(filename, self.data, as_json=True)
         pywikibot.output('{0} created'.format(filename))
 
@@ -638,7 +638,7 @@ def handle_args(args, usage):
     :param args: arguments to be handled
     :return: dict of options
     """
-    expected_args = ('api_key', 'glam_code', 'log_file', 'output_file',
+    expected_args = ('api_key', 'glam_code', 'log_file', 'harvest_file',
                      'settings_file', 'verbose', 'cutoff', 'collection_id')
     options = {}
 
@@ -663,6 +663,8 @@ def load_settings(args):
 
     Any command line values takes precedence over setting file values.
     If neither is present then defaults are used.
+
+    Command line > Settings file > default_options
     """
     default_options = DEFAULT_OPTIONS.copy()
 
