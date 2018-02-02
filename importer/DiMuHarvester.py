@@ -141,9 +141,9 @@ class DiMuHarvester(object):
                     self.process_single_object(item.get('artifact.uuid'))
                 else:
                     pywikibot.warning(
-                        '{uuid}: The artifact type {typ} is not yet supported.'
+                        '{uuid}: The artifact type {type} is not yet supported.'
                         ' Skipping!'.format(
-                            uuid=item.get('artifact.uuid'), typ=item_type))
+                            uuid=item.get('artifact.uuid'), type=item_type))
             if not stop:
                 start += num_hits
                 search_data = self.get_search_record_from_url(
