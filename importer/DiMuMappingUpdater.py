@@ -14,6 +14,25 @@ SETTINGS = "settings.json"
 MAPPINGS_DIR = 'mappings'
 HARVEST_FILE = 'dimu_harvest_data.json'
 
+DEFAULT_OPTIONS = {
+    'harvest_file': 'dimu_harvest_data.json',
+    'mapping_log_file': 'nm_mappings.log',
+    'mappings_dir': 'mappings',
+    'wiki_mapping_root': 'Commons:Nordiska_museet/mapping',
+    'default_intro_text': (
+        '{} mapping table for [[Commons:Nordiska museet]]\n'),
+    'intro_texts': {
+        'keyword': (
+            'Keyword mapping table for [[Commons:Nordiska museet]]. '
+            'Originally populated from '
+            '[[Commons:Batch uploading/Nordiska Museet/keywords]].\n'),
+        'people': (
+            'People mapping table for [[Commons:Nordiska museet]]. '
+            'Originally populated from '
+            '[[Commons:Batch uploading/Nordiska Museet/creators]].\n')
+    }
+}
+
 
 class DiMuMappingUpdater(object):
     """Update mappings based on data extracted from a DiMu harvester."""
@@ -428,27 +447,35 @@ def query_to_lookup(query, item_label='item', value_label='value',
 # @todo: make this load settings appropriately (cf. harvester)
 def main():
     """Initialise and run the mapping updater."""
-    options = {
-        'harvest_file': 'nm_data.json',
-        'mapping_log_file': 'nm_mappings.log',
-        'mappings_dir': 'mappings',
-        'wiki_mapping_root': 'Commons:Nordiska_museet/mapping',
-        'default_intro_text': (
-            '{} mapping table for [[Commons:Nordiska museet]]\n'),
-        'intro_texts': {
-            'keyword': (
-                'Keyword mapping table for [[Commons:Nordiska museet]]. '
-                'Originally populated from '
-                '[[Commons:Batch uploading/Nordiska Museet/keywords]].\n'),
-            'people': (
-                'People mapping table for [[Commons:Nordiska museet]]. '
-                'Originally populated from '
-                '[[Commons:Batch uploading/Nordiska Museet/creators]].\n')
-        }
-    }
+    options = load_settings(args)
     updater = DiMuMappingUpdater(options)
     updater.log.write_w_timestamp('...Updater finished\n')
     pywikibot.output(updater.log.close_and_confirm())
+
+def load_settings(args):
+    """
+    Load settings from file, command line or defaults.
+
+    Any command line values takes precedence over setting file values.
+    If neither is present then defaults are used.
+
+    Command line > Settings file > default_options
+    """
+    default_options = DEFAULT_OPTIONS.copy()
+
+    options = handle_args(args, PARAMETER_HELP.format(**default_options))
+
+    # settings_file must be handled first
+    options['settings_file'] = (options.get('settings_file') or
+                                default_options.pop('settings_file'))
+
+    # combine all loaded settings
+    settings_options = common.open_and_read_file(
+        options.get('settings_file'), as_json=True)
+    for key, val in default_options.items():
+        options[key] = options.get(key) or settings_options.get(key) or val
+
+    return options
 
 
 if __name__ == '__main__':
