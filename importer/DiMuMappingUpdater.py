@@ -15,6 +15,7 @@ MAPPINGS_DIR = 'mappings'
 HARVEST_FILE = 'dimu_harvest_data.json'
 
 DEFAULT_OPTIONS = {
+    'settings_file': 'settings.json',
     'harvest_file': 'dimu_harvest_data.json',
     'mapping_log_file': 'nm_mappings.log',
     'mappings_dir': 'mappings',
@@ -32,6 +33,15 @@ DEFAULT_OPTIONS = {
             '[[Commons:Batch uploading/Nordiska Museet/creators]].\n')
     }
 }
+PARAMETER_HELP = u"""\
+Basic DiMuHarvester options (can also be supplied via the settings file):
+-settings_file:PATH path to settings file (DEF: {settings_file})
+-harvest_file:PATH path to harvest file (DEF: {harvest_file})
+-mapping_log_file:PATH path to mappings log file (DEF: {mapping_log_file})
+-mappings_dir:PATH path to mappings dir (DEF: {mappings_dir})
+-wiki_mapping_root:PATH path to wiki mapping root (DEF: {wiki_mapping_root})
+"""
+docuReplacements = {'&params;': PARAMETER_HELP.format(**DEFAULT_OPTIONS)}
 
 
 class DiMuMappingUpdater(object):
@@ -445,12 +455,34 @@ def query_to_lookup(query, item_label='item', value_label='value',
 
 
 # @todo: make this load settings appropriately (cf. harvester)
-def main():
+def main(*args):
     """Initialise and run the mapping updater."""
     options = load_settings(args)
     updater = DiMuMappingUpdater(options)
     updater.log.write_w_timestamp('...Updater finished\n')
     pywikibot.output(updater.log.close_and_confirm())
+
+def handle_args(args, usage):
+    """
+    Parse and load all of the basic arguments.
+
+    Also sets any defaults.
+
+    :param args: arguments to be handled
+    :return: dict of options
+    """
+    expected_args = ('mapping_log_file', 'harvest_file',
+                     'settings_file', 'mappings_dir', 'wiki_mapping_root')
+    options = {}
+
+    for arg in pywikibot.handle_args(args):
+        option, sep, value = arg.partition(':')
+        if option.startswith('-') and option[1:] in expected_args:
+            options[option[1:]] = common.convert_from_commandline(value)
+        else:
+            exit()
+
+    return options
 
 def load_settings(args):
     """
