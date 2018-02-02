@@ -109,7 +109,10 @@ class DiMuMappingUpdater(object):
             data = v.get('data')
             entry = {}
             entry['name'] = data.get('name')
-            entry['more'] = 'Roles: {}'.format('/'.join(data.get('roles')))
+            entry['more'] = ''
+            roles = list(filter(None, data.get('roles')))
+            if roles:
+                entry['more'] = 'Roles: {}'.format('/'.join(roles))
             if data.get('k_nav'):
                 knav_id = data.get('k_nav')
                 if knav_id in self.kulturnav_hits:
@@ -128,17 +131,20 @@ class DiMuMappingUpdater(object):
         """Go through the harvest data breaking out data needing mapping."""
         for key, image in harvest_data.items():
             self.subjects_to_map.update(image.get('subjects'))
+            self.subjects_to_map.update(image.get('tags'))
 
             if image.get('default_copyright'):
-                for person in image.get('default_copyright').get('persons'):
-                    self.parse_person(person)
+                if image.get('default_copyright').get('persons'):
+                    for person in image.get('default_copyright').get('persons'):
+                        self.parse_person(person)
             if image.get('copyright'):
                 for person in image.get('copyright').get('persons'):
                     self.parse_person(person)
 
             self.parse_place(image.get('depicted_place'))
-            for place in image.get('description_place').values():
-                self.parse_place(place)
+            if image.get('description_place'):
+                for place in image.get('description_place').values():
+                    self.parse_place(place)
             if image.get('creation'):
                 for place in image.get('creation').get('related_places'):
                     self.parse_place(place)
@@ -154,6 +160,8 @@ class DiMuMappingUpdater(object):
     #        Risk of mismatches?
     def parse_place(self, place_data):
         """Gather and combine place data."""
+        if not place_data:
+            return
         del place_data['role']
         place_data.update(place_data.pop('other'))
         for typ, value in place_data.items():

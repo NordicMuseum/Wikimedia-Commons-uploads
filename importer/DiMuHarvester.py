@@ -246,11 +246,13 @@ class DiMuHarvester(object):
         # event_wrapper contains info about both creator and creation date
         self.parse_event_wrap(data, raw_data.get('eventWrap'))
 
+        # tags are user entered (but approved) keywords
+        self.parse_tags(data, raw_data.get('tags'))
+
         # not implemented yet
         data['title'] = self.not_implemented_yet_waring(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
         data['coordinate'] = self.not_implemented_yet_waring(
             raw_data, 'coordinates')
-        data['tags'] = self.not_implemented_yet_waring(raw_data, 'tags')
         data['inscriptions'] = self.not_implemented_yet_waring(
             raw_data, 'inscriptions')
         data['subjects_2'] = self.not_implemented_yet_waring(  # subjects also exist within motif  # noqa
@@ -266,6 +268,19 @@ class DiMuHarvester(object):
             raw_data, 'material')
 
         return data
+
+    def parse_tags(self, data, raw_tags):
+        """
+        Parse data on user entered tags.
+
+        :param data: the object in which to store the parsed components
+        :param tags: list of tag.objects
+        """
+        if raw_tags:
+            tags = set()
+            for tag in raw_tags:
+                tags.add(tag['name'])
+            data['tags'] = list(tags)
 
     def parse_motif(self, data, motif_data):
         """
