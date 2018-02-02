@@ -375,7 +375,7 @@ class NMItem(object):
                 return idno
 
         # without a glam_id we have to abort
-        raise common.MyError('Could not find an id for this GLAM in the data!')
+        raise common.MyError('Could not find an id for this GLAM in the data')
 
     def get_title_description(self):
         """Construct an appropriate description for a filename."""
@@ -693,14 +693,14 @@ class NMItem(object):
             elif death_year and not self.is_photo:
                 raise common.MyError(
                     'The creator death year is not late enough for PD and '
-                    'this does not seeme to be a photo')
+                    'this does not seem to be a photo')
             elif self.is_photo:
                 return '{{PD-Sweden-photo}}'
             else:
                 return '{{PD-old-70}}'
         else:
             raise common.MyError(
-                'A non-supported license was encountered!: {}'.format(
+                'A non-supported license was encountered: {}'.format(
                     copyright.get('code')))
 
     def get_creation_date(self):

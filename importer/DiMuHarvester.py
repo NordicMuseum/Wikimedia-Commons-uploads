@@ -99,7 +99,7 @@ class DiMuHarvester(object):
                 e.response.url, e)
             if e.response.status_code == 404:
                 # a 404 is returned if the api key is incorrect
-                error_message = 'Api-key not accepted by DiMu API!'
+                error_message = 'Api key not accepted by DiMu API'
 
             self.log.write(error_message)
             raise pywikibot.Error(error_message)
