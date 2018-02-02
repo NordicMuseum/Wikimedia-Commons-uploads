@@ -391,6 +391,10 @@ class NMItem(object):
             original_desc += '\n<br />{label}: {words}'.format(
                 label=helpers.bolden('Ämnesord'),
                 words='; '.join(self.subjects))
+        if self.tags:
+            original_desc += '\n<br />{label}: {words}'.format(
+                label=helpers.bolden('Nyckelord'),
+                words='; '.join(self.subjects))
 
         role_dict = {
             'depicted_place': 'Avbildad plats',
@@ -609,11 +613,15 @@ class NMItem(object):
 
         :param cache: cache for category existence
         """
-        if self.subjects_2 or self.tags:
-            raise NotImplementedError
+        all_keywords = set()
+        all_keywords.update(self.subjects)
+        if self.tags:
+            all_keywords.update(self.tags)
+        if self.subjects_2:
+            all_keywords.update(self.subjects_2)
         keyword_map = self.nm_info.mappings['keywords']
 
-        for keyword in self.subjects:
+        for keyword in all_keywords:
             if keyword not in keyword_map:
                 continue
             for cat in keyword_map[keyword]:

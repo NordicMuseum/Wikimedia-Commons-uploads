@@ -140,8 +140,10 @@ class DiMuHarvester(object):
                         continue
                     self.process_single_object(item.get('artifact.uuid'))
                 else:
-                    raise pywikibot.Error(
-                        'Unexpected aritfact type: {}'.format(item_type))
+                    pywikibot.warning(
+                        '{uuid}: The artifact type {typ} is not yet supported.'
+                        ' Skipping!'.format(
+                            uuid=item.get('artifact.uuid'), typ=item_type))
             if not stop:
                 start += num_hits
                 search_data = self.get_search_record_from_url(
@@ -243,26 +245,41 @@ class DiMuHarvester(object):
         # event_wrapper contains info about both creator and creation date
         self.parse_event_wrap(data, raw_data.get('eventWrap'))
 
+        # tags are user entered (but approved) keywords
+        self.parse_tags(data, raw_data.get('tags'))
+
         # not implemented yet
-        data['title'] = self.not_implemented_yet_waring(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
-        data['coordinate'] = self.not_implemented_yet_waring(
+        data['title'] = self.not_implemented_yet_warning(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
+        data['coordinate'] = self.not_implemented_yet_warning(
             raw_data, 'coordinates')
-        data['tags'] = self.not_implemented_yet_waring(raw_data, 'tags')
-        data['inscriptions'] = self.not_implemented_yet_waring(
+        data['inscriptions'] = self.not_implemented_yet_warning(
             raw_data, 'inscriptions')
-        data['subjects_2'] = self.not_implemented_yet_waring(  # subjects also exist within motif  # noqa
+        data['subjects_2'] = self.not_implemented_yet_warning(  # subjects also exist within motif  # noqa
             raw_data, 'subjects')
-        data['names'] = self.not_implemented_yet_waring(raw_data, 'names')
-        data['measures'] = self.not_implemented_yet_waring(
+        data['names'] = self.not_implemented_yet_warning(raw_data, 'names')
+        data['measures'] = self.not_implemented_yet_warning(
             raw_data, 'measures')
-        data['classification'] = self.not_implemented_yet_waring(
+        data['classification'] = self.not_implemented_yet_warning(
             raw_data, 'classifications')
-        data['technique'] = self.not_implemented_yet_waring(
+        data['technique'] = self.not_implemented_yet_warning(
             raw_data, 'technique')
-        data['material'] = self.not_implemented_yet_waring(
+        data['material'] = self.not_implemented_yet_warning(
             raw_data, 'material')
 
         return data
+
+    def parse_tags(self, data, raw_tags):
+        """
+        Parse data on user entered tags.
+
+        :param data: the object in which to store the parsed components
+        :param tags: list of tag.objects
+        """
+        if raw_tags:
+            tags = set()
+            for tag in raw_tags:
+                tags.add(tag['name'])
+            data['tags'] = list(tags)
 
     def parse_motif(self, data, motif_data):
         """
@@ -396,11 +413,11 @@ class DiMuHarvester(object):
                     '{0}: Found an unexpected alternative identifiers type '
                     '("{1}"), unsure how to deal with this.'.format(
                         self.active_uuid, alt_id_data[0].get('type')))
+            else:
+                return alt_id_data[0].get('identifier')
 
         if problem:
             self.verbose_output(problem)
-        else:
-            return alt_id_data[0].get('identifier')
 
     def parse_license_info(self, license_data):
         """Parse data about licensing."""
@@ -443,11 +460,11 @@ class DiMuHarvester(object):
         """
         mapped_roles = {
             "21": 'depicted_place',
-            "25": 'view_over'
+            "25": 'view_over',
+            "10": False  # Fotograf, ort
         }
-        mapped_value = mapped_roles.get(role.get('code'))
-        if mapped_value:
-            return mapped_value
+        if role.get('code') in mapped_roles:
+            return mapped_roles.get(role.get('code'))
         else:
             self.verbose_output(
                 'The place role "{0}" ("{1}") is unmapped'.format(
@@ -459,13 +476,16 @@ class DiMuHarvester(object):
 
         These are mapped to Commons values at a later stage.
         """
-        #map to false to tell the calling function to discard that entry
+        # map to false to tell the calling function to discard that entry
         mapped_roles = {
-            "11K": 'creator',  # artist
+            '11K': 'creator',  # artist
+            '10': 'creator',  # Fotograf
+            '21': 'depicted',  # Avbildad - namn
+            '17': False,  # beställare
+            '74': False  # Historisk händelse, namn med anknytning till föremålet  # noqa
         }
-        mapped_value = mapped_roles.get(role.get('code'))
-        if mapped_value:
-            return mapped_value
+        if role.get('code') in mapped_roles:
+            return mapped_roles.get(role.get('code'))
         else:
             self.verbose_output(
                 'The person role "{0}" ("{1}") is unmapped'.format(
@@ -552,12 +572,13 @@ class DiMuHarvester(object):
         for place in event_data.get('relatedPlaces'):
             data['related_places'].append(self.parse_place(place))
 
-        from_year = event_data.get('timespan').get('fromYear')
-        to_year = event_data.get('timespan').get('toYear')
-        if from_year == to_year:
-            data['date'] = from_year
-        else:
-            data['date'] = (from_year, to_year)
+        if event_data.get('timespan'):
+            from_year = event_data.get('timespan').get('fromYear')
+            to_year = event_data.get('timespan').get('toYear')
+            if from_year == to_year:
+                data['date'] = from_year
+            else:
+                data['date'] = (from_year, to_year)
 
         return data
 
@@ -587,7 +608,7 @@ class DiMuHarvester(object):
         for uuid in uuid_list:
             self.process_single_object(uuid)
 
-    def not_implemented_yet_waring(self, raw_data, method):
+    def not_implemented_yet_warning(self, raw_data, method):
         """Raise a pywikibot warning that a method has not been implemented."""
         if raw_data.get(method):
             pywikibot.warning(
