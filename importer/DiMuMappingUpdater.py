@@ -1,6 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
-"""Create or update mapping lists."""
+"""
+Create or update mapping lists.
+
+usage:
+    python importer/DiMuMappingUpdater.py [OPTIONS]
+
+&params;
+"""
 import os
 from collections import Counter, OrderedDict
 
@@ -13,28 +20,19 @@ from batchupload.listscraper import MappingList
 SETTINGS = "settings.json"
 MAPPINGS_DIR = 'mappings'
 HARVEST_FILE = 'dimu_harvest_data.json'
+LOGFILE = 'dimu_mappings.log'
 
 DEFAULT_OPTIONS = {
-    'settings_file': 'settings.json',
-    'harvest_file': 'dimu_harvest_data.json',
-    'mapping_log_file': 'nm_mappings.log',
-    'mappings_dir': 'mappings',
+    'settings_file': SETTINGS,
+    'harvest_file': HARVEST_FILE,
+    'mapping_log_file': LOGFILE,
+    'mappings_dir': MAPPINGS_DIR,
     'wiki_mapping_root': 'Commons:Nordiska_museet/mapping',
-    'default_intro_text': (
-        '{} mapping table for [[Commons:Nordiska museet]]\n'),
-    'intro_texts': {
-        'keyword': (
-            'Keyword mapping table for [[Commons:Nordiska museet]]. '
-            'Originally populated from '
-            '[[Commons:Batch uploading/Nordiska Museet/keywords]].\n'),
-        'people': (
-            'People mapping table for [[Commons:Nordiska museet]]. '
-            'Originally populated from '
-            '[[Commons:Batch uploading/Nordiska Museet/creators]].\n')
-    }
+    'default_intro_text': '{} mapping table for [[Commons:Nordiska museet]]\n',
+    'intro_texts': {}
 }
 PARAMETER_HELP = u"""\
-Basic DiMuHarvester options (can also be supplied via the settings file):
+Basic DiMuMappingUpdater options (can also be supplied via the settings file):
 -settings_file:PATH path to settings file (DEF: {settings_file})
 -harvest_file:PATH path to harvest file (DEF: {harvest_file})
 -mapping_log_file:PATH path to mappings log file (DEF: {mapping_log_file})
@@ -454,19 +452,11 @@ def query_to_lookup(query, item_label='item', value_label='value',
     return lookup
 
 
-# @todo: make this load settings appropriately (cf. harvester)
-def main(*args):
-    """Initialise and run the mapping updater."""
-    options = load_settings(args)
-    updater = DiMuMappingUpdater(options)
-    updater.log.write_w_timestamp('...Updater finished\n')
-    pywikibot.output(updater.log.close_and_confirm())
-
 def handle_args(args, usage):
     """
     Parse and load all of the basic arguments.
 
-    Also sets any defaults.
+    Also passes any needed arguments on to pywikibot and sets any defaults.
 
     :param args: arguments to be handled
     :return: dict of options
@@ -508,6 +498,15 @@ def load_settings(args):
         options[key] = options.get(key) or settings_options.get(key) or val
 
     return options
+
+
+# @todo: make this load settings appropriately (cf. harvester)
+def main(*args):
+    """Initialise and run the mapping updater."""
+    options = load_settings(args)
+    updater = DiMuMappingUpdater(options)
+    updater.log.write_w_timestamp('...Updater finished\n')
+    pywikibot.output(updater.log.close_and_confirm())
 
 
 if __name__ == '__main__':
