@@ -27,17 +27,26 @@ DEFAULT_OPTIONS = {
     'harvest_file': HARVEST_FILE,
     'mapping_log_file': LOGFILE,
     'mappings_dir': MAPPINGS_DIR,
-    'wiki_mapping_root': 'Commons:Nordiska_museet/mapping',
-    'default_intro_text': '{} mapping table for [[Commons:Nordiska museet]]\n',
+    'wiki_mapping_root': 'Commons:Nordiska_museet/mapping',  # generalise
+    'default_intro_text': ('{key} mapping table for '
+                           '[[Commons:Nordiska museet]]\n'),  # generalise
     'intro_texts': {}
 }
 PARAMETER_HELP = u"""\
 Basic DiMuMappingUpdater options (can also be supplied via the settings file):
--settings_file:PATH path to settings file (DEF: {settings_file})
--harvest_file:PATH path to harvest file (DEF: {harvest_file})
--mapping_log_file:PATH path to mappings log file (DEF: {mapping_log_file})
--mappings_dir:PATH path to mappings dir (DEF: {mappings_dir})
+-settings_file:PATH     path to settings file (DEF: {settings_file})
+-harvest_file:PATH      path to harvest file (DEF: {harvest_file})
+-mapping_log_file:PATH  path to mappings log file (DEF: {mapping_log_file})
+-mappings_dir:PATH      path to mappings dir (DEF: {mappings_dir})
 -wiki_mapping_root:PATH path to wiki mapping root (DEF: {wiki_mapping_root})
+-default_intro_text:STR default text to add to the top of each mapping table \
+page. Should contain the \{key\} format variable (DEF: {default_intro_text})
+-intro_texts_…:STR      override to the default_intro text for a particular \
+mapping table. Allowed keys are 'places', 'keywords', 'people'. (DEF: None)
+
+Can also handle any pywikibot options. Most importantly:
+-simulate               don't write to database
+-help                   output all available options
 """
 docuReplacements = {'&params;': PARAMETER_HELP.format(**DEFAULT_OPTIONS)}
 
@@ -74,7 +83,8 @@ class DiMuMappingUpdater(object):
     def get_intro_text(self, key):
         """Return the specific info text for a list or the default one."""
         return (self.settings.get('intro_texts').get(key) or
-                self.settings.get('default_intro_text').format(key.title()))
+                self.settings.get('default_intro_text').format(
+                    key=key.title()))
 
     def dump_places(self):
         """
@@ -461,18 +471,30 @@ def handle_args(args, usage):
     :param args: arguments to be handled
     :return: dict of options
     """
-    expected_args = ('mapping_log_file', 'harvest_file',
-                     'settings_file', 'mappings_dir', 'wiki_mapping_root')
-    options = {}
+    expected_args = ('mapping_log_file', 'harvest_file', 'settings_file',
+                     'mappings_dir', 'wiki_mapping_root',
+                     'intro_texts_keyword', 'intro_texts_people',
+                     'intro_texts_places')
+    options = {'intro_texts': {}}
 
     for arg in pywikibot.handle_args(args):
         option, sep, value = arg.partition(':')
         if option.startswith('-') and option[1:] in expected_args:
-            options[option[1:]] = common.convert_from_commandline(value)
+            if option.startswith('-intro_texts_'):
+                sub = option[len('-intro_texts_'):]
+                options['intro_texts'][sub] = common.convert_from_commandline(
+                    value)
+            else:
+                options[option[1:]] = common.convert_from_commandline(value)
         else:
             exit()
 
+    # remove if not used so as to not block loading from settings file
+    if not options['intro_texts']:
+        del options['intro_texts']
+
     return options
+
 
 def load_settings(args):
     """
@@ -500,7 +522,6 @@ def load_settings(args):
     return options
 
 
-# @todo: make this load settings appropriately (cf. harvester)
 def main(*args):
     """Initialise and run the mapping updater."""
     options = load_settings(args)
