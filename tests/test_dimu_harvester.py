@@ -122,7 +122,7 @@ class TestGetSearchRecordFromUrl(DiMuHarvesterTestBase):
         self.mock_get_json.side_effect = requests.HTTPError(
             'AN ERROR',
             response=mock.Mock(url='URL', status_code=404))
-        expected_error = 'Api-key not accepted by DiMu API!'
+        expected_error = 'Api key not accepted by DiMu API'
 
         with self.assertRaises(pywikibot.Error) as cm:
             self.harvester.get_search_record_from_url(123)

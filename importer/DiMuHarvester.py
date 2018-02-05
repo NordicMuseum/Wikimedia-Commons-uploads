@@ -36,7 +36,7 @@ Basic DiMuHarvester options (can also be supplied via the settings file):
 -glam_code:STR      DiMu code for the institution, e.g. "S-NM" \
 (DEF: {glam_code})
 -log_file:PATH      path to log file (DEF: {log_file})
--harvest_file:PATH   path to harvest file (DEF: {harvest_file})
+-harvest_file:PATH  path to harvest file (DEF: {harvest_file})
 -verbose:BOOL       if verbose output is desired (DEF: {verbose})
 -cutoff:INT         if run should be terminated after these many hits. \
 All are processed if not present (DEF: {cutoff})
