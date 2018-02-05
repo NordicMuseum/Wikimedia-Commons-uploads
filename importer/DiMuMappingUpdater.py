@@ -40,7 +40,7 @@ Basic DiMuMappingUpdater options (can also be supplied via the settings file):
 -mappings_dir:PATH      path to mappings dir (DEF: {mappings_dir})
 -wiki_mapping_root:PATH path to wiki mapping root (DEF: {wiki_mapping_root})
 -default_intro_text:STR default text to add to the top of each mapping table \
-page. Should contain the \{key\} format variable (DEF: {default_intro_text})
+page. Should contain the {{key}} format variable (DEF: {default_intro_text})
 -intro_texts_…:STR      override to the default_intro text for a particular \
 mapping table. Allowed keys are 'places', 'keywords', 'people'. (DEF: None)
 
