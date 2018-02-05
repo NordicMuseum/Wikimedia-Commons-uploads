@@ -9,7 +9,7 @@
     "mapping_log_file": "path to desired log file for the mapping process",
     "mappings_dir": "path to directory containing mappings",
     "wiki_mapping_root": "root page on Wikimedia Commons of which all mapping tables are subpages",
-    "default_intro_text": "Default text at top of mapping table. With {key} being the mapping table type",
+    "default_intro_text": "Default wikitext to add at the top of mapping table page. With {key} being the placeholder for the mapping table type (one of keywords, people or places)",
     "intro_texts": {
         "keyword": "Intro text override for {wiki_mapping_root}/keywords",
         "people": "Intro text override for {wiki_mapping_root}/people",
