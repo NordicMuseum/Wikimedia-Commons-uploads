@@ -40,8 +40,8 @@ Basic DiMuHarvester options (can also be supplied via the settings file):
 -verbose:BOOL          if verbose output is desired (DEF: {verbose})
 -cutoff:INT            if run should be terminated after these many hits. \
 All are processed if not present (DEF: {cutoff})
--folder_id:STR         unique id or uuid for the DiMu starting folder \
-(DEF: {folder_id})
+-folder_id:STR         unique id (12 digits) or uuid (8-4-4-4-12 hexadecimal \
+digits) of the Digitalt Museum folder used (DEF: {folder_id})
 
 Can also handle any pywikibot options. Most importantly:
 -simulate              don't write to database
@@ -49,8 +49,8 @@ Can also handle any pywikibot options. Most importantly:
 """
 docuReplacements = {'&params;': PARAMETER_HELP.format(**DEFAULT_OPTIONS)}
 
-## use person role (in license etc.) to set data['creator']
-## consider merging copyright and default_copyright into one tag
+# @todo: use person role (in license etc.) to set data['creator']
+# @todo: consider merging copyright and default_copyright into one tag
 
 
 class DiMuHarvester(object):
@@ -143,8 +143,8 @@ class DiMuHarvester(object):
                     self.process_single_object(item.get('artifact.uuid'))
                 else:
                     pywikibot.warning(
-                        '{uuid}: The artifact type {type} is not yet supported.'
-                        ' Skipping!'.format(
+                        '{uuid}: The artifact type {type} is not yet '
+                        'supported. Skipping!'.format(
                             uuid=item.get('artifact.uuid'), type=item_type))
             if not stop:
                 start += num_hits
