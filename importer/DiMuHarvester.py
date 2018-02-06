@@ -17,38 +17,40 @@ import batchupload.helpers as helpers
 
 SETTINGS = "settings.json"
 LOGFILE = 'dimu_harvest.log'
-OUTPUT_FILE = 'dimu_harvest_data.json'
+HARVEST_FILE = 'dimu_harvest_data.json'
 
 DEFAULT_OPTIONS = {
     'settings_file': SETTINGS,
     'api_key': 'demo',
     'glam_code': None,
-    'log_file': LOGFILE,
-    'output_file': OUTPUT_FILE,
+    'harvest_log_file': LOGFILE,
+    'harvest_file': HARVEST_FILE,
     'verbose': False,
     'cutoff': None,
     'folder_id': None
 }
 PARAMETER_HELP = u"""\
 Basic DiMuHarvester options (can also be supplied via the settings file):
--settings_file:PATH path to settings file (DEF: {settings_file})
--api_key:STR        key used to access DiMu API (DEF: {api_key})
--glam_code:STR      DiMu code for the institution, e.g. "S-NM" \
+-settings_file:PATH    path to settings file (DEF: {settings_file})
+-api_key:STR           key used to access DiMu API (DEF: {api_key})
+-glam_code:STR         DiMu code for the institution, e.g. "S-NM" \
 (DEF: {glam_code})
--log_file:PATH      path to log file (DEF: {log_file})
--output_file:PATH   path to output file (DEF: {output_file})
--verbose:BOOL       if verbose output is desired (DEF: {verbose})
--cutoff:INT         if run should be terminated after these many hits. \
+-harvest_log_file:PATH path to log file (DEF: {harvest_log_file})
+-harvest_file:PATH     path to harvest file (DEF: {harvest_file})
+-verbose:BOOL          if verbose output is desired (DEF: {verbose})
+-cutoff:INT            if run should be terminated after these many hits. \
 All are processed if not present (DEF: {cutoff})
+-folder_id:STR         unique id (12 digits) or uuid (8-4-4-4-12 hexadecimal \
+digits) of the Digitalt Museum folder used (DEF: {folder_id})
 
 Can also handle any pywikibot options. Most importantly:
--simulate           don't write to database
--help               output all available options
+-simulate              don't write to database
+-help                  output all available options
 """
 docuReplacements = {'&params;': PARAMETER_HELP.format(**DEFAULT_OPTIONS)}
 
-## use person role (in license etc.) to set data['creator']
-## consider merging copyright and default_copyright into one tag
+# @todo: use person role (in license etc.) to set data['creator']
+# @todo: consider merging copyright and default_copyright into one tag
 
 
 class DiMuHarvester(object):
@@ -58,12 +60,12 @@ class DiMuHarvester(object):
         """Initialise a harvester object for a DigitaltMuseum harvest."""
         self.data = {}  # data container for harvested info
         self.settings = options
-        self.log = common.LogFile('', self.settings.get('log_file'))
+        self.log = common.LogFile('', self.settings.get('harvest_log_file'))
         self.log.write_w_timestamp('Harvester started...')
 
     def save_data(self, filename=None):
         """Dump data as json blob."""
-        filename = filename or self.settings.get('output_file')
+        filename = filename or self.settings.get('harvest_file')
         common.open_and_write_file(filename, self.data, as_json=True)
         pywikibot.output('{0} created'.format(filename))
 
@@ -99,7 +101,7 @@ class DiMuHarvester(object):
                 e.response.url, e)
             if e.response.status_code == 404:
                 # a 404 is returned if the api key is incorrect
-                error_message = 'Api-key not accepted by DiMu API!'
+                error_message = 'Api key not accepted by DiMu API'
 
             self.log.write(error_message)
             raise pywikibot.Error(error_message)
@@ -141,9 +143,9 @@ class DiMuHarvester(object):
                     self.process_single_object(item.get('artifact.uuid'))
                 else:
                     pywikibot.warning(
-                        '{uuid}: The artifact type {typ} is not yet supported.'
-                        ' Skipping!'.format(
-                            uuid=item.get('artifact.uuid'), typ=item_type))
+                        '{uuid}: The artifact type {type} is not yet '
+                        'supported. Skipping!'.format(
+                            uuid=item.get('artifact.uuid'), type=item_type))
             if not stop:
                 start += num_hits
                 search_data = self.get_search_record_from_url(
@@ -638,8 +640,9 @@ def handle_args(args, usage):
     :param args: arguments to be handled
     :return: dict of options
     """
-    expected_args = ('api_key', 'glam_code', 'log_file', 'output_file',
-                     'settings_file', 'verbose', 'cutoff', 'collection_id')
+    expected_args = ('api_key', 'glam_code', 'harvest_log_file',
+                     'harvest_file', 'settings_file', 'verbose', 'cutoff',
+                     'folder_id')
     options = {}
 
     for arg in pywikibot.handle_args(args):
@@ -663,6 +666,8 @@ def load_settings(args):
 
     Any command line values takes precedence over setting file values.
     If neither is present then defaults are used.
+
+    Command line > Settings file > default_options
     """
     default_options = DEFAULT_OPTIONS.copy()
 
