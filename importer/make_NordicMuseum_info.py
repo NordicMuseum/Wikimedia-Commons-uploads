@@ -290,7 +290,7 @@ class NMInfo(MakeBaseInfo):
         """Command line entry-point."""
         usage = (
             'Usage:'
-            '\tpython make_info.py -in_file:PATH -dir:PATH\n'
+            '\tpython make_NordicMuseum_info.py -in_file:PATH -dir:PATH\n'
             '\t-in_file:PATH path to metadata file created by harvester\n'
             '\t-dir:PATH specifies the path to the directory containing a '
             'user_config.py file (optional)\n'
