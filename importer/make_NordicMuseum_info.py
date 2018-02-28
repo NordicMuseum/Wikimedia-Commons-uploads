@@ -266,7 +266,7 @@ class NMInfo(MakeBaseInfo):
 
     def get_wikidata_info(self, qid):
         """
-        Convenience wrapper for listscraper.get_wikidata_info.
+        Wrap listscraper.get_wikidata_info with local variables.
 
         :param qid: Qid for the Wikidata item
         :return: bool
@@ -276,7 +276,7 @@ class NMInfo(MakeBaseInfo):
 
     def category_exists(self, cat):
         """
-        Convenience wrapper for helpers.self.category_exists.
+        Wrap helpers.self.category_exists with local variables.
 
         :param cat: category name (with or without "Category" prefix)
         :return: bool
