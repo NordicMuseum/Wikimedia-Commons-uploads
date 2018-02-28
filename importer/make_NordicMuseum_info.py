@@ -83,9 +83,7 @@ class NMInfo(MakeBaseInfo):
             mapped_info = mapping.get(entry)
             if mapped_info.get('wikidata'):
                 mapped_info.update(
-                    listscraper.get_wikidata_info(
-                        mapped_info.get('wikidata'),
-                        site=self.wikidata, cache=self.wikidata_cache))
+                    self.get_wikidata_info(mapped_info.get('wikidata')))
             return mapped_info
         return {}
 
@@ -266,26 +264,25 @@ class NMInfo(MakeBaseInfo):
 
         return list(cats)
 
+    def get_wikidata_info(self, qid):
+        """
+        Convenience wrapper for listscraper.get_wikidata_info.
+
+        :param qid: Qid for the Wikidata item
+        :return: bool
+        """
+        return listscraper.get_wikidata_info(
+            qid, site=self.wikidata, cache=self.wikidata_cache)
+
     def category_exists(self, cat):
         """
-        Ensure a given category really exists on Commons.
-
-        The replies are cached to reduce the number of lookups.
+        Convenience wrapper for helpers.self.category_exists.
 
         :param cat: category name (with or without "Category" prefix)
         :return: bool
         """
-        cache = self.category_cache
-        if not cat.lower().startswith('category:'):
-            cat = 'Category:{0}'.format(cat)
-
-        if cat in cache:
-            return cache[cat]
-
-        exists = pywikibot.Page(self.commons, cat).exists()
-        cache[cat] = exists
-
-        return exists
+        return helpers.category_exists(
+            cat, site=self.commons, cache=self.category_cache)
 
     # @todo update
     @classmethod
@@ -502,7 +499,7 @@ class NMItem(object):
         role = depicted_place.pop('role')
 
         if any(key not in geo_map for key in depicted_place.keys()):
-            diff = set(depicted_place.keys())-set(geo_map.keys())
+            diff = set(depicted_place.keys()) - set(geo_map.keys())
             raise common.MyError(
                 '{} should be added to GEO_ORDER'.format(', '.join(diff)))
 
