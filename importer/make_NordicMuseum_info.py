@@ -17,6 +17,7 @@ import pywikibot
 
 import batchupload.common as common
 import batchupload.helpers as helpers
+import batchupload.listscraper as listscraper
 from batchupload.make_info import MakeBaseInfo
 
 import DiMuMappingUpdater as mapping_updater
@@ -82,7 +83,9 @@ class NMInfo(MakeBaseInfo):
             mapped_info = mapping.get(entry)
             if mapped_info.get('wikidata'):
                 mapped_info.update(
-                    self.get_wikidata_info(mapped_info.get('wikidata')))
+                    listscraper.get_wikidata_info(
+                        mapped_info.get('wikidata'),
+                        site=self.wikidata, cache=self.wikidata_cache))
             return mapped_info
         return {}
 
@@ -283,36 +286,6 @@ class NMInfo(MakeBaseInfo):
         cache[cat] = exists
 
         return exists
-
-    def get_wikidata_info(self, qid):
-        """
-        Query Wikidata for additional info about an item.
-
-        The replies are cached to reduce the number of lookups.
-
-        :param qid: Qid for the Wikidata item
-        :return: bool
-        """
-        cache = self.wikidata_cache
-        if qid in cache:
-            return cache[qid]
-
-        item = pywikibot.ItemPage(self.wikidata, qid)
-        if not item.exists():
-            cache[qid] = {}
-        else:
-            commonscat = return_first_claim(item, 'P373')
-            creator = return_first_claim(item, 'P1472')
-            death_year = return_first_claim(item, 'P570')
-            if death_year:
-                death_year = death_year.year
-            cache[qid] = {
-                'commonscat': commonscat,
-                'creator': creator,
-                'death_year': death_year
-            }
-
-        return cache[qid]
 
     # @todo update
     @classmethod
@@ -726,13 +699,6 @@ class NMItem(object):
         if self.title:
             raise NotImplementedError
         return ''
-
-
-def return_first_claim(item, prop):
-    """Return the first claim of a wikiata item for a given property."""
-    claims = item.claims.get(prop)
-    if claims:
-        return claims[0].target
 
 
 if __name__ == "__main__":
