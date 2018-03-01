@@ -327,7 +327,6 @@ class NMItem(object):
         for key, value in initial_data.items():
             setattr(self, key, value)
 
-        self.wd = {}  # store for relevant Wikidata identifiers
         self.problems = []  # any reasons for not uploading the image
         self.content_cats = set()  # content relevant categories without prefix
         self.meta_cats = set()  # meta/maintenance proto categories
