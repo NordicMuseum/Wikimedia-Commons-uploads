@@ -421,7 +421,7 @@ class NMItem(object):
 
     def get_depicted_place(self, wrap=False):
         """
-        Format at depicted place statement.
+        Format a depicted place statement.
 
         Always output all "other" values. Then output other places values until
         the first one mapped to Wikidata is encountered.
