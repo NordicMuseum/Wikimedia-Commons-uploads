@@ -568,7 +568,7 @@ class NMItem(object):
         return cats
 
     def make_place_category(self):
-        """Add a the most specific geo category."""
+        """Add the most specific geo category."""
         for geo_cat in self.geo_data.get('commonscats'):
             if self.nm_info.category_exists(geo_cat):
                 self.content_cats.add(geo_cat)
@@ -579,11 +579,7 @@ class NMItem(object):
         return False
 
     def make_item_keyword_categories(self):
-        """
-        Construct categories from the item keyword values.
-
-        :param cache: cache for category existence
-        """
+        """Construct categories from the item keyword values."""
         all_keywords = set()
         all_keywords.update(self.subjects)
         if self.tags:
