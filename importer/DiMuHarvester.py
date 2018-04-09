@@ -277,6 +277,7 @@ class DiMuHarvester(object):
         :param data: the object in which to store the parsed components
         :param tags: list of tag.objects
         """
+        data['tags'] = []
         if raw_tags:
             tags = set()
             for tag in raw_tags:
@@ -297,6 +298,8 @@ class DiMuHarvester(object):
                       'depictedPersons')
 
         data['description'] = motif_data.get('description')
+        data['description_place'] = {}
+        data['depicted_place'] = {}
 
         if motif_data.get('subjects'):
             subjects = set()
@@ -310,7 +313,6 @@ class DiMuHarvester(object):
             data['subjects'] = list(subjects)
 
         if motif_data.get('depictedPlaces'):
-            data['description_place'] = {}
             found_roles = {}
             for place_data in motif_data.get('depictedPlaces'):
                 place = self.parse_place(place_data)
