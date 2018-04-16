@@ -5,6 +5,7 @@
     "harvest_file": "path to desired output file",
     "verbose": "bool on whether verbose output is desired",
     "cutoff": "int stating how many results to process, remove to process all",
+    "all_slides": "bool on whether to harvest all slides of multiple-slide objects or only the first one",
     "folder_id": "unique id or uuid for the DiMu starting folder",
     "mapping_log_file": "path to desired log file for the mapping process",
     "mappings_dir": "path to directory containing mappings",

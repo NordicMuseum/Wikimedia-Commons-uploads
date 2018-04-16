@@ -23,6 +23,7 @@ DEFAULT_OPTIONS = {
     'settings_file': SETTINGS,
     'api_key': 'demo',
     'glam_code': None,
+    'all_slides': False,
     'harvest_log_file': LOGFILE,
     'harvest_file': HARVEST_FILE,
     'verbose': False,
@@ -42,6 +43,8 @@ Basic DiMuHarvester options (can also be supplied via the settings file):
 All are processed if not present (DEF: {cutoff})
 -folder_id:STR         unique id (12 digits) or uuid (8-4-4-4-12 hexadecimal \
 digits) of the Digitalt Museum folder used (DEF: {folder_id})
+- all_slides           whether to harvest all slides of multiple-slide \
+objects or only the first one (DEF: {all_slides})
 
 Can also handle any pywikibot options. Most importantly:
 -simulate              don't write to database
@@ -180,22 +183,33 @@ class DiMuHarvester(object):
         """
         Process the data for a single search hit.
 
-        One hit may contain multiple images. The results are stored in
+        One hit may contain multiple images.
+        The results are stored in
         self.data as one entry per image.
+        If all_slides = false, only first image is processed.
 
         :param item_uuid: the uuid of the item
         """
         data = self.load_single_object(item_uuid)
+        process_all = self.settings.get("all_slides")
 
         parsed_data = self.parse_single_object(data)
         all_image_keys = set([
             '{item}_{image}'.format(item=item_uuid, image=image.get('index'))
             for image in data.get('media').get('pictures')])
 
-        for order, image in enumerate(data.get('media').get('pictures')):
+        if process_all:
+            slides_to_work_on = data.get('media').get('pictures')
+        else:
+            slides_to_work_on = [data.get('media').get('pictures')[0]]
+
+        for order, image in enumerate(slides_to_work_on):
             key = '{item}_{image}'.format(
                 item=item_uuid, image=image.get('index'))
-            other_keys = all_image_keys - set([key])
+            if process_all:
+                other_keys = all_image_keys - set([key])
+            else:
+                other_keys = {}
 
             image_data = self.make_image_object(
                 image, order, parsed_data, other_keys)
@@ -757,9 +771,9 @@ def handle_args(args, usage):
     :param args: arguments to be handled
     :return: dict of options
     """
-    expected_args = ('api_key', 'glam_code', 'harvest_log_file',
-                     'harvest_file', 'settings_file', 'verbose', 'cutoff',
-                     'folder_id')
+    expected_args = ('api_key', 'all_slides', 'glam_code',
+                     'harvest_log_file', 'harvest_file', 'settings_file',
+                     'verbose', 'cutoff', 'folder_id')
     options = {}
 
     for arg in pywikibot.handle_args(args):
