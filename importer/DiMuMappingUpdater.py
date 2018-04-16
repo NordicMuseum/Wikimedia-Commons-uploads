@@ -99,7 +99,7 @@ class DiMuMappingUpdater(object):
         preserved_places_data = None
         update = True
         for place_key in sorted(self.places_to_map.keys()):
-            merged_places, preserved_places = ml.merge_old_and_new_mappings(
+            merged_places, preserved_places = ml.mappings_merger(
                 self.places_to_map.get(place_key).most_common(), update=update)
             update = False  # only update first time
             merged_places_data[place_key] = merged_places
@@ -122,7 +122,7 @@ class DiMuMappingUpdater(object):
         mk = make_keywords_list(
             mapping_root=self.settings.get('wiki_mapping_root'))
         intro_text = self.get_intro_text('keyword')
-        merged_keywords, preserved_keywords = mk.merge_old_and_new_mappings(
+        merged_keywords, preserved_keywords = mk.mappings_merger(
             self.subjects_to_map.most_common(), update=True)
         mk.save_as_wikitext(merged_keywords, preserved_keywords, intro_text)
 
@@ -131,7 +131,7 @@ class DiMuMappingUpdater(object):
         mp = make_people_list(
             mapping_root=self.settings.get('wiki_mapping_root'))
         intro_text = self.get_intro_text('people')
-        merged_people, preserved_people = mp.merge_old_and_new_mappings(
+        merged_people, preserved_people = mp.mappings_merger(
             self.format_person_data(), update=True)
         mp.save_as_wikitext(merged_people, preserved_people, intro_text)
 
@@ -192,6 +192,8 @@ class DiMuMappingUpdater(object):
                     self.parse_place(place)
                 for person in event.get('related_persons'):
                     self.parse_person(person)
+            if image.get("photographer"):
+                self.parse_person(image.get("photographer"))
 
     # @todo: is connection between place levels broken by this?
     #        Risk of mismatches?

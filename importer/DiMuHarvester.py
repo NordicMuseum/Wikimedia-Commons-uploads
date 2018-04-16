@@ -62,6 +62,9 @@ class DiMuHarvester(object):
         self.settings = options
         self.log = common.LogFile('', self.settings.get('harvest_log_file'))
         self.log.write_w_timestamp('Harvester started...')
+        self.exhibition_cache = {}  # cache for exhibition dimu-code, since it's
+        # not present in object entry, but it's needed if we want to link
+        # to the exhibition from Commons
 
     def save_data(self, filename=None):
         """Dump data as json blob."""
@@ -136,7 +139,7 @@ class DiMuHarvester(object):
                 item_type = item.get('artifact.type')
                 if item_type == 'Folder':
                     continue
-                elif item_type == 'Photograph':
+                elif item_type in ['Photograph', 'Thing']:
                     # skip items without images
                     if not item.get('artifact.hasPictures'):
                         continue
@@ -244,29 +247,42 @@ class DiMuHarvester(object):
         # motif includes keywords, a general description and depicted place.
         self.parse_motif(data, raw_data.get('motif'))
 
+        # sometimes 'description' is standalone, not part of 'motif'
+        self.parse_description(data, raw_data.get('description'))
+
+        # sometimes 'subjects' is standalone, not part of 'motif'
+        self.parse_subjects(data, raw_data.get('subjects'))
+
         # event_wrapper contains info about both creator and creation date
         self.parse_event_wrap(data, raw_data.get('eventWrap'))
 
+        # parse measures
+        self.parse_measures(data, raw_data.get("measures"))
+
+        # other info
+        self.parse_other_information(data, raw_data.get('otherInformation'))
+
+        # parse exhibitions
+        self.parse_exhibitions(data, raw_data.get('exhibitions'))
+
+        # parse materials
+        self.parse_material(data, raw_data.get('material'))
+
+        # parse technique
+        self.parse_technique(data, raw_data.get('technique'))
+
+        # parse inscriptions
+        self.parse_inscriptions(data, raw_data.get('inscriptions'))
+
         # tags are user entered (but approved) keywords
         self.parse_tags(data, raw_data.get('tags'))
-
         # not implemented yet
         data['title'] = self.not_implemented_yet_warning(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
         data['coordinate'] = self.not_implemented_yet_warning(
             raw_data, 'coordinates')
-        data['inscriptions'] = self.not_implemented_yet_warning(
-            raw_data, 'inscriptions')
-        data['subjects_2'] = self.not_implemented_yet_warning(  # subjects also exist within motif  # noqa
-            raw_data, 'subjects')
         data['names'] = self.not_implemented_yet_warning(raw_data, 'names')
-        data['measures'] = self.not_implemented_yet_warning(
-            raw_data, 'measures')
         data['classification'] = self.not_implemented_yet_warning(
             raw_data, 'classifications')
-        data['technique'] = self.not_implemented_yet_warning(
-            raw_data, 'technique')
-        data['material'] = self.not_implemented_yet_warning(
-            raw_data, 'material')
 
         return data
 
@@ -283,6 +299,21 @@ class DiMuHarvester(object):
             for tag in raw_tags:
                 tags.add(tag['name'])
             data['tags'] = list(tags)
+
+    def parse_subjects(self, data, subjects_data):
+        """Parse data about subjects."""
+        if not data.get("subjects"):
+            data["subjects"] = []
+        subjects = set()
+        for subject in subjects_data:
+            if subject.get('nameType') == "subject":
+                subjects.add(subject.get('name'))
+            else:
+                self.log.write(
+                    '{}: had an unexpected subject name type "{}".'.format(
+                        self.active_uuid, subject.get('nameType')))
+        new_subjects = data.get("subjects") + list(subjects)
+        data['subjects'] = new_subjects
 
     def parse_motif(self, data, motif_data):
         """
@@ -301,16 +332,11 @@ class DiMuHarvester(object):
         data['description_place'] = {}
         data['depicted_place'] = {}
 
+        if not data.get("subjects"):
+            data["subjects"] = []
+
         if motif_data.get('subjects'):
-            subjects = set()
-            for subject in motif_data.get('subjects'):
-                if subject.get('nameType') == "subject":
-                    subjects.add(subject.get('name'))
-                else:
-                    self.log.write(
-                        '{}: had an unexpected subject name type "{}".'.format(
-                            self.active_uuid, subject.get('nameType')))
-            data['subjects'] = list(subjects)
+            self.parse_subjects(data, motif_data.get('subjects'))
 
         if motif_data.get('depictedPlaces'):
             found_roles = {}
@@ -345,6 +371,82 @@ class DiMuHarvester(object):
             self.log.write(
                 '{}: encountered an unexpected motif key in: {}'.format(
                     self.active_uuid, ', '.join(motif_data.keys())))
+
+    def parse_measures(self, data, info_data):
+        """Parse measures info."""
+        data['measures'] = []
+        if info_data:
+            for info in info_data:
+                data['measures'].append(info)
+
+    def parse_material(self, data, info_data):
+        """Parse materials info."""
+        data['materials'] = []
+        if info_data:
+            mat_data = info_data.get("materials")
+            for m in mat_data:
+                data['materials'].append(m)
+
+    def parse_inscriptions(self, data, info_data):
+        """Parse inscriptions info."""
+        data['inscriptions'] = []
+        if info_data:
+            for ins in info_data:
+                data['inscriptions'].append(ins)
+
+    def parse_technique(self, data, info_data):
+        """Parse techniques."""
+        data["techniques"] = []
+        if info_data:
+            tech_data = info_data.get("techniques")
+            for t in tech_data:
+                data["techniques"].append(t)
+
+    def parse_other_information(self, data, info_data):
+        """Parse other information."""
+        if info_data:
+            data['other_information'] = info_data
+
+    def parse_exhibitions(self, data, info_data):
+        """
+        Parse basic exhibition data.
+
+        Request data about exhibition in order
+        to get the exhibition's DiMu id, which is not
+        served as part of the item's data (or load
+        it from cache if applicable).
+        This makes it possible to link to exhibition
+        entry on DiMu from Commons infotemplate.
+        """
+        data["exhibitions"] = []
+        if info_data:
+            for exh in info_data:
+                exh_obj = {}
+                exh_obj["uuid"] = exh.get("uuid")
+                exh_obj["to_year"] = exh["timespan"].get("toYear")
+                exh_obj["from_year"] = exh["timespan"].get("fromYear")
+                exh_obj["titles"] = exh["titles"]
+                if self.exhibition_cache.get(exh["uuid"]):
+                    exh_obj["dimu_code"] = self.exhibition_cache.get(
+                        exh["uuid"])
+                else:
+                    ex_dimu = self.load_single_object(
+                        exh["uuid"]).get("dimu_code")
+                    self.exhibition_cache[exh["uuid"]] = ex_dimu
+                    exh_obj["dimu_code"] = ex_dimu
+                data["exhibitions"].append(exh_obj)
+
+    def parse_description(self, data, desc_data):
+        """
+        Parse data about description.
+
+        In some case, description is its own key,
+        not part of motif.
+        If we got a description from motif,
+        make sure it's not overwritten.
+        """
+        if not data['description'] and desc_data:
+            data['description'] = desc_data
 
     @staticmethod
     def merge_place(old_place, new_place):
@@ -396,7 +498,7 @@ class DiMuHarvester(object):
             else:
                 place['other'][field.get('name')] = {
                     'label': field.get('value'),
-                    'code':  field.get('value')
+                    'code': field.get('value')
                 }
 
         place['role'] = self.map_place_role(place_data.get('role'))
@@ -529,6 +631,9 @@ class DiMuHarvester(object):
         * the creation date
         * the creator (if not specified in the license section)
         * further events?
+        * description
+        ** This is a more detailed description than in main 'description'
+        ** In https://digitaltmuseum.se/011023823710 it's displayed as Historik
 
         :param data: the object in which to store the parsed components
         :param event_wrap_data: the full data objects about all events
@@ -562,6 +667,11 @@ class DiMuHarvester(object):
                     '{}: found a new event type "{}".'.format(
                         self.active_uuid, event_type))
                 data['events'].append(self.parse_event(event))
+
+        # store Historik
+        data['history'] = None
+        if event_wrap_data.get('description'):
+            data['history'] = event_wrap_data.get('description')
 
     def parse_event(self, event_data):
         """Parse data about and event."""
@@ -597,9 +707,14 @@ class DiMuHarvester(object):
         :param other_keys: the keys to other images of the same object
         """
         image = item_data.copy()
+        # Add photographer (as creator) that's not wrapped
+        # up in EventData. This is the case for Things...
         if image_data.get('photographer'):
-            image['photographer'] = helpers.flip_name(
+            phot_name = helpers.flip_name(
                 image_data.get('photographer'))
+            image['photographer'] = {"id": phot_name,
+                                     "role": "creator",
+                                     "name": phot_name}
         image['copyright'] = self.parse_license_info(
             image_data.get('licenses'))
         image['media_id'] = image_data.get('identifier')

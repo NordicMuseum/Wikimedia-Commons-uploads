@@ -12,6 +12,7 @@ BatchUploadTools compliant json file.
 import os.path
 from collections import OrderedDict
 from datetime import datetime
+import re
 
 import pywikibot
 
@@ -24,8 +25,8 @@ import DiMuMappingUpdater as mapping_updater
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 MAPPINGS_DIR = 'mappings'
 BATCH_CAT = 'Images from Nordiska museet'  # stem for maintenance categories
-BATCH_DATE = '2017-12'  # branch for this particular batch upload
-LOGFILE = 'nm_processing_october.log'
+BATCH_DATE = '2018-04'  # branch for this particular batch upload
+LOGFILE = 'nm_processing_april.log'
 GEO_ORDER = ('other', 'parish', 'municipality', 'county', 'province',
              'country')
 HARVEST_FILE = 'dimu_harvest_data.json'
@@ -43,7 +44,7 @@ class NMInfo(MakeBaseInfo):
         super(NMInfo, self).__init__(batch_cat, batch_date, **options)
 
         # black-listed values
-        self.bad_names = ('Nordiska museets arkiv', )
+        self.bad_names = ('Nordiska museets arkiv', 'Okänd')
         self.bad_dates = ('odaterad', )
 
         self.commons = pywikibot.Site('commons', 'commons')
@@ -117,8 +118,18 @@ class NMInfo(MakeBaseInfo):
         :param item: the metadata for the media file in question
         :return: str
         """
-        return helpers.format_filename(
-            item.get_title_description(), 'Nordiska museet', item.glam_id)
+        idno = item.glam_id
+        title_desc = item.get_title_description()
+        glam = 'Nordiska museet'
+        fname = helpers.format_filename(
+            title_desc, glam, idno)
+        if item.see_also:
+            # sliders are numbered from 0,
+            # but we want filenames to be numbered from 1
+            # note that get_other_versions must agree w/any changes here
+            slider_plus_one = item.slider_order + 1
+            fname += "_({})".format(slider_plus_one)
+        return fname
 
     def make_info_template(self, item):
         """
@@ -132,9 +143,8 @@ class NMInfo(MakeBaseInfo):
                 return self.make_photograph_template(item)
             else:
                 return self.make_artwork_info(item)
-        else:
-            # haven't figured out Thing yet
-            raise NotImplementedError
+        elif item.type == "Thing":
+            return self.make_thing_template(item)
 
     def get_object_location(self, item):
         """
@@ -148,6 +158,34 @@ class NMInfo(MakeBaseInfo):
                 item.latitude, item.longitude)
         return ''
 
+    def make_thing_template(self, item):
+        """
+        Create the Photograph template for a single Thing entry.
+
+        :param item: the metadata for the media file in question
+        :return: str
+        """
+        template_name = 'Photograph'
+        template_data = OrderedDict()
+        template_data['photographer'] = item.get_creator()
+        template_data['title'] = item.get_title()
+        template_data['description'] = item.get_description()
+        template_data['other_fields_2'] = item.get_original_description()
+        template_data['depicted place'] = item.get_depicted_place()
+        template_data['object_history'] = item.get_object_history()
+        template_data['inscriptions'] = item.get_inscriptions()
+        template_data['institution'] = '{{Institution:Nordiska museet}}'
+        template_data['exhibition_history'] = item.get_exhibitions()
+        template_data['accession number'] = item.get_id_link()
+        template_data['source'] = item.get_source()
+        template_data['permission'] = item.get_license_text()
+        template_data['other_versions'] = item.get_other_versions()
+
+        txt = helpers.output_block_template(template_name, template_data, 0)
+        txt += self.get_object_location(item)
+
+        return txt
+
     def make_photograph_template(self, item):
         """
         Create the Photograph template for a single NM entry.
@@ -160,12 +198,12 @@ class NMInfo(MakeBaseInfo):
         template_data['photographer'] = item.get_creator()
         template_data['title'] = item.get_title()
         template_data['description'] = item.get_description()
-        template_data['original description'] = item.get_original_description()
+        template_data['other_fields_2'] = item.get_original_description()
         template_data['depicted people'] = item.get_depicted_object(
             typ='person')
         template_data['depicted place'] = item.get_depicted_place()
         template_data['date'] = item.get_creation_date()
-        template_data['medium'] = item.get_materials()
+        template_data['exhibition_history'] = item.get_exhibitions()
         template_data['institution'] = '{{Institution:Nordiska museet}}'
         template_data['accession number'] = item.get_id_link()
         template_data['source'] = item.get_source()
@@ -194,6 +232,7 @@ class NMInfo(MakeBaseInfo):
         template_data['medium'] = item.get_materials()
         template_data['dimensions'] = ''
         template_data['institution'] = '{{Institution:Nordiska museet}}'
+        template_data['exhibition_history'] = item.get_exhibitions()
         template_data['location'] = ''
         template_data['references'] = ''
         template_data['object history'] = ''
@@ -210,8 +249,7 @@ class NMInfo(MakeBaseInfo):
 
         return txt
 
-    # @todo: ensure that these work with uploade_by_url
-    # can also try the CORS enabled fdms01.dimu.org server
+    # @todo: can also try the CORS enabled fdms01.dimu.org server
     def get_original_filename(self, item):
         """
         Generate the url where the original files can be found.
@@ -220,8 +258,9 @@ class NMInfo(MakeBaseInfo):
         exist or be mapped to the right image.
         """
         server = 'http://dms01.dimu.org'
-        return '{server}/image/{id}?dimension=max&filename={id}.jpg'.format(
-            server=server, id=item.media_id)
+        org_filename = '{server}/image/{id}?dimension=max&filename={id}.jpg'
+        org_filename = org_filename.format(server=server, id=item.media_id)
+        return org_filename
 
     def generate_content_cats(self, item):
         """
@@ -258,8 +297,9 @@ class NMInfo(MakeBaseInfo):
 
         # creator cats are classified as meta
         creator_cats = item.get_creator_cat()
-        for creator_cat in creator_cats:
-            cats.add(creator_cat)
+        if creator_cats:
+            for creator_cat in creator_cats:
+                cats.add(creator_cat)
 
         return list(cats)
 
@@ -388,10 +428,21 @@ class NMItem(object):
         else:
             raise NotImplementedError
 
+    def get_object_history(self):
+        """Add object history to template."""
+        history = self.history
+        if history:
+            history = history.replace("\r", "\n")
+            return history
+
     # @todo: adapt for depicted person, other keywords
     def get_original_description(self):
         """Given an item get an appropriate original description."""
         original_desc = self.description
+        if self.other_information:
+            original_desc += '\n<br />{label}: {words}'.format(
+                label=helpers.bolden('Övrig information'),
+                words=self.other_information)
         if self.subjects:
             original_desc += '\n<br />{label}: {words}'.format(
                 label=helpers.bolden('Ämnesord'),
@@ -422,9 +473,23 @@ class NMItem(object):
     def get_byline(self):
         """Create a photographer/GLAM byline."""
         txt = ''
-        if (self.photographer and
-                self.photographer not in self.nm_info.bad_names):
-            txt += '{} / '.format(self.photographer)
+        if self.type == "Thing" and self.photographer:
+            if self.photographer.get("name"):
+                phot_name = self.photographer.get("name")
+            elif self.photographer not in self.nm_info.bad_names:
+                phot_name = self.photographer
+            txt += '{} / '.format(phot_name)
+        elif self.type == "Photograph":
+            persons = self.creation.get('related_persons')
+            display_names = []
+            for name in [p.get('name') for p in persons
+                         if p["role"] == "creator"]:
+                if name not in self.nm_info.bad_names:
+                    display_names.append(name)
+            if len(display_names) > 1:
+                txt += '{} / '.format(', '.join(display_names))
+            elif len(display_names) == 1:
+                txt += '{} / '.format(display_names[0])
         txt += 'Nordiska museet'
         return txt
 
@@ -451,6 +516,7 @@ class NMItem(object):
         if with_depicted:
             desc += '\n{}'.format(self.get_depicted_place(wrap=True))
 
+        desc = desc.replace("\r", "\n")
         return desc.strip()
 
     def get_depicted_object(self, typ):
@@ -536,7 +602,7 @@ class NMItem(object):
         role = depicted_place.pop('role')
 
         if any(key not in geo_map for key in depicted_place.keys()):
-            diff = set(depicted_place.keys())-set(geo_map.keys())
+            diff = set(depicted_place.keys()) - set(geo_map.keys())
             raise common.MyError(
                 '{} should be added to GEO_ORDER'.format(', '.join(diff)))
 
@@ -577,10 +643,20 @@ class NMItem(object):
             'labels': labels
         }
 
+    def get_photographer(self):
+        """Return photographer name for Thing object."""
+        return self.photographer.get("name")
+
     def get_creator(self):
         """Return correctly formated creator values in wikitext."""
         mapping = self.nm_info.mappings.get('people')
-        persons = self.creation.get('related_persons')
+        if hasattr(self, "photographer") and self.type == "Thing":
+            persons = [self.photographer]
+        elif self.type == "Photograph":
+            persons = [p for p in self.creation.get(
+                'related_persons') if p["role"] == "creator"]
+        elif hasattr(self, "creation"):
+            persons = self.creation.get('related_persons')
         display_names = []
         for name in [person.get('name') for person in persons]:
             display_name = name  # default
@@ -595,15 +671,25 @@ class NMItem(object):
     def get_creator_cat(self):
         """Return the commonscat(s) for the creator(s)."""
         mapping = self.nm_info.mappings.get('people')
-        persons = self.creation.get('related_persons')
-        cats = []
-        for name in [person.get('name') for person in persons]:
+        if self.type == "Thing" and hasattr(self, "photographer"):
+            name = self.photographer.get('name')
+            cats = []
             mapped_info = self.nm_info.mapped_and_wikidata(name, mapping)
             if mapped_info.get('commonscat'):
                 cat = mapped_info.get('commonscat')
                 if self.nm_info.category_exists(cat):
                     cats.append(cat)
-        return cats
+            return cats
+        elif hasattr(self, "creation"):
+            persons = self.creation.get('related_persons')
+            cats = []
+            for name in [person.get('name') for person in persons]:
+                mapped_info = self.nm_info.mapped_and_wikidata(name, mapping)
+                if mapped_info.get('commonscat'):
+                    cat = mapped_info.get('commonscat')
+                    if self.nm_info.category_exists(cat):
+                        cats.append(cat)
+            return cats
 
     def make_place_category(self):
         """Add a the most specific geo category."""
@@ -613,9 +699,10 @@ class NMItem(object):
                     self.content_cats.add(geo_cat)
                     return True
 
-        # no geo cats found
-        self.meta_cats.add('needing categorisation (place)')
-        return False
+        # no geo cats found and it's not a Thing
+        if self.type != "Thing":
+            self.meta_cats.add('needing categorisation (place)')
+            return False
 
     def make_item_keyword_categories(self):
         """
@@ -627,8 +714,6 @@ class NMItem(object):
         all_keywords.update(self.subjects)
         if self.tags:
             all_keywords.update(self.tags)
-        if self.subjects_2:
-            all_keywords.update(self.subjects_2)
         keyword_map = self.nm_info.mappings['keywords']
 
         for keyword in all_keywords:
@@ -666,12 +751,53 @@ class NMItem(object):
             raise NotImplementedError
         return ''
 
+    def get_exhibitions(self):
+        """Add exhibition history."""
+        if self.exhibitions:
+            printable_exhibitions = []
+            for exh in self.exhibitions:
+                if len(exh["titles"]) == 1:
+                    title = exh["titles"][0]["title"]
+                else:
+                    # Haven't seen exhibitions w/multiple titles yet,
+                    # so let's figure it out when it's relevant…
+                    raise NotImplementedError
+                if (exh["from_year"] == exh["to_year"] or
+                        exh["to_year"] is None):
+                    years = exh["from_year"]
+                else:
+                    years = "{}–{}".format(exh["from_year"],
+                                           exh["to_year"])
+                exh_url = "https://digitaltmuseum.se/{}".format(
+                    exh["dimu_code"])
+                link = '[{} {}]'.format(exh_url, title)
+                link = "{}: ".format(years) + link
+                printable_exhibitions.append(link)
+            if len(printable_exhibitions) > 1:
+                sorted_exhibitions = sorted(
+                    ["* {}\n".format(x) for x in printable_exhibitions])
+                text = "".join(sorted_exhibitions)
+            else:
+                text = printable_exhibitions[0]
+            return text
+
     def get_inscriptions(self):
         """Format an inscription statement."""
-        # need an example to investigate
+        text = ""
         if self.inscriptions:
-            raise NotImplementedError
-        return ''
+            for insc in self.inscriptions:
+                printable = insc["text"].strip()
+                printable = printable.replace("\n", " ")
+                printable = printable.replace("\r", "")
+                printable = re.sub(' +', ' ', printable)
+                if insc.get("description"):
+                    to_add = " ({}. {})".format(
+                        insc["type"].strip(), insc["description"].strip())
+                    printable += to_add
+                else:
+                    printable += " ({})".format(insc["type"].strip())
+                text += "* {}\n".format(printable)
+        return text
 
     def get_license_text(self):
         """Format a license template."""
@@ -690,14 +816,18 @@ class NMItem(object):
             # for PD try to get death date from creator (wikidata) else PD-70
             mapping = self.nm_info.mappings.get('people')
             persons = (self.creation.get('related_persons') or
-                       copyright.get('persons') or self.photographer)
+                       copyright.get('persons') or
+                       self.photographer.get("name"))
             death_years = []
             for person in persons:
                 name = person.get('name')
                 data = self.nm_info.mapped_and_wikidata(name, mapping)
                 death_years.append(data.get('death_year'))
             death_years = list(filter(None, death_years))  # trim empties
-            death_year = max(death_years)
+            try:
+                death_year = max(death_years)
+            except ValueError:
+                death_year = None
             if death_year and death_year < self.nm_info.pd_year:
                 return '{{PD-old-auto|deathyear=%s}}' % death_year
             elif death_year and not self.is_photo:
@@ -724,10 +854,29 @@ class NMItem(object):
         return ''
 
     def get_other_versions(self):
-        """Create a gallery for other images of the same object."""
+        """
+        Create a gallery for other images of the same object.
+
+        Sliders are numbered from 0, but we want filenames
+        to start from 1.
+        Note that generate_filename must agree w/any changes here
+        """
+        txt = ""
+        slider_plus_one = self.slider_order + 1
         if self.see_also:
-            raise NotImplementedError
-        return ''
+            txt = "<gallery>\n"
+            total_imgs = len(self.see_also) + 1
+            for _ in range(1, total_imgs + 1):
+                if _ != slider_plus_one:
+                    idno = self.glam_id
+                    title_desc = self.get_title_description()
+                    glam = 'Nordiska museet'
+                    fname = helpers.format_filename(
+                        title_desc, glam, idno)
+                    fname += "_({})".format(_)
+                    txt += "File:{}.jpg\n".format(fname)
+            txt += "</gallery>"
+        return txt
 
     # @todo consider using other value here...
     def get_title(self):
