@@ -52,7 +52,6 @@ Can also handle any pywikibot options. Most importantly:
 """
 docuReplacements = {'&params;': PARAMETER_HELP.format(**DEFAULT_OPTIONS)}
 
-# @todo: use person role (in license etc.) to set data['creator']
 # @todo: consider merging copyright and default_copyright into one tag
 
 
@@ -65,7 +64,7 @@ class DiMuHarvester(object):
         self.settings = options
         self.log = common.LogFile('', self.settings.get('harvest_log_file'))
         self.log.write_w_timestamp('Harvester started...')
-        self.exhibition_cache = {}  # cache for exhibition dimu-code, since it's
+        self.exhibition_cache = {}  # cache for exhibition dimu-code, as it's
         # not present in object entry, but it's needed if we want to link
         # to the exhibition from Commons
 
@@ -270,6 +269,9 @@ class DiMuHarvester(object):
         # event_wrapper contains info about both creator and creation date
         self.parse_event_wrap(data, raw_data.get('eventWrap'))
 
+        # extract information aboout the creator
+        self.parse_creator(data, raw_data)
+
         # parse measures
         self.parse_measures(data, raw_data.get("measures"))
 
@@ -418,6 +420,7 @@ class DiMuHarvester(object):
 
     def parse_other_information(self, data, info_data):
         """Parse other information."""
+        data['other_information'] = ""
         if info_data:
             data['other_information'] = info_data
 
@@ -552,10 +555,6 @@ class DiMuHarvester(object):
             license = {}
             license['code'] = license_data[0].get('code')
 
-            if license_data[0].get('persons'):
-                license['persons'] = []
-                for person in license_data[0].get('persons'):
-                    license['persons'].append(self.parse_person(person))
             return license
 
         if problem:
@@ -637,13 +636,35 @@ class DiMuHarvester(object):
             self.verbose_output(problem)
             return False
 
+    def parse_creator(self, data, raw_data):
+        """Parse creator info for different object types."""
+        data["creator"] = []
+        art_type = raw_data["artifactType"]
+        events = raw_data["eventWrap"]["events"]
+        if art_type == "Photograph":
+            ev_type = events[0].get("eventType")
+            if ev_type == "Produktion":  # this is an artwork
+                person = self.parse_person(
+                    raw_data["licenses"][0]["persons"][0])
+                data["creator"].append(person)
+            elif ev_type == "Fotografering":  # this is a photo
+                related_p = [x for x in events[0]["relatedPersons"]
+                             if x["role"]["name"] == "Fotograf"]
+                person = self.parse_person(related_p[0])
+                data["creator"].append(person)
+        elif art_type == "Thing":  # this is a thing
+            raw_person = raw_data["media"]["pictures"][0]["photographer"]
+            person_name = helpers.flip_name(raw_person)
+            data["creator"].append({"id": person_name,
+                                    "role": "creator",
+                                    "name": person_name})
+
     def parse_event_wrap(self, data, event_wrap_data):
         """
         Parse all data in the eventWrap.
 
         This field may contain:
         * the creation date
-        * the creator (if not specified in the license section)
         * further events?
         * description
         ** This is a more detailed description than in main 'description'
@@ -721,14 +742,6 @@ class DiMuHarvester(object):
         :param other_keys: the keys to other images of the same object
         """
         image = item_data.copy()
-        # Add photographer (as creator) that's not wrapped
-        # up in EventData. This is the case for Things...
-        if image_data.get('photographer'):
-            phot_name = helpers.flip_name(
-                image_data.get('photographer'))
-            image['photographer'] = {"id": phot_name,
-                                     "role": "creator",
-                                     "name": phot_name}
         image['copyright'] = self.parse_license_info(
             image_data.get('licenses'))
         image['media_id'] = image_data.get('identifier')

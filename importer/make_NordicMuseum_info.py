@@ -473,23 +473,16 @@ class NMItem(object):
     def get_byline(self):
         """Create a photographer/GLAM byline."""
         txt = ''
-        if self.type == "Thing" and self.photographer:
-            if self.photographer.get("name"):
-                phot_name = self.photographer.get("name")
-            elif self.photographer not in self.nm_info.bad_names:
-                phot_name = self.photographer
-            txt += '{} / '.format(phot_name)
-        elif self.type == "Photograph":
-            persons = self.creation.get('related_persons')
-            display_names = []
-            for name in [p.get('name') for p in persons
-                         if p["role"] == "creator"]:
-                if name not in self.nm_info.bad_names:
-                    display_names.append(name)
-            if len(display_names) > 1:
-                txt += '{} / '.format(', '.join(display_names))
-            elif len(display_names) == 1:
-                txt += '{} / '.format(display_names[0])
+        persons = self.creator
+        display_names = []
+        for name in [p.get('name') for p in persons
+                     if p["role"] == "creator"]:
+            if name not in self.nm_info.bad_names:
+                display_names.append(name)
+        if len(display_names) > 1:
+            txt += '{} / '.format(', '.join(display_names))
+        elif len(display_names) == 1:
+            txt += '{} / '.format(display_names[0])
         txt += 'Nordiska museet'
         return txt
 
@@ -650,11 +643,10 @@ class NMItem(object):
     def get_creator(self):
         """Return correctly formated creator values in wikitext."""
         mapping = self.nm_info.mappings.get('people')
-        if hasattr(self, "photographer") and self.type == "Thing":
-            persons = [self.photographer]
+        if self.type == "Thing":
+            persons = self.creator
         elif self.type == "Photograph":
-            persons = [p for p in self.creation.get(
-                'related_persons') if p["role"] == "creator"]
+            persons = self.creator
         elif hasattr(self, "creation"):
             persons = self.creation.get('related_persons')
         display_names = []
@@ -671,25 +663,15 @@ class NMItem(object):
     def get_creator_cat(self):
         """Return the commonscat(s) for the creator(s)."""
         mapping = self.nm_info.mappings.get('people')
-        if self.type == "Thing" and hasattr(self, "photographer"):
-            name = self.photographer.get('name')
-            cats = []
+        cats = []
+        for person in self.creator:
+            name = person.get('name')
             mapped_info = self.nm_info.mapped_and_wikidata(name, mapping)
             if mapped_info.get('commonscat'):
                 cat = mapped_info.get('commonscat')
                 if self.nm_info.category_exists(cat):
                     cats.append(cat)
-            return cats
-        elif hasattr(self, "creation"):
-            persons = self.creation.get('related_persons')
-            cats = []
-            for name in [person.get('name') for person in persons]:
-                mapped_info = self.nm_info.mapped_and_wikidata(name, mapping)
-                if mapped_info.get('commonscat'):
-                    cat = mapped_info.get('commonscat')
-                    if self.nm_info.category_exists(cat):
-                        cats.append(cat)
-            return cats
+        return cats
 
     def make_place_category(self):
         """Add a the most specific geo category."""
@@ -747,7 +729,7 @@ class NMItem(object):
     def get_materials(self):
         """Format a materials/technique statement."""
         # need to be run through the mappings and formatted accordingly
-        if self.technique or self.material:
+        if self.techniques or self.materials:
             raise NotImplementedError
         return ''
 
