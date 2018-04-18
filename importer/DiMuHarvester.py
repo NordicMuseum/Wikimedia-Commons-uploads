@@ -8,6 +8,7 @@ usage:
 
 &params;
 """
+import os
 import requests
 
 import pywikibot
@@ -15,14 +16,16 @@ import pywikibot
 import batchupload.common as common
 import batchupload.helpers as helpers
 
+SETTINGS_DIR = "settings"
 SETTINGS = "settings.json"
 LOGFILE = 'dimu_harvest.log'
 HARVEST_FILE = 'dimu_harvest_data.json'
 
 DEFAULT_OPTIONS = {
-    'settings_file': SETTINGS,
+    'settings_file': os.path.join(SETTINGS_DIR, SETTINGS),
     'api_key': 'demo',
     'glam_code': None,
+    'all_slides': False,
     'harvest_log_file': LOGFILE,
     'harvest_file': HARVEST_FILE,
     'verbose': False,
@@ -42,6 +45,8 @@ Basic DiMuHarvester options (can also be supplied via the settings file):
 All are processed if not present (DEF: {cutoff})
 -folder_id:STR         unique id (12 digits) or uuid (8-4-4-4-12 hexadecimal \
 digits) of the Digitalt Museum folder used (DEF: {folder_id})
+- all_slides           whether to harvest all slides of multiple-slide \
+objects or only the first one (DEF: {all_slides})
 
 Can also handle any pywikibot options. Most importantly:
 -simulate              don't write to database
@@ -49,7 +54,6 @@ Can also handle any pywikibot options. Most importantly:
 """
 docuReplacements = {'&params;': PARAMETER_HELP.format(**DEFAULT_OPTIONS)}
 
-# @todo: use person role (in license etc.) to set data['creator']
 # @todo: consider merging copyright and default_copyright into one tag
 
 
@@ -62,6 +66,9 @@ class DiMuHarvester(object):
         self.settings = options
         self.log = common.LogFile('', self.settings.get('harvest_log_file'))
         self.log.write_w_timestamp('Harvester started...')
+        self.exhibition_cache = {}  # cache for exhibition dimu-code, as it's
+        # not present in object entry, but it's needed if we want to link
+        # to the exhibition from Commons
 
     def save_data(self, filename=None):
         """Dump data as json blob."""
@@ -136,7 +143,7 @@ class DiMuHarvester(object):
                 item_type = item.get('artifact.type')
                 if item_type == 'Folder':
                     continue
-                elif item_type == 'Photograph':
+                elif item_type in ['Photograph', 'Thing']:
                     # skip items without images
                     if not item.get('artifact.hasPictures'):
                         continue
@@ -177,22 +184,33 @@ class DiMuHarvester(object):
         """
         Process the data for a single search hit.
 
-        One hit may contain multiple images. The results are stored in
+        One hit may contain multiple images.
+        The results are stored in
         self.data as one entry per image.
+        If all_slides = false, only first image is processed.
 
         :param item_uuid: the uuid of the item
         """
         data = self.load_single_object(item_uuid)
+        process_all = self.settings.get("all_slides")
 
         parsed_data = self.parse_single_object(data)
         all_image_keys = set([
             '{item}_{image}'.format(item=item_uuid, image=image.get('index'))
             for image in data.get('media').get('pictures')])
 
-        for order, image in enumerate(data.get('media').get('pictures')):
+        if process_all:
+            slides_to_work_on = data.get('media').get('pictures')
+        else:
+            slides_to_work_on = [data.get('media').get('pictures')[0]]
+
+        for order, image in enumerate(slides_to_work_on):
             key = '{item}_{image}'.format(
                 item=item_uuid, image=image.get('index'))
-            other_keys = all_image_keys - set([key])
+            if process_all:
+                other_keys = all_image_keys - set([key])
+            else:
+                other_keys = {}
 
             image_data = self.make_image_object(
                 image, order, parsed_data, other_keys)
@@ -244,29 +262,45 @@ class DiMuHarvester(object):
         # motif includes keywords, a general description and depicted place.
         self.parse_motif(data, raw_data.get('motif'))
 
+        # sometimes 'description' is standalone, not part of 'motif'
+        self.parse_description(data, raw_data.get('description'))
+
+        # sometimes 'subjects' is standalone, not part of 'motif'
+        self.parse_subjects(data, raw_data.get('subjects'))
+
         # event_wrapper contains info about both creator and creation date
         self.parse_event_wrap(data, raw_data.get('eventWrap'))
 
+        # extract information aboout the creator
+        self.parse_creator(data, raw_data)
+
+        # parse measures
+        self.parse_measures(data, raw_data.get("measures"))
+
+        # other info
+        self.parse_other_information(data, raw_data.get('otherInformation'))
+
+        # parse exhibitions
+        self.parse_exhibitions(data, raw_data.get('exhibitions'))
+
+        # parse materials
+        self.parse_material(data, raw_data.get('material'))
+
+        # parse technique
+        self.parse_technique(data, raw_data.get('technique'))
+
+        # parse inscriptions
+        self.parse_inscriptions(data, raw_data.get('inscriptions'))
+
         # tags are user entered (but approved) keywords
         self.parse_tags(data, raw_data.get('tags'))
-
         # not implemented yet
         data['title'] = self.not_implemented_yet_warning(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
         data['coordinate'] = self.not_implemented_yet_warning(
             raw_data, 'coordinates')
-        data['inscriptions'] = self.not_implemented_yet_warning(
-            raw_data, 'inscriptions')
-        data['subjects_2'] = self.not_implemented_yet_warning(  # subjects also exist within motif  # noqa
-            raw_data, 'subjects')
         data['names'] = self.not_implemented_yet_warning(raw_data, 'names')
-        data['measures'] = self.not_implemented_yet_warning(
-            raw_data, 'measures')
         data['classification'] = self.not_implemented_yet_warning(
             raw_data, 'classifications')
-        data['technique'] = self.not_implemented_yet_warning(
-            raw_data, 'technique')
-        data['material'] = self.not_implemented_yet_warning(
-            raw_data, 'material')
 
         return data
 
@@ -277,11 +311,27 @@ class DiMuHarvester(object):
         :param data: the object in which to store the parsed components
         :param tags: list of tag.objects
         """
+        data['tags'] = []
         if raw_tags:
             tags = set()
             for tag in raw_tags:
                 tags.add(tag['name'])
             data['tags'] = list(tags)
+
+    def parse_subjects(self, data, subjects_data):
+        """Parse data about subjects."""
+        if not data.get("subjects"):
+            data["subjects"] = []
+        subjects = set()
+        for subject in subjects_data:
+            if subject.get('nameType') == "subject":
+                subjects.add(subject.get('name'))
+            else:
+                self.log.write(
+                    '{}: had an unexpected subject name type "{}".'.format(
+                        self.active_uuid, subject.get('nameType')))
+        new_subjects = data.get("subjects") + list(subjects)
+        data['subjects'] = new_subjects
 
     def parse_motif(self, data, motif_data):
         """
@@ -297,20 +347,16 @@ class DiMuHarvester(object):
                       'depictedPersons')
 
         data['description'] = motif_data.get('description')
+        data['description_place'] = {}
+        data['depicted_place'] = {}
+
+        if not data.get("subjects"):
+            data["subjects"] = []
 
         if motif_data.get('subjects'):
-            subjects = set()
-            for subject in motif_data.get('subjects'):
-                if subject.get('nameType') == "subject":
-                    subjects.add(subject.get('name'))
-                else:
-                    self.log.write(
-                        '{}: had an unexpected subject name type "{}".'.format(
-                            self.active_uuid, subject.get('nameType')))
-            data['subjects'] = list(subjects)
+            self.parse_subjects(data, motif_data.get('subjects'))
 
         if motif_data.get('depictedPlaces'):
-            data['description_place'] = {}
             found_roles = {}
             for place_data in motif_data.get('depictedPlaces'):
                 place = self.parse_place(place_data)
@@ -343,6 +389,83 @@ class DiMuHarvester(object):
             self.log.write(
                 '{}: encountered an unexpected motif key in: {}'.format(
                     self.active_uuid, ', '.join(motif_data.keys())))
+
+    def parse_measures(self, data, info_data):
+        """Parse measures info."""
+        data['measures'] = []
+        if info_data:
+            for info in info_data:
+                data['measures'].append(info)
+
+    def parse_material(self, data, info_data):
+        """Parse materials info."""
+        data['materials'] = []
+        if info_data:
+            mat_data = info_data.get("materials")
+            for m in mat_data:
+                data['materials'].append(m)
+
+    def parse_inscriptions(self, data, info_data):
+        """Parse inscriptions info."""
+        data['inscriptions'] = []
+        if info_data:
+            for ins in info_data:
+                data['inscriptions'].append(ins)
+
+    def parse_technique(self, data, info_data):
+        """Parse techniques."""
+        data["techniques"] = []
+        if info_data:
+            tech_data = info_data.get("techniques")
+            for t in tech_data:
+                data["techniques"].append(t)
+
+    def parse_other_information(self, data, info_data):
+        """Parse other information."""
+        data['other_information'] = ""
+        if info_data:
+            data['other_information'] = info_data
+
+    def parse_exhibitions(self, data, info_data):
+        """
+        Parse basic exhibition data.
+
+        Request data about exhibition in order
+        to get the exhibition's DiMu id, which is not
+        served as part of the item's data (or load
+        it from cache if applicable).
+        This makes it possible to link to exhibition
+        entry on DiMu from Commons infotemplate.
+        """
+        data["exhibitions"] = []
+        if info_data:
+            for exh in info_data:
+                exh_obj = {}
+                exh_obj["uuid"] = exh.get("uuid")
+                exh_obj["to_year"] = exh["timespan"].get("toYear")
+                exh_obj["from_year"] = exh["timespan"].get("fromYear")
+                exh_obj["titles"] = exh["titles"]
+                if self.exhibition_cache.get(exh["uuid"]):
+                    exh_obj["dimu_code"] = self.exhibition_cache.get(
+                        exh["uuid"])
+                else:
+                    ex_dimu = self.load_single_object(
+                        exh["uuid"]).get("dimu_code")
+                    self.exhibition_cache[exh["uuid"]] = ex_dimu
+                    exh_obj["dimu_code"] = ex_dimu
+                data["exhibitions"].append(exh_obj)
+
+    def parse_description(self, data, desc_data):
+        """
+        Parse data about description.
+
+        In some case, description is its own key,
+        not part of motif.
+        If we got a description from motif,
+        make sure it's not overwritten.
+        """
+        if not data['description'] and desc_data:
+            data['description'] = desc_data
 
     @staticmethod
     def merge_place(old_place, new_place):
@@ -394,7 +517,7 @@ class DiMuHarvester(object):
             else:
                 place['other'][field.get('name')] = {
                     'label': field.get('value'),
-                    'code':  field.get('value')
+                    'code': field.get('value')
                 }
 
         place['role'] = self.map_place_role(place_data.get('role'))
@@ -434,10 +557,6 @@ class DiMuHarvester(object):
             license = {}
             license['code'] = license_data[0].get('code')
 
-            if license_data[0].get('persons'):
-                license['persons'] = []
-                for person in license_data[0].get('persons'):
-                    license['persons'].append(self.parse_person(person))
             return license
 
         if problem:
@@ -519,14 +638,39 @@ class DiMuHarvester(object):
             self.verbose_output(problem)
             return False
 
+    def parse_creator(self, data, raw_data):
+        """Parse creator info for different object types."""
+        data["creator"] = []
+        art_type = raw_data["artifactType"]
+        events = raw_data["eventWrap"]["events"]
+        if art_type == "Photograph":
+            ev_type = events[0].get("eventType")
+            if ev_type == "Produktion":  # this is an artwork
+                person = self.parse_person(
+                    raw_data["licenses"][0]["persons"][0])
+                data["creator"].append(person)
+            elif ev_type == "Fotografering":  # this is a photo
+                related_p = [x for x in events[0]["relatedPersons"]
+                             if x["role"]["name"] == "Fotograf"]
+                person = self.parse_person(related_p[0])
+                data["creator"].append(person)
+        elif art_type == "Thing":  # this is a thing
+            raw_person = raw_data["media"]["pictures"][0]["photographer"]
+            person_name = helpers.flip_name(raw_person)
+            data["creator"].append({"id": person_name,
+                                    "role": "creator",
+                                    "name": person_name})
+
     def parse_event_wrap(self, data, event_wrap_data):
         """
         Parse all data in the eventWrap.
 
         This field may contain:
         * the creation date
-        * the creator (if not specified in the license section)
         * further events?
+        * description
+        ** This is a more detailed description than in main 'description'
+        ** In https://digitaltmuseum.se/011023823710 it's displayed as Historik
 
         :param data: the object in which to store the parsed components
         :param event_wrap_data: the full data objects about all events
@@ -560,6 +704,11 @@ class DiMuHarvester(object):
                     '{}: found a new event type "{}".'.format(
                         self.active_uuid, event_type))
                 data['events'].append(self.parse_event(event))
+
+        # store Historik
+        data['history'] = None
+        if event_wrap_data.get('description'):
+            data['history'] = event_wrap_data.get('description')
 
     def parse_event(self, event_data):
         """Parse data about and event."""
@@ -595,9 +744,6 @@ class DiMuHarvester(object):
         :param other_keys: the keys to other images of the same object
         """
         image = item_data.copy()
-        if image_data.get('photographer'):
-            image['photographer'] = helpers.flip_name(
-                image_data.get('photographer'))
         image['copyright'] = self.parse_license_info(
             image_data.get('licenses'))
         image['media_id'] = image_data.get('identifier')
@@ -640,9 +786,9 @@ def handle_args(args, usage):
     :param args: arguments to be handled
     :return: dict of options
     """
-    expected_args = ('api_key', 'glam_code', 'harvest_log_file',
-                     'harvest_file', 'settings_file', 'verbose', 'cutoff',
-                     'folder_id')
+    expected_args = ('api_key', 'all_slides', 'glam_code',
+                     'harvest_log_file', 'harvest_file', 'settings_file',
+                     'verbose', 'cutoff', 'folder_id')
     options = {}
 
     for arg in pywikibot.handle_args(args):

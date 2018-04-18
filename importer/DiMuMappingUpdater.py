@@ -17,19 +17,20 @@ from pywikibot.data import sparql
 import batchupload.common as common
 from batchupload.listscraper import MappingList
 
+SETTINGS_DIR = "settings"
 SETTINGS = "settings.json"
 MAPPINGS_DIR = 'mappings'
 HARVEST_FILE = 'dimu_harvest_data.json'
 LOGFILE = 'dimu_mappings.log'
 
 DEFAULT_OPTIONS = {
-    'settings_file': SETTINGS,
+    'settings_file': os.path.join(SETTINGS_DIR, SETTINGS),
     'harvest_file': HARVEST_FILE,
     'mapping_log_file': LOGFILE,
     'mappings_dir': MAPPINGS_DIR,
-    'wiki_mapping_root': 'Commons:Nordiska_museet/mapping',  # generalise
-    'default_intro_text': ('{key} mapping table for '
-                           '[[Commons:Nordiska museet]]\n'),  # generalise
+    'glam_code': None,
+    'wiki_mapping_root': None,
+    'default_intro_text': None,
     'intro_texts': {}
 }
 PARAMETER_HELP = u"""\
@@ -99,7 +100,7 @@ class DiMuMappingUpdater(object):
         preserved_places_data = None
         update = True
         for place_key in sorted(self.places_to_map.keys()):
-            merged_places, preserved_places = ml.merge_old_and_new_mappings(
+            merged_places, preserved_places = ml.mappings_merger(
                 self.places_to_map.get(place_key).most_common(), update=update)
             update = False  # only update first time
             merged_places_data[place_key] = merged_places
@@ -122,7 +123,7 @@ class DiMuMappingUpdater(object):
         mk = make_keywords_list(
             mapping_root=self.settings.get('wiki_mapping_root'))
         intro_text = self.get_intro_text('keyword')
-        merged_keywords, preserved_keywords = mk.merge_old_and_new_mappings(
+        merged_keywords, preserved_keywords = mk.mappings_merger(
             self.subjects_to_map.most_common(), update=True)
         mk.save_as_wikitext(merged_keywords, preserved_keywords, intro_text)
 
@@ -131,7 +132,7 @@ class DiMuMappingUpdater(object):
         mp = make_people_list(
             mapping_root=self.settings.get('wiki_mapping_root'))
         intro_text = self.get_intro_text('people')
-        merged_people, preserved_people = mp.merge_old_and_new_mappings(
+        merged_people, preserved_people = mp.mappings_merger(
             self.format_person_data(), update=True)
         mp.save_as_wikitext(merged_people, preserved_people, intro_text)
 
@@ -192,6 +193,8 @@ class DiMuMappingUpdater(object):
                     self.parse_place(place)
                 for person in event.get('related_persons'):
                     self.parse_person(person)
+            if image.get("photographer"):
+                self.parse_person(image.get("photographer"))
 
     # @todo: is connection between place levels broken by this?
     #        Risk of mismatches?
@@ -474,7 +477,7 @@ def handle_args(args, usage):
     expected_args = ('mapping_log_file', 'harvest_file', 'settings_file',
                      'mappings_dir', 'wiki_mapping_root',
                      'intro_texts_keyword', 'intro_texts_people',
-                     'intro_texts_places')
+                     'intro_texts_places', 'glam_code')
     options = {'intro_texts': {}}
 
     for arg in pywikibot.handle_args(args):
@@ -518,6 +521,17 @@ def load_settings(args):
         options.get('settings_file'), as_json=True)
     for key, val in default_options.items():
         options[key] = options.get(key) or settings_options.get(key) or val
+
+    # read glam-specific settings like location of mapping tables
+    if not options["glam_code"]:
+        err_mess = "The batch settings file ({}) is missing a GLAM code."
+        raise common.MyError(err_mess.format(options.get('settings_file')))
+
+    glam_file = os.path.join(SETTINGS_DIR, options["glam_code"])
+    glam_options = common.open_and_read_file(
+        "{}.json".format(glam_file), as_json=True)
+    for key, val in glam_options.items():
+        options[key] = glam_options.get(key)
 
     return options
 
