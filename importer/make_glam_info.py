@@ -18,6 +18,7 @@ import pywikibot
 
 import batchupload.common as common
 import batchupload.helpers as helpers
+import batchupload.listscraper as listscraper
 from batchupload.make_info import MakeBaseInfo
 
 import DiMuMappingUpdater as mapping_updater
@@ -351,59 +352,25 @@ class GLAMInfo(MakeBaseInfo):
 
         return list(cats)
 
-    def category_exists(self, cat):
-        """
-        Ensure a given category really exists on Commons.
-
-        The replies are cached to reduce the number of lookups.
-
-        :param cat: category name (with or without "Category" prefix)
-        :return: bool
-        """
-        cache = self.category_cache
-        if not cat.lower().startswith('category:'):
-            cat = 'Category:{0}'.format(cat)
-
-        if cat in cache:
-            return cache[cat]
-
-        try:
-            exists = pywikibot.Page(self.commons, cat).exists()
-        except pywikibot.exceptions.InvalidTitle:
-            exists = False
-        cache[cat] = exists
-
-        return exists
-
     def get_wikidata_info(self, qid):
         """
-        Query Wikidata for additional info about an item.
-
-        The replies are cached to reduce the number of lookups.
+        Wrap listscraper.get_wikidata_info with local variables.
 
         :param qid: Qid for the Wikidata item
         :return: bool
         """
-        cache = self.wikidata_cache
-        if qid in cache:
-            return cache[qid]
+        return listscraper.get_wikidata_info(
+            qid, site=self.wikidata, cache=self.wikidata_cache)
 
-        item = pywikibot.ItemPage(self.wikidata, qid)
-        if not item.exists():
-            cache[qid] = {}
-        else:
-            commonscat = return_first_claim(item, 'P373')
-            creator = return_first_claim(item, 'P1472')
-            death_year = return_first_claim(item, 'P570')
-            if death_year:
-                death_year = death_year.year
-            cache[qid] = {
-                'commonscat': commonscat,
-                'creator': creator,
-                'death_year': death_year
-            }
+    def category_exists(self, cat):
+        """
+        Wrap helpers.self.category_exists with local variables.
 
-        return cache[qid]
+        :param cat: category name (with or without "Category" prefix)
+        :return: bool
+        """
+        return helpers.category_exists(
+            cat, site=self.commons, cache=self.category_cache)
 
     # @todo update
     @classmethod
@@ -451,7 +418,6 @@ class GLAMItem(object):
         for key, value in initial_data.items():
             setattr(self, key, value)
 
-        self.wd = {}  # store for relevant Wikidata identifiers
         self.problems = []  # any reasons for not uploading the image
         self.content_cats = set()  # content relevant categories without prefix
         self.meta_cats = set()  # meta/maintenance proto categories
@@ -571,7 +537,7 @@ class GLAMItem(object):
 
     def get_depicted_place(self, wrap=False):
         """
-        Format at depicted place statement.
+        Format a depicted place statement.
 
         Always output all "other" values. Then output other places values until
         the first one mapped to Wikidata is encountered.
@@ -727,7 +693,7 @@ class GLAMItem(object):
         return cats
 
     def make_place_category(self):
-        """Add a the most specific geo category."""
+        """Add the most specific geo category."""
         if self.geo_data.get('commonscats'):
             for geo_cat in self.geo_data.get('commonscats'):
                 if self.glam_info.category_exists(geo_cat):
@@ -740,11 +706,7 @@ class GLAMItem(object):
             return False
 
     def make_item_keyword_categories(self):
-        """
-        Construct categories from the item keyword values.
-
-        :param cache: cache for category existence
-        """
+        """Construct categories from the item keyword values."""
         all_keywords = set()
         all_keywords.update(self.subjects)
         if self.tags:
@@ -924,13 +886,6 @@ class GLAMItem(object):
         if self.title:
             raise NotImplementedError
         return ''
-
-
-def return_first_claim(item, prop):
-    """Return the first claim of a wikiata item for a given property."""
-    claims = item.claims.get(prop)
-    if claims:
-        return claims[0].target
 
 
 if __name__ == "__main__":
