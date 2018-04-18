@@ -17,19 +17,20 @@ from pywikibot.data import sparql
 import batchupload.common as common
 from batchupload.listscraper import MappingList
 
+SETTINGS_DIR = "settings"
 SETTINGS = "settings.json"
 MAPPINGS_DIR = 'mappings'
 HARVEST_FILE = 'dimu_harvest_data.json'
 LOGFILE = 'dimu_mappings.log'
 
 DEFAULT_OPTIONS = {
-    'settings_file': SETTINGS,
+    'settings_file': os.path.join(SETTINGS_DIR, SETTINGS),
     'harvest_file': HARVEST_FILE,
     'mapping_log_file': LOGFILE,
     'mappings_dir': MAPPINGS_DIR,
-    'wiki_mapping_root': 'Commons:Nordiska_museet/mapping',  # generalise
-    'default_intro_text': ('{key} mapping table for '
-                           '[[Commons:Nordiska museet]]\n'),  # generalise
+    'glam_code': None,
+    'wiki_mapping_root': None,
+    'default_intro_text': None,
     'intro_texts': {}
 }
 PARAMETER_HELP = u"""\
@@ -476,7 +477,7 @@ def handle_args(args, usage):
     expected_args = ('mapping_log_file', 'harvest_file', 'settings_file',
                      'mappings_dir', 'wiki_mapping_root',
                      'intro_texts_keyword', 'intro_texts_people',
-                     'intro_texts_places')
+                     'intro_texts_places', 'glam_code')
     options = {'intro_texts': {}}
 
     for arg in pywikibot.handle_args(args):
@@ -520,6 +521,17 @@ def load_settings(args):
         options.get('settings_file'), as_json=True)
     for key, val in default_options.items():
         options[key] = options.get(key) or settings_options.get(key) or val
+
+    # read glam-specific settings like location of mapping tables
+    if not options["glam_code"]:
+        err_mess = "The batch settings file ({}) is missing a GLAM code."
+        raise common.MyError(err_mess.format(options.get('settings_file')))
+
+    glam_file = os.path.join(SETTINGS_DIR, options["glam_code"])
+    glam_options = common.open_and_read_file(
+        "{}.json".format(glam_file), as_json=True)
+    for key, val in glam_options.items():
+        options[key] = glam_options.get(key)
 
     return options
 

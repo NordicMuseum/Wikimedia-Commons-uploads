@@ -8,6 +8,7 @@ usage:
 
 &params;
 """
+import os
 import requests
 
 import pywikibot
@@ -15,12 +16,13 @@ import pywikibot
 import batchupload.common as common
 import batchupload.helpers as helpers
 
+SETTINGS_DIR = "settings"
 SETTINGS = "settings.json"
 LOGFILE = 'dimu_harvest.log'
 HARVEST_FILE = 'dimu_harvest_data.json'
 
 DEFAULT_OPTIONS = {
-    'settings_file': SETTINGS,
+    'settings_file': os.path.join(SETTINGS_DIR, SETTINGS),
     'api_key': 'demo',
     'glam_code': None,
     'all_slides': False,
