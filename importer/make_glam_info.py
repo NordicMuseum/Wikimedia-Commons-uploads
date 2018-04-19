@@ -466,7 +466,7 @@ class GLAMItem(object):
                 words='; '.join(self.subjects))
         if self.tags:
             original_desc += '\n<br />{label}: {words}'.format(
-                label=helpers.bolden('Nyckelord'),
+                label=helpers.bolden('Användargenererade nyckelord'),
                 words='; '.join(self.subjects))
 
         role_dict = {
