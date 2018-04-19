@@ -1,113 +1,34 @@
 {
-    "000F2BF8-F2F7-434C-90FE-82B3AD3077B4_295579": {
+    "0E4B58D2-DADB-40C5-B23B-F7C8EDE05C4F_65281": {
         "classification": null,
         "coordinate": null,
         "copyright": null,
         "creation": {
-            "date": 1921,
+            "date": [
+                1960,
+                1961
+            ],
             "related_persons": [
                 {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
+                    "id": 127013,
+                    "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                    "name": "Erik Liljeroth",
                     "role": "creator"
                 }
             ],
             "related_places": [],
-            "type": "Produktion"
+            "type": "Fotografering"
         },
-        "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
-        },
-        "depicted_place": {
-            "country": {
-                "code": "Sverige",
-                "label": "Sverige"
-            },
-            "county": {
-                "code": "13",
-                "label": "Halland"
-            },
-            "other": {
-                "Härad": {
-                    "code": "Himle ,",
-                    "label": "Himle ,"
-                },
-                "Ort": {
-                    "code": "Ragnarp",
-                    "label": "Ragnarp"
-                }
-            },
-            "parish": {
-                "code": "1490",
-                "label": "Skällinge"
-            },
-            "role": "depicted_place"
-        },
-        "description": "Halland, Himle hd,, Skällinge sn. \"Bongdård vid Ragnarp\". Teckning av Ferdinand Boberg",
-        "description_place": {},
-        "dimu_id": "021017049344",
-        "events": [],
-        "filename": "N1_50255.JPG",
-        "glam_id": [
-            [
-                "S-NM",
-                "NMA.0088206"
-            ]
+        "creator": [
+            {
+                "id": 127013,
+                "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                "name": "Erik Liljeroth",
+                "role": "creator"
+            }
         ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "032ykUoAdeyb",
-        "names": null,
-        "photographer": "Ferdinand Boberg",
-        "see_also": [],
-        "slider_order": 0,
-        "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
-        ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
-        "title": null,
-        "type": "Photograph"
-    },
-    "00142F49-5178-4C47-AAD3-23246BB16068_295408": {
-        "classification": null,
-        "coordinate": null,
-        "copyright": null,
-        "creation": {
-            "date": 1923,
-            "related_persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ],
-            "related_places": [],
-            "type": "Produktion"
-        },
         "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
+            "code": "by"
         },
         "depicted_place": {
             "country": {
@@ -115,163 +36,481 @@
                 "label": "Sverige"
             },
             "other": {
-                "Härad": {
-                    "code": "Nordal",
-                    "label": "Nordal"
-                },
-                "Ort": {
-                    "code": "Håverud",
-                    "label": "Håverud"
+                "Ortnamn därutöver": {
+                    "code": "Storsjön",
+                    "label": "Storsjön"
                 }
-            },
-            "parish": {
-                "code": "1773",
-                "label": "Skållerud"
             },
             "province": {
-                "code": "Ds",
-                "label": "Dalsland"
+                "code": "Jä",
+                "label": "Jämtland"
             },
             "role": "depicted_place"
         },
-        "description": "Kanalsluss vid Håverud, Dalsland. Teckning av Ferdinand Boberg",
+        "description": "Fyra ungdomar, två pojkar och tre flickor, står och pratar vid Storsjöns strand.",
         "description_place": {},
-        "dimu_id": "021017049174",
+        "dimu_id": "011013837584",
         "events": [],
-        "filename": "N1_50084.JPG",
+        "exhibitions": [],
+        "filename": null,
         "glam_id": [
             [
                 "S-NM",
-                "NMA.0088035"
+                "NMA.0029884"
             ]
         ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "032ykUoAdJxm",
+        "history": null,
+        "inscriptions": [],
+        "is_photo": true,
+        "materials": [],
+        "measures": [],
+        "media_id": "032s8YmRPgv8",
         "names": null,
-        "photographer": "Nordiska museets arkiv",
+        "other_information": " Ungdomsmode",
+        "producers": [
+            {
+                "id": 127013,
+                "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                "name": "Erik Liljeroth",
+                "role": "creator"
+            }
+        ],
         "see_also": [],
         "slider_order": 0,
         "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
+            "Sällskapsliv",
+            "Ungdom",
+            "Kläder"
         ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
+        "tags": [],
+        "techniques": [],
         "title": null,
         "type": "Photograph"
     },
-    "0051C846-EC2A-429E-8527-5DF831A794B5_295371": {
+    "1670326A-344B-4160-A56D-08B0E17E2FAE_71680": {
         "classification": null,
         "coordinate": null,
         "copyright": null,
         "creation": {
-            "date": 1917,
+            "date": [
+                1955,
+                1959
+            ],
             "related_persons": [
                 {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
+                    "id": 127013,
+                    "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                    "name": "Erik Liljeroth",
                     "role": "creator"
                 }
             ],
             "related_places": [],
-            "type": "Produktion"
+            "type": "Fotografering"
         },
+        "creator": [
+            {
+                "id": 127013,
+                "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                "name": "Erik Liljeroth",
+                "role": "creator"
+            }
+        ],
         "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
+            "code": "by"
         },
         "depicted_place": {
             "country": {
                 "code": "Sverige",
                 "label": "Sverige"
             },
-            "other": {
-                "Härad": {
-                    "code": "Orust v.",
-                    "label": "Orust v."
-                },
-                "Ort": {
-                    "code": "Mollösunds kapellf.",
-                    "label": "Mollösunds kapellf."
-                },
-                "Ortnamn därutöver": {
-                    "code": "Mollösund",
-                    "label": "Mollösund"
-                }
+            "county": {
+                "code": "09",
+                "label": "Gotland"
             },
+            "municipality": {
+                "code": "0980",
+                "label": "Gotland"
+            },
+            "other": {},
             "parish": {
-                "code": "1580",
-                "label": "Morlanda"
+                "code": "0976",
+                "label": "Visby"
+            },
+            "province": {
+                "code": "Go",
+                "label": "Gotland"
             },
             "role": "depicted_place"
         },
-        "description": "Bohuslän, Mollösund. Teckning av Ferdinand Boberg.",
+        "description": "Vinkande kvinnor på brygga i Visby, Gotlandsfärja i bakgrunden",
         "description_place": {},
-        "dimu_id": "021017049137",
+        "dimu_id": "011013836833",
         "events": [],
-        "filename": "N1_50047.JPG",
+        "exhibitions": [],
+        "filename": null,
         "glam_id": [
             [
                 "S-NM",
-                "NMA.0087998"
+                "NMA.0028912"
             ]
         ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "022ykUoAcywN",
+        "history": null,
+        "inscriptions": [],
+        "is_photo": true,
+        "materials": [],
+        "measures": [],
+        "media_id": "022s8YmRM1Sk",
         "names": null,
-        "photographer": "Nordiska museets arkiv",
+        "other_information": " Dröm & Verklighet",
+        "producers": [
+            {
+                "id": 127013,
+                "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                "name": "Erik Liljeroth",
+                "role": "creator"
+            }
+        ],
         "see_also": [],
         "slider_order": 0,
         "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
+            "Resa",
+            "Fartyg",
+            "Kvinna"
         ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
+        "tags": [],
+        "techniques": [],
         "title": null,
         "type": "Photograph"
     },
-    "00536B62-E7ED-4DC2-8AE4-BC9A78959891_295679": {
+    "6D0DFFB8-8CD8-4A54-9444-CCF9AE0F7796_69768": {
         "classification": null,
         "coordinate": null,
         "copyright": null,
         "creation": {
-            "date": 1924,
+            "date": [
+                1950,
+                1959
+            ],
             "related_persons": [
                 {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
+                    "id": 117669,
+                    "name": "André och Irene Reisz",
                     "role": "creator"
+                }
+            ],
+            "related_places": [],
+            "type": "Fotografering"
+        },
+        "creator": [
+            {
+                "id": 117669,
+                "name": "André och Irene Reisz",
+                "role": "creator"
+            }
+        ],
+        "default_copyright": {
+            "code": "by"
+        },
+        "depicted_place": {},
+        "description": "Fem flickor hoppar och springer mot kameran på fält.",
+        "description_place": {},
+        "dimu_id": "011013840948",
+        "events": [],
+        "exhibitions": [],
+        "filename": null,
+        "glam_id": [
+            [
+                "S-NM",
+                "NMA.0036836"
+            ]
+        ],
+        "history": null,
+        "inscriptions": [],
+        "is_photo": true,
+        "materials": [],
+        "measures": [],
+        "media_id": "012s8Ysozadc",
+        "names": null,
+        "other_information": " Ungdomsmode",
+        "producers": [
+            {
+                "id": 117669,
+                "name": "André och Irene Reisz",
+                "role": "creator"
+            }
+        ],
+        "see_also": [],
+        "slider_order": 0,
+        "subjects": [
+            "Flicka",
+            "Tidsanda : 1950-tal",
+            "Ungdom",
+            "Kläder",
+            "Mode"
+        ],
+        "tags": [],
+        "techniques": [],
+        "title": null,
+        "type": "Photograph"
+    },
+    "A94506BD-4FE3-4C87-80FC-F74333F6782A_116977": {
+        "classification": null,
+        "coordinate": null,
+        "copyright": null,
+        "creation": {
+            "date": [
+                1950,
+                1958
+            ],
+            "related_persons": [
+                {
+                    "id": 120511,
+                    "name": "Mary White",
+                    "role": null
                 }
             ],
             "related_places": [],
             "type": "Produktion"
         },
+        "creator": [
+            {
+                "id": "Elisabeth Eriksson",
+                "name": "Elisabeth Eriksson",
+                "role": "creator"
+            }
+        ],
         "default_copyright": {
-            "code": "pdm",
-            "persons": [
+            "code": "by"
+        },
+        "depicted_place": {},
+        "description": "Vid kjol rynkad mot en bred linning. Av bomullstyg med tryckt mönster i färgerna mörkt grönt, ljust gulgrönt, lila och svart mot vit botten. Mönster i form av strama, enkelt tecknade kvistar mot växlande färgfält.\r\nTryckt i kanten av tyget: \"TOP COPPICE DESIGN BY MARY WHITE\"\r\nKjolen består av två hopsydda tygvåder, båda med ena sidan avklippt. Det avklippta tyget förmodligen använt till linningen. Våderna rynkade mot linningen som på insidan skarvats med ett blommigt tyg och försetts med ett mellanlägg faststickat mot linningens insida. Knäppning i vänster sida med handsytt knapphål och stor pärlemoknapp samt två breda metallhakar. Sprundet försett med tre stycken tryckknappar. Å framvåden två inskurna fickor med påsar av vit lärft. Påsarna möts mitt fram och har sytts ihop samt försetts med en hank av band som fästs vid linningen. Två bandhankar på linningens insida för upphängning. Kjolen är handfållad och sömmarna kastade för hand. I övrigt maskinsydd. \r\n/Ingrid Roos 2007-11-14",
+        "description_place": {},
+        "dimu_id": "011023832563",
+        "events": [
+            {
+                "date": [
+                    1958,
+                    1964
+                ],
+                "related_persons": [
+                    {
+                        "id": 102646,
+                        "name": "Monica Möllerström",
+                        "role": null
+                    }
+                ],
+                "related_places": [
+                    {
+                        "country": {
+                            "code": "Sverige",
+                            "label": "Sverige"
+                        },
+                        "county": {
+                            "code": "03",
+                            "label": "Uppsala"
+                        },
+                        "municipality": {
+                            "code": "0380",
+                            "label": "Uppsala"
+                        },
+                        "other": {},
+                        "parish": {
+                            "code": "0282",
+                            "label": "Uppsala"
+                        },
+                        "province": {
+                            "code": "Up",
+                            "label": "Uppland"
+                        },
+                        "role": null
+                    },
+                    {
+                        "country": {
+                            "code": "Sverige",
+                            "label": "Sverige"
+                        },
+                        "county": {
+                            "code": "19",
+                            "label": "Västmanland"
+                        },
+                        "municipality": {
+                            "code": "1984",
+                            "label": "Arboga"
+                        },
+                        "other": {},
+                        "parish": {
+                            "code": "2273",
+                            "label": "Arboga stad"
+                        },
+                        "province": {
+                            "code": "Vs",
+                            "label": "Västmanland"
+                        },
+                        "role": null
+                    },
+                    {
+                        "country": {
+                            "code": "Sverige",
+                            "label": "Sverige"
+                        },
+                        "other": {
+                            "Härad": {
+                                "code": "Nordmarks hd",
+                                "label": "Nordmarks hd"
+                            }
+                        },
+                        "parish": {
+                            "code": "2181",
+                            "label": "Skillingmark"
+                        },
+                        "province": {
+                            "code": "Vr",
+                            "label": "Värmland"
+                        },
+                        "role": null
+                    }
+                ],
+                "type": "Användning"
+            },
+            {
+                "date": 2007,
+                "related_persons": [
+                    {
+                        "id": 102646,
+                        "name": "Monica Möllerström",
+                        "role": null
+                    }
+                ],
+                "related_places": [
+                    {
+                        "country": {
+                            "code": "Sverige",
+                            "label": "Sverige"
+                        },
+                        "county": {
+                            "code": "01",
+                            "label": "Stockholm"
+                        },
+                        "municipality": {
+                            "code": "0180",
+                            "label": "Stockholm"
+                        },
+                        "other": {},
+                        "parish": {
+                            "code": "0091",
+                            "label": "Stockholm"
+                        },
+                        "role": null
+                    }
+                ],
+                "type": "Accession"
+            }
+        ],
+        "exhibitions": [],
+        "filename": null,
+        "glam_id": [
+            [
+                "S-NM",
+                "NM.0329262"
+            ]
+        ],
+        "history": "Hemsydd av givarens mor. Använd av Monica Möllerström f. 1942 i Skillingmark. Flyttade sedan till Koppom. Efter studentexamen i Arboga 1960 flyttade hon till Uppsala för att få apotekspraktik. Samtidigt skrev hon in sig på engelska för att kunna delta i studentlivet. Hon utbildade sig till receptarie och gick sista året i Stockholm och blev färdig 1964. Kjolen använd från 1958 till 1964 tillsammans med vit blus (inv.nr NM.0329263).\r\nSkänkt till Nordiska museet 12/2 2007 av Monica Möllerström, Stockholm.",
+        "inscriptions": [
+            {
+                "code": "Primär",
+                "description": "Tygets kant",
+                "sort": 1,
+                "text": "TOP   COPPICE DESIGN BY MARY WHITE",
+                "type": "Påskrift"
+            }
+        ],
+        "materials": [
+            {
+                "material": "Bomull",
+                "sort": 1
+            }
+        ],
+        "measures": [
+            {
+                "measure": 76.0,
+                "sort": 1,
+                "spesification": "Hel längd",
+                "type": "Längd",
+                "unit": "cm"
+            },
+            {
+                "measure": 8.0,
+                "sort": 2,
+                "spesification": "Linning",
+                "type": "Bredd",
+                "unit": "cm"
+            },
+            {
+                "measure": 211.0,
+                "sort": 3,
+                "type": "Vidd",
+                "unit": "cm"
+            }
+        ],
+        "media_id": "012s8YmHx5Fd",
+        "names": null,
+        "other_information": "Kjol, hemsydd 1958 av tryckt bomullstyg, design Coppice, Mary White, England. Kjolen är använd av Monica Möllerström, född 1942 i Skillingmark, Värmland, som studerade till receptarie. Den är sydd av Monicas mamma. /Utställningstext \"Mitt 50-tal\" 2017",
+        "producers": [
+            {
+                "id": 120511,
+                "name": "Mary White",
+                "role": null
+            }
+        ],
+        "see_also": [],
+        "slider_order": 0,
+        "subjects": [
+            "Dräkt : Kjolar"
+        ],
+        "tags": [],
+        "techniques": [
+            {
+                "sort": 1,
+                "technique": "Maskinsömnad, handsömnad"
+            },
+            {
+                "sort": 2,
+                "technique": "Tryck"
+            }
+        ],
+        "title": null,
+        "type": "Thing"
+    },
+    "CA0E9AC1-1128-4146-B129-F3D4BAA5D4A9_71713": {
+        "classification": null,
+        "coordinate": null,
+        "copyright": null,
+        "creation": {
+            "date": [
+                1955,
+                1959
+            ],
+            "related_persons": [
                 {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
+                    "id": 127013,
+                    "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                    "name": "Erik Liljeroth",
                     "role": "creator"
                 }
-            ]
+            ],
+            "related_places": [],
+            "type": "Fotografering"
+        },
+        "creator": [
+            {
+                "id": 127013,
+                "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                "name": "Erik Liljeroth",
+                "role": "creator"
+            }
+        ],
+        "default_copyright": {
+            "code": "by"
         },
         "depicted_place": {
             "country": {
@@ -279,492 +518,150 @@
                 "label": "Sverige"
             },
             "county": {
-                "code": "25",
-                "label": "Norrbotten"
+                "code": "09",
+                "label": "Gotland"
             },
-            "other": {
-                "Ortnamn därutöver": {
-                    "code": "Nederluleå sn., Luleå gammelstad",
-                    "label": "Nederluleå sn., Luleå gammelstad"
-                }
-            },
-            "role": "depicted_place"
-        },
-        "description": "Norrbotten, Nederluleå sn., Luleå gammelstad. Teckning av Ferdinand Boberg.",
-        "description_place": {},
-        "dimu_id": "021017049445",
-        "events": [],
-        "filename": "N1_50355.JPG",
-        "glam_id": [
-            [
-                "S-NM",
-                "NMA.0088306"
-            ]
-        ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "022ykUoC4cvb",
-        "names": null,
-        "see_also": [],
-        "slider_order": 0,
-        "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
-        ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
-        "title": null,
-        "type": "Photograph"
-    },
-    "00DD7E76-9576-464B-BD71-88465A3D6CD2_295923": {
-        "classification": null,
-        "coordinate": null,
-        "copyright": null,
-        "creation": {
-            "date": 1924,
-            "related_persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ],
-            "related_places": [],
-            "type": "Produktion"
-        },
-        "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
-        },
-        "depicted_place": {
-            "country": {
-                "code": "Sverige",
-                "label": "Sverige"
-            },
-            "other": {
-                "Härad": {
-                    "code": "Marks",
-                    "label": "Marks"
-                }
-            },
-            "parish": {
-                "code": "1659",
-                "label": "Fotskäl"
-            },
-            "role": "depicted_place"
-        },
-        "description": "Västergötland, Marks hd., Fotskäls sn. Teckning av Ferdinand Boberg.",
-        "description_place": {},
-        "dimu_id": "021017049686",
-        "events": [],
-        "filename": "N1_50599.JPG",
-        "glam_id": [
-            [
-                "S-NM",
-                "NMA.0088550"
-            ]
-        ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "022ykUoC5czC",
-        "names": null,
-        "see_also": [],
-        "slider_order": 0,
-        "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
-        ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
-        "title": null,
-        "type": "Photograph"
-    },
-    "0113875F-A536-4998-9AD8-1666101E6FAA_295793": {
-        "classification": null,
-        "coordinate": null,
-        "copyright": null,
-        "creation": {
-            "date": 1924,
-            "related_persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ],
-            "related_places": [],
-            "type": "Produktion"
-        },
-        "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
-        },
-        "depicted_place": {
-            "country": {
-                "code": "Sverige",
-                "label": "Sverige"
-            },
-            "other": {
-                "Härad": {
-                    "code": "Norra Tjusts",
-                    "label": "Norra Tjusts"
-                },
-                "Ort": {
-                    "code": "Sten",
-                    "label": "Sten"
-                }
-            },
-            "parish": {
-                "code": "0838",
-                "label": "Loftahammar"
-            },
-            "role": "depicted_place"
-        },
-        "description": "Småland, Norra Tjusts hd., Loftahammars sn., Sten. Teckning av Ferdinand Boberg.",
-        "description_place": {},
-        "dimu_id": "021017049555",
-        "events": [],
-        "filename": "N1_50469.JPG",
-        "glam_id": [
-            [
-                "S-NM",
-                "NMA.0088420"
-            ]
-        ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "032ykUoC4xZD",
-        "names": null,
-        "see_also": [],
-        "slider_order": 0,
-        "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
-        ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
-        "title": null,
-        "type": "Photograph"
-    },
-    "01210F86-4588-40EB-9F30-C20E98D5AE02_299000": {
-        "classification": null,
-        "coordinate": null,
-        "copyright": null,
-        "creation": {
-            "date": 1924,
-            "related_persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ],
-            "related_places": [],
-            "type": "Produktion"
-        },
-        "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
-        },
-        "depicted_place": {
-            "country": {
-                "code": "Sverige",
-                "label": "Sverige"
-            },
-            "county": {
-                "code": "01",
-                "label": "Stockholm"
-            },
-            "other": {
-                "Ortnamn därutöver": {
-                    "code": "Söder, Åsögatan",
-                    "label": "Söder, Åsögatan"
-                }
-            },
-            "role": "depicted_place"
-        },
-        "description": "Stockholm, Södermalm, Åsögatan.Teckning av Ferdinand Boberg.",
-        "description_place": {},
-        "dimu_id": "021017051939",
-        "events": [],
-        "filename": "N1_53018.JPG",
-        "glam_id": [
-            [
-                "S-NM",
-                "NMA.0090969"
-            ]
-        ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "032ykUoF4bvF",
-        "names": null,
-        "photographer": "Ferdinand Boberg",
-        "see_also": [],
-        "slider_order": 0,
-        "subjects": [
-            "Gata",
-            "Bebyggelse",
-            "Konst : Teckning",
-            "Stad"
-        ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
-        "title": null,
-        "type": "Photograph"
-    },
-    "01295A60-116A-4C69-B81A-A16B833359F4_295909": {
-        "classification": null,
-        "coordinate": null,
-        "copyright": null,
-        "creation": {
-            "date": 1924,
-            "related_persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ],
-            "related_places": [],
-            "type": "Produktion"
-        },
-        "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
-        },
-        "depicted_place": {
-            "country": {
-                "code": "Sverige",
-                "label": "Sverige"
-            },
-            "county": {
-                "code": "24",
-                "label": "Västerbotten"
-            },
-            "other": {
-                "Ortnamn därutöver": {
-                    "code": "Sävars sn., Holmöns kapellförs.",
-                    "label": "Sävars sn., Holmöns kapellförs."
-                }
-            },
-            "role": "depicted_place"
-        },
-        "description": "Västerbotten, Sävars sn., Holmön. \"Sista väderkvarnen på Holmön – alla andra naturligtvis bortrifna! Den näst sista dess bättre flyttad till Umeå.\" Teckning av Ferdinand Boberg",
-        "description_place": {},
-        "dimu_id": "021017049673",
-        "events": [],
-        "filename": "N1_50585.JPG",
-        "glam_id": [
-            [
-                "S-NM",
-                "NMA.0088536"
-            ]
-        ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "032ykUoC5cqV",
-        "names": null,
-        "see_also": [],
-        "slider_order": 0,
-        "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
-        ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
-        "title": null,
-        "type": "Photograph"
-    },
-    "012E0C11-6BD6-4851-A7EA-502F21D08B59_295523": {
-        "classification": null,
-        "coordinate": null,
-        "copyright": null,
-        "creation": {
-            "date": 1917,
-            "related_persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ],
-            "related_places": [],
-            "type": "Produktion"
-        },
-        "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
-        },
-        "depicted_place": {
-            "country": {
-                "code": "Sverige",
-                "label": "Sverige"
-            },
-            "county": {
-                "code": "20",
-                "label": "Dalarna"
+            "municipality": {
+                "code": "0980",
+                "label": "Gotland"
             },
             "other": {
                 "Ort": {
-                    "code": "Lisslas",
-                    "label": "Lisslas"
-                },
-                "Ortnamn därutöver": {
-                    "code": "Rättviks sn., Backa",
-                    "label": "Rättviks sn., Backa"
+                    "code": "Herrvik",
+                    "label": "Herrvik"
                 }
+            },
+            "parish": {
+                "code": "0983",
+                "label": "Östergarn"
+            },
+            "province": {
+                "code": "Go",
+                "label": "Gotland"
             },
             "role": "depicted_place"
         },
-        "description": "Dalarna, Rättviks sn., Backa, Lisslas. Teckning av Ferdinand Boberg",
+        "description": "En äldre kvinna med en trälåda i handen står lutad mot en mur vid Herrviks fiskehamn, Gotland",
         "description_place": {},
-        "dimu_id": "021017049288",
+        "dimu_id": "011013836859",
         "events": [],
-        "filename": "N1_50199.JPG",
+        "exhibitions": [],
+        "filename": null,
         "glam_id": [
             [
                 "S-NM",
-                "NMA.0088150"
+                "NMA.0028938"
             ]
         ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "032ykUoAdebR",
+        "history": null,
+        "inscriptions": [],
+        "is_photo": true,
+        "materials": [],
+        "measures": [],
+        "media_id": "022s8YmRMLPi",
         "names": null,
+        "other_information": " Hem & Arbete",
+        "producers": [
+            {
+                "id": 127013,
+                "k_nav": "c2e07b2a-f217-4b47-b84e-5f357001f9d7",
+                "name": "Erik Liljeroth",
+                "role": "creator"
+            }
+        ],
         "see_also": [],
         "slider_order": 0,
         "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
+            "Ålderdom",
+            "Hamn",
+            "Fiske",
+            "Kvinna"
         ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
+        "tags": [],
+        "techniques": [],
         "title": null,
         "type": "Photograph"
     },
-    "01C760A3-9EEA-4807-9B5F-0C0BC91789B2_295565": {
+    "F0B92504-7C68-4F34-B814-2030731B36E1_221956": {
         "classification": null,
         "coordinate": null,
         "copyright": null,
         "creation": {
-            "date": 1923,
+            "date": 1957,
             "related_persons": [
                 {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
+                    "id": 123587,
+                    "k_nav": "2d5d0a6f-0f8c-4263-8ad8-2786c6af7ef9",
+                    "name": "Erik Holmén",
                     "role": "creator"
                 }
             ],
             "related_places": [],
-            "type": "Produktion"
+            "type": "Fotografering"
         },
+        "creator": [
+            {
+                "id": 123587,
+                "k_nav": "2d5d0a6f-0f8c-4263-8ad8-2786c6af7ef9",
+                "name": "Erik Holmén",
+                "role": "creator"
+            }
+        ],
         "default_copyright": {
-            "code": "pdm",
-            "persons": [
-                {
-                    "id": 123849,
-                    "k_nav": "56edfc14-5f3a-45db-85ac-f357347e8a37",
-                    "name": "Ferdinand Boberg",
-                    "role": "creator"
-                }
-            ]
+            "code": "by"
         },
-        "depicted_place": {
-            "country": {
-                "code": "Sverige",
-                "label": "Sverige"
-            },
-            "county": {
-                "code": "20",
-                "label": "Dalarna"
-            },
-            "other": {
-                "Ortnamn därutöver": {
-                    "code": "Älvdalens sn., Åsen",
-                    "label": "Älvdalens sn., Åsen"
-                }
-            },
-            "role": "depicted_place"
-        },
-        "description": "Dalarna, Älvdalens sn. \"Bondgård i Åsen\". Teckning av Ferdinand Boberg",
+        "depicted_place": {},
+        "description": "Modell i grönblommig taftklänning med rosett och vita handskar.",
         "description_place": {},
-        "dimu_id": "021017049330",
-        "events": [],
-        "filename": "N1_50241.JPG",
+        "dimu_id": "021015803608",
+        "events": [
+            {
+                "date": null,
+                "related_persons": [
+                    {
+                        "id": 12114,
+                        "name": "Nordiska Kompaniet",
+                        "role": false
+                    }
+                ],
+                "related_places": [],
+                "type": "Ägande"
+            }
+        ],
+        "exhibitions": [],
+        "filename": null,
         "glam_id": [
             [
                 "S-NM",
-                "NMA.0088192"
+                "NMA.0073320"
             ]
         ],
-        "inscriptions": null,
-        "material": null,
-        "measures": null,
-        "media_id": "022ykUoAdeu7",
+        "history": null,
+        "inscriptions": [],
+        "is_photo": true,
+        "materials": [],
+        "measures": [],
+        "media_id": "012uPWhPod6x",
         "names": null,
-        "photographer": "Ferdinand Boberg",
+        "other_information": " Dröm & Verklighet",
+        "producers": [
+            {
+                "id": 123587,
+                "k_nav": "2d5d0a6f-0f8c-4263-8ad8-2786c6af7ef9",
+                "name": "Erik Holmén",
+                "role": "creator"
+            }
+        ],
         "see_also": [],
         "slider_order": 0,
         "subjects": [
-            "Bebyggelse",
-            "Konst : Teckning"
+            "Kläder : Damkläder",
+            "Mode"
         ],
-        "subjects_2": null,
-        "tags": null,
-        "technique": null,
+        "tags": [
+            "Demarchelier"
+        ],
+        "techniques": [],
         "title": null,
         "type": "Photograph"
     }

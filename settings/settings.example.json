@@ -1,0 +1,15 @@
+{
+    "all_slides": "Bool on whether to harvest all slides of multi-slide objects or only 1st one",
+    "api_key": "YOUR API KEY",
+    "batch_cat": "Stem for batch categories, eg 'Images from Nordiska museet'",
+    "batch_date": "Batch date or other label to append to batch category stem, eg '2018-04'",
+    "cutoff": "Int stating how many results to process, remove to process all",
+    "folder_id": "Unique id or uuid for the DiMu starting folder",
+    "glam_code": "Code of institution, eg 'S-NM'",
+    "harvest_file": "Path to desired output file",
+    "harvest_log_file": "Path to desired log file for Harvester",
+    "makeinfo_log_file": "Path to desired log file for MakeInfo",
+    "mapping_log_file": "Path to desired log file for the mapping process",
+    "mappings_dir": "Path to directory containing mappings",
+    "verbose": "Bool on whether verbose output is desired"
+}

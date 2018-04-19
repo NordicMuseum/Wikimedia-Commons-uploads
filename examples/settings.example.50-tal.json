@@ -1,0 +1,15 @@
+{
+    "all_slides": true,
+    "api_key": "YOUR API KEY",
+    "batch_cat": "Images from Nordiska museet",
+    "batch_date": "2018-04",
+    "cutoff": null,
+    "folder_id": "021097334458",
+    "glam_code": "S-NM",
+    "harvest_log_file": "50-tal.log",
+    "makeinfo_log_file": "nm_processing_april.log",
+    "mapping_log_file": "dimu_mappings.log",
+    "mappings_dir": "mappings",
+    "harvest_file": "dimu_harvest_data.json",
+    "verbose": true
+}
