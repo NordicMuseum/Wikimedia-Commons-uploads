@@ -1,0 +1,18 @@
+{
+    "glam_code": "S-NM",
+    "language": "sv",
+    "bad_names": ["Nordiska museets arkiv", "Okänd"],
+    "bad_dates": ["odaterad"],
+    "description_template": "Nordiska museet description",
+    "name": "Nordiska museet",
+    "cooperation_template": "Nordiska museet cooperation project",
+    "institution_template": "Nordiska museet",
+    "link_template": "Nordiska museet link",
+    "wiki_mapping_root": "Commons:Nordiska_museet/mapping",
+    "default_intro_text": "{key} mapping table for [[Commons:Nordiska museet]]\n",
+    "intro_texts": {
+        "keyword": "Keyword mapping table for [[Commons:Nordiska museet]]. Originally populated from [[Commons:Batch uploading/Nordiska Museet/keywords]].",
+        "people": "People mapping table for [[Commons:Nordiska museet]]. Originally populated from [[Commons:Batch uploading/Nordiska Museet/people]].",
+        "places": "Places mapping table for [[Commons:Nordiska museet]]. Originally populated from [[Commons:Batch uploading/Nordiska Museet/places]]."
+    }
+}
