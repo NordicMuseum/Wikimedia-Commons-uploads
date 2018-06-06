@@ -176,8 +176,8 @@ class DiMuHarvester(object):
                     num=search_data['numFound'], idno=idno))
 
         folder = search_data.get('docs')[0]
-        self.verbose_output('working on the folder: {}'.format(
-            folder.get('artifact.ingress.title')))
+        self.verbose_output(u'working on the folder: {}'.format(
+            folder.get(u'artifact.ingress.title')))
         return folder.get('artifact.uuid')
 
     def process_single_object(self, item_uuid):
