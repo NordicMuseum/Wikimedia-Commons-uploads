@@ -67,7 +67,7 @@ page. With `{key}` being the placeholder for the mapping table type (one of
 
 ### The following commands are run from the root folder of your installation:
 4. Run `python importer/DiMuHarvester.py` to scrape info from the DiMu API and
-generate a "harvest file". [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/dimu_harvest_data.json)
+generate a "harvest file". [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/dimu_harvest_data.json) (note: if the harvest breaks, check the harvest_log_file to find the last UUID in the list)
 5. Run `python importer/DiMuMappingUpdater.py` to pull the harvest file and
 generate mapping files for Wikimedia Commons
 
