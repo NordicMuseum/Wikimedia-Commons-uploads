@@ -145,6 +145,7 @@ class DiMuHarvester(object):
                     continue
                 elif item_type in ['Photograph', 'Thing']:
                     # skip items without images
+                    self.log.write(item.get('artifact.uuid'))
                     if not item.get('artifact.hasPictures'):
                         continue
                     self.process_single_object(item.get('artifact.uuid'))
