@@ -79,6 +79,6 @@ Commons. Example: location of the [Nordic Museum mappings](https://commons.wikim
 ### After uploading the mappings to Wikimedia Commons, the following commands are run from the root folder of your installation:
 8. Run `python importer/make_glam_info.py -batch_settings:settings/settings.json -in_file:dimu_harvest_data.json -base_name:nm_output -update_mappings:True `
 to pull the harvest file and mappings and prepare the batch file. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/nm_output.json)
-9. Run `python importer/uploader.py -in_path:nm_output.json -type:URL` to
+9. Run `python importer/uploader.py -type:URL -in_path:nm_output.json` to
 perform the actual batch upload. `-cutoff:X` limits the number of files
 uploaded to `X` (this will override settings)
