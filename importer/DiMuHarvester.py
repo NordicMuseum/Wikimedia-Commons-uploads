@@ -656,11 +656,12 @@ class DiMuHarvester(object):
                 person = self.parse_person(related_p[0])
                 data["creator"].append(person)
         elif art_type == "Thing":  # this is a thing
-            raw_person = raw_data["media"]["pictures"][0]["photographer"]
-            person_name = helpers.flip_name(raw_person)
-            data["creator"].append({"id": person_name,
-                                    "role": "creator",
-                                    "name": person_name})
+            raw_person = raw_data["media"]["pictures"][0].get("photographer")
+            if raw_person:
+                person_name = helpers.flip_name(raw_person)
+                data["creator"].append({"id": person_name,
+                                        "role": "creator",
+                                        "name": person_name})
 
     def parse_event_wrap(self, data, event_wrap_data):
         """
