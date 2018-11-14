@@ -583,6 +583,10 @@ class DiMuHarvester(object):
         mapped_roles = {
             "21": 'depicted_place',
             "25": 'view_over',
+            "39": 'used_at_location',
+            "31": False, # Tidigare ägare, ort
+            "41": False, # Givare, ort
+            "51": False, # Säljare till museet, ort
             "10": False  # Fotograf, ort
         }
         if role.get('code') in mapped_roles:
@@ -600,10 +604,15 @@ class DiMuHarvester(object):
         """
         # map to false to tell the calling function to discard that entry
         mapped_roles = {
-            '11K': 'creator',  # artist
+            '11K': 'creator',  # Artist
             '10': 'creator',  # Fotograf
             '21': 'depicted',  # Avbildad - namn
-            '17': False,  # beställare
+            '17': False,  # Beställare
+            '31': False, # Tidigare ägare
+            '39': False, # Brukare
+            '41': False, # Givare till museet
+            '45': False, # Förmedlare
+            '51': False, # Säljare till museet
             '74': False  # Historisk händelse, namn med anknytning till föremålet  # noqa
         }
         if role.get('code') in mapped_roles:
@@ -698,13 +707,15 @@ class DiMuHarvester(object):
 
         # store non-creation events but log the types
         data['events'] = []
-        for event in event_wrap_data.get('events'):
-            event_type = event.get('eventType')
-            if event_type not in creation_types:
-                self.log.write(
-                    '{}: found a new event type "{}".'.format(
-                        self.active_uuid, event_type))
-                data['events'].append(self.parse_event(event))
+        event_data = event_wrap_data.get('events')
+        if event_data:
+            for event in event_wrap_data.get('events'):
+                event_type = event.get('eventType')
+                if event_type not in creation_types:
+                    self.log.write(
+                        '{}: found a new event type "{}".'.format(
+                            self.active_uuid, event_type))
+                    data['events'].append(self.parse_event(event))
 
         # store Historik
         data['history'] = None

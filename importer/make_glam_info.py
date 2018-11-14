@@ -471,7 +471,8 @@ class GLAMItem(object):
 
         role_dict = {
             'depicted_place': 'Avbildad plats',
-            'view_over': 'Vy över'
+            'view_over': 'Vy över',
+            'used_at_location': 'Brukningsort'
         }
         if self.depicted_place:
             places = self.geo_data.get('labels').values()
