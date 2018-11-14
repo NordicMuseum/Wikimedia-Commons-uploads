@@ -324,13 +324,14 @@ class DiMuHarvester(object):
         if not data.get("subjects"):
             data["subjects"] = []
         subjects = set()
-        for subject in subjects_data:
-            if subject.get('nameType') == "subject":
-                subjects.add(subject.get('name'))
-            else:
-                self.log.write(
-                    '{}: had an unexpected subject name type "{}".'.format(
-                        self.active_uuid, subject.get('nameType')))
+        if subjects_data:
+            for subject in subjects_data:
+                if subject.get('nameType') == "subject":
+                    subjects.add(subject.get('name'))
+                else:
+                    self.log.write(
+                        '{}: had an unexpected subject name type "{}".'.format(
+                            self.active_uuid, subject.get('nameType')))
         new_subjects = data.get("subjects") + list(subjects)
         data['subjects'] = new_subjects
 
