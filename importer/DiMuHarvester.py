@@ -643,8 +643,8 @@ class DiMuHarvester(object):
         """Parse creator info for different object types."""
         data["creator"] = []
         art_type = raw_data["artifactType"]
-        events = raw_data["eventWrap"]["events"]
-        if art_type == "Photograph":
+        events = raw_data["eventWrap"].get("events")
+        if events and art_type == "Photograph":
             ev_type = events[0].get("eventType")
             if ev_type == "Produktion":  # this is an artwork
                 person = self.parse_person(
@@ -698,13 +698,14 @@ class DiMuHarvester(object):
 
         # store non-creation events but log the types
         data['events'] = []
-        for event in event_wrap_data.get('events'):
-            event_type = event.get('eventType')
-            if event_type not in creation_types:
-                self.log.write(
-                    '{}: found a new event type "{}".'.format(
-                        self.active_uuid, event_type))
-                data['events'].append(self.parse_event(event))
+        if event_wrap_data.get('events'):
+            for event in event_wrap_data.get('events'):
+                event_type = event.get('eventType')
+                if event_type not in creation_types:
+                    self.log.write(
+                        '{}: found a new event type "{}".'.format(
+                            self.active_uuid, event_type))
+                    data['events'].append(self.parse_event(event))
 
         # store Historik
         data['history'] = None
