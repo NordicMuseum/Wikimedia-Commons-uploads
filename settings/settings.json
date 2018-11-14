@@ -1,0 +1,14 @@
+{
+    "all_slides": true,
+    "batch_cat": "Images from Nordiska museet",
+    "batch_date": "2018-12",
+    "cutoff": null,
+    "folder_id": "021097827596",
+    "glam_code": "S-NM",
+    "harvest_file": "nydrakt_harvest.json",
+    "harvest_log_file": "nydrakt_harvest.log",
+    "makeinfo_log_file": "nydrakt_makeinfo.log",
+    "mapping_log_file": "nydrakt_mapping.log",
+    "mappings_dir": "mappings",
+    "verbose": true
+}
