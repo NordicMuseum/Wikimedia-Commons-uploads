@@ -143,7 +143,7 @@ class DiMuHarvester(object):
                 item_type = item.get('artifact.type')
                 if item_type == 'Folder':
                     continue
-                elif item_type in ['Photograph', 'Thing']:
+                elif item_type in ['Photograph', 'Thing', 'Fineart']:
                     # skip items without images
                     self.log.write(item.get('artifact.uuid'))
                     if not item.get('artifact.hasPictures'):
@@ -402,9 +402,10 @@ class DiMuHarvester(object):
         """Parse materials info."""
         data['materials'] = []
         if info_data:
-            mat_data = info_data.get("materials")
-            for m in mat_data:
-                data['materials'].append(m)
+            if info_data.get("materials"):
+                mat_data = info_data.get("materials")
+                for m in mat_data:
+                    data['materials'].append(m)
 
     def parse_inscriptions(self, data, info_data):
         """Parse inscriptions info."""
@@ -567,7 +568,7 @@ class DiMuHarvester(object):
         """Parse data about a person, e.g. in licenses."""
         person = {}
         person['name'] = helpers.flip_name(person_data['name'])
-        if person_data.get('authority') == 'KULTURNAV':
+        if person_data.get('authority') in ['KULTURNAV', 'KulturNav']:
             person['k_nav'] = person_data.get('uuid')
         person['role'] = self.map_person_role(
             person_data.get('role'))
@@ -600,6 +601,7 @@ class DiMuHarvester(object):
         """
         # map to false to tell the calling function to discard that entry
         mapped_roles = {
+            '10K': 'creator',  # artist
             '11K': 'creator',  # artist
             '10': 'creator',  # Fotograf
             '21': 'depicted',  # Avbildad - namn
@@ -661,6 +663,14 @@ class DiMuHarvester(object):
             data["creator"].append({"id": person_name,
                                     "role": "creator",
                                     "name": person_name})
+        elif art_type == "Fineart": # this is an artwork
+            ev_type = events[0].get("eventType")
+            if ev_type == "Produksjon":
+                if events[0].get("relatedPersons"):
+                    related_p = [x for x in events[0]["relatedPersons"]
+                                 if x["role"]["name"] == "Kunstner"]
+                    person = self.parse_person(related_p[0])
+                    data["creator"].append(person)
 
     def parse_event_wrap(self, data, event_wrap_data):
         """
