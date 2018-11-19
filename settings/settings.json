@@ -1,5 +1,6 @@
 {
     "all_slides": true,
+    "api_key": "YOUR API KEY",
     "batch_cat": "Images from Nordiska museet",
     "batch_date": "2018-12",
     "cutoff": null,
