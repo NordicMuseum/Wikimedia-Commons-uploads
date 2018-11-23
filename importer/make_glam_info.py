@@ -187,7 +187,7 @@ class GLAMInfo(MakeBaseInfo):
         @param item: the metadata for the media file in question
         @return: str
         """
-        if item.type == "Photograph":
+        if item.type in ["Photograph", "Fineart"]:
             if item.is_photo:
                 return self.make_photograph_template(item)
             else:
