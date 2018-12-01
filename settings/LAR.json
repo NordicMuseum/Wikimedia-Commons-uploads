@@ -1,0 +1,19 @@
+{
+    "glam_code": "LAR",
+    "country": "NO",
+    "language": "nb",
+    "bad_names": ["Ukjent"],
+    "bad_dates": ["udatert"],
+    "description_template": "Larvik museum description",
+    "name": "Larvik museum",
+    "cooperation_template": "Vestfoldmuseene cooperation project",
+    "institution_template": "Larvik museum",
+    "link_template": "Larvik museum link",
+    "wiki_mapping_root": "Commons:Vestfoldmuseene/mapping",
+    "default_intro_text": "{key} mapping table for [[Commons:Vestfoldmuseene]]\n",
+    "intro_texts": {
+        "keyword": "Keyword mapping table for [[Commons:Vestfoldmuseene]].",
+        "people": "People mapping table for [[Commons:Vestfoldmuseene]].",
+        "places": "Places mapping table for [[Commons:Vestfoldmuseene]]."
+    }
+}

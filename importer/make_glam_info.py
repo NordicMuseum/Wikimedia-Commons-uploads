@@ -513,8 +513,14 @@ class GLAMItem(object):
 
     def get_dimu_url(self):
         """Create the url for the item on DigitaltMuseum."""
-        return 'https://digitaltmuseum.se/{id}/?slide={order}'.format(
-            id=self.dimu_id, order=self.slider_order)
+        dimu_domain = 'digitaltmuseum.org'
+        if self.glam_data.get("country"):
+            if self.glam_data.get("country") == "NO":
+                dimu_domain = 'digitaltmuseum.no'
+            elif self.glam_data.get("country") == "SE":
+                dimy_domain = 'digitaltmuseum.se'
+        return 'https://{domain}/{id}/?slide={order}'.format(
+            domain=dimu_domain, id=self.dimu_id, order=self.slider_order)
 
     def get_description(self, with_depicted=False):
         """
@@ -765,8 +771,14 @@ class GLAMItem(object):
                 else:
                     years = "{}–{}".format(exh["from_year"],
                                            exh["to_year"])
-                exh_url = "https://digitaltmuseum.se/{}".format(
-                    exh["dimu_code"])
+                dimu_domain = "digitaltmuseum.org"
+                if self.glam_data.get("country"):
+                    if self.glam_data.get("country") == "NO":
+                        dimu_domain = "digitaltmuseum.no"
+                    elif self.glam_data.get("country") == "SE":
+                        dimu_domain = "digitaltmuseum.se"
+                exh_url = "https://{}/{}".format(
+                    dimu_domain, exh["dimu_code"])
                 link = '[{} {}]'.format(exh_url, title)
                 link = "{}: ".format(years) + link
                 printable_exhibitions.append(link)
