@@ -253,8 +253,14 @@ class DiMuHarvester(object):
                             raw_data.get('identifier').get('id'))]
         data['type'] = raw_data.get('artifactType')
 
-        data['filename'] = self.parse_alternative_id(
+        alternative_ids = self.parse_alternative_id(
             raw_data.get('alternativeIdentifiers'))
+
+        if alternative_ids:
+            if alternative_ids["type"] == "Filnamn":
+                data['filename'] = alternative_ids["identifier"]
+            elif alternative_ids["type"] == "Insamlingsnr":
+                data['insamlingsnr'] = alternative_ids["identifier"]
 
         # copyright can exists on both object and image level
         data['default_copyright'] = self.parse_license_info(
@@ -529,19 +535,20 @@ class DiMuHarvester(object):
     def parse_alternative_id(self, alt_id_data):
         """Parse data about alternative identifiers."""
         problem = None
+        accepted_ids = ["Insamlingsnr", "Filnamn"]
         if alt_id_data:
             # unclear how to handle multiple such or non-filename such
             if len(alt_id_data) > 1:
                 problem = (
                     '{}: Found multiple alternative identifiers, '
                     'unsure how to deal with this.'.format(self.active_uuid))
-            elif alt_id_data[0].get('type') != 'Filnamn':
+            elif alt_id_data[0].get('type') not in accepted_ids:
                 problem = (
                     '{0}: Found an unexpected alternative identifiers type '
                     '("{1}"), unsure how to deal with this.'.format(
                         self.active_uuid, alt_id_data[0].get('type')))
             else:
-                return alt_id_data[0].get('identifier')
+                return alt_id_data[0]
 
         if problem:
             self.verbose_output(problem)
