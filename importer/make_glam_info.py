@@ -428,6 +428,14 @@ class GLAMItem(object):
         self.commons = glam_info.commons
         self.glam_id = self.get_glam_id()  # set the id used by the glam
         self.geo_data = self.get_geo_data()
+        self.exclude_bad_copyright()
+
+    def exclude_bad_copyright(self):
+        bad_copyrights = ["by-nc-nd"]
+        copyright = self.copyright or self.default_copyright
+        if copyright.get("code") in bad_copyrights:
+            self.problems.append(
+                "Bad copyright: {}.".format(copyright["code"]))
 
     def get_glam_id(self):
         """Set the identifier used by the GLAM."""
@@ -440,10 +448,12 @@ class GLAMItem(object):
 
     def get_title_description(self):
         """Construct an appropriate description for a filename."""
-        if self.description:
+        if self.description is not None:
             return self.description.strip()
+        elif hasattr(self, "title"):
+            return self.title.strip()
         else:
-            raise NotImplementedError
+            return ""
 
     def get_object_history(self):
         """Add object history to template."""
@@ -455,11 +465,15 @@ class GLAMItem(object):
     # @todo: adapt for depicted person, other keywords
     def get_original_description(self):
         """Given an item get an appropriate original description."""
-        original_desc = self.description
+        original_desc = self.description or ""
         if self.other_information:
             original_desc += '\n<br />{label}: {words}'.format(
                 label=helpers.bolden('Övrig information'),
                 words=self.other_information)
+        if hasattr(self, 'insamlingsnr'):
+            original_desc += '\n<br />{label}: {words}'.format(
+                label=helpers.bolden('Insamlingsnummer'),
+                words=self.insamlingsnr)
         if self.subjects:
             original_desc += '\n<br />{label}: {words}'.format(
                 label=helpers.bolden('Ämnesord'),
@@ -835,10 +849,6 @@ class GLAMItem(object):
                 return '{{PD-Sweden-photo}}'
             else:
                 return '{{PD-old-70}}'
-        else:
-            raise common.MyError(
-                'A non-supported license was encountered: {}'.format(
-                    copyright.get('code')))
 
     def get_creation_date(self):
         """Format a creation date statement."""
@@ -880,12 +890,10 @@ class GLAMItem(object):
         inst = self.glam_data.get("institution_template")
         return'{{Institution:%s}}' % inst
 
-    # @todo consider using other value here...
     def get_title(self):
         """Return the title element for the image."""
         if self.title:
-            raise NotImplementedError
-        return ''
+            return self.title
 
 
 if __name__ == "__main__":
