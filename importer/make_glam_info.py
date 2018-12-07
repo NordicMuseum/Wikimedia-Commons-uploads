@@ -537,6 +537,11 @@ class GLAMItem(object):
         :param with_depicted: whether to also include depicted data
         """
         language = self.glam_data.get("language")
+        if self.description is None:
+            if hasattr(self, "title"):
+                self.description = self.title
+            else:
+                self.description = ""
         desc = '{{%s|%s}}' % (language, self.description)
 
         if with_depicted:
