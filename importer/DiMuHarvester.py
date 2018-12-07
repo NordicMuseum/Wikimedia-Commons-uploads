@@ -296,13 +296,16 @@ class DiMuHarvester(object):
         # parse technique
         self.parse_technique(data, raw_data.get('technique'))
 
+        # parse title
+        self.parse_title(data, raw_data.get('title'))
+
         # parse inscriptions
         self.parse_inscriptions(data, raw_data.get('inscriptions'))
 
         # tags are user entered (but approved) keywords
         self.parse_tags(data, raw_data.get('tags'))
+
         # not implemented yet
-        data['title'] = self.not_implemented_yet_warning(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
         data['coordinate'] = self.not_implemented_yet_warning(
             raw_data, 'coordinates')
         data['names'] = self.not_implemented_yet_warning(raw_data, 'names')
@@ -310,6 +313,21 @@ class DiMuHarvester(object):
             raw_data, 'classifications')
 
         return data
+
+    def parse_title(self, data, raw_title):
+        """
+        Parse 'title' field.
+
+        Implemented so that objects without
+        a description can get a meaningful file name.
+        E.g.
+        http://api.dimu.org/artifact/uuid/7F78B868-EC5E-4572-BDF5-C478F3C57966
+
+        :param data: the object in which to store the parsed components
+        :param raw_title: content of 'title' key
+        """
+        if raw_title:
+            data['title'] = raw_title.strip()
 
     def parse_tags(self, data, raw_tags):
         """
