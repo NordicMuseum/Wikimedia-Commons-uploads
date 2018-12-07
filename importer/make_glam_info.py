@@ -431,6 +431,7 @@ class GLAMItem(object):
         self.exclude_bad_copyright()
 
     def exclude_bad_copyright(self):
+        """Exclude images with non-free copyright."""
         bad_copyrights = ["by-nc-nd"]
         copyright = self.copyright or self.default_copyright
         if copyright.get("code") in bad_copyrights:
