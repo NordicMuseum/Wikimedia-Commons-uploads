@@ -31,7 +31,8 @@ DEFAULT_OPTIONS = {
     'harvest_file': HARVEST_FILE,
     'verbose': False,
     'cutoff': None,
-    'folder_id': None
+    'folder_id': None,
+    'cache': False
 }
 PARAMETER_HELP = u"""\
 Basic DiMuHarvester options (can also be supplied via the settings file):
@@ -48,6 +49,8 @@ All are processed if not present (DEF: {cutoff})
 digits) of the Digitalt Museum folder used (DEF: {folder_id})
 - all_slides           whether to harvest all slides of multiple-slide \
 objects or only the first one (DEF: {all_slides})
+- cache                whether to get data from local cache instead of DM \
+(DEF: {cache})
 
 Can also handle any pywikibot options. Most importantly:
 -simulate              don't write to database
@@ -232,7 +235,13 @@ class DiMuHarvester(object):
         url = 'http://api.dimu.org/artifact/uuid/{}'.format(uuid)
 
         try:
-            data = get_json_from_url(url)
+            if self.settings["cache"]:
+                print("Loading {} from local cache".format(uuid))
+                filepath = os.path.join(CACHE_DIR, uuid + ".json")
+                data = common.open_and_read_file(filepath, as_json=True)
+            else:
+                data = get_json_from_url(url)
+            # print(data)
         except requests.HTTPError as e:
             error_message = '{0}: {1}'.format(e, url)
             self.log.write(error_message)
@@ -818,7 +827,7 @@ def handle_args(args, usage):
     """
     expected_args = ('api_key', 'all_slides', 'glam_code',
                      'harvest_log_file', 'harvest_file', 'settings_file',
-                     'verbose', 'cutoff', 'folder_id')
+                     'verbose', 'cutoff', 'folder_id', 'cache')
     options = {}
 
     for arg in pywikibot.handle_args(args):
@@ -827,6 +836,8 @@ def handle_args(args, usage):
             options['verbose'] = common.interpret_bool(value)
         elif option == '-cutoff':
             options['cutoff'] = int(value)
+        elif option == '-cache':
+            options['cache'] = common.interpret_bool(value)
         elif option.startswith('-') and option[1:] in expected_args:
             options[option[1:]] = common.convert_from_commandline(value)
         else:
