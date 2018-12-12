@@ -17,6 +17,7 @@ import batchupload.common as common
 import batchupload.helpers as helpers
 
 SETTINGS_DIR = "settings"
+CACHE_DIR = "cache"
 SETTINGS = "settings.json"
 LOGFILE = 'dimu_harvest.log'
 HARVEST_FILE = 'dimu_harvest_data.json'
