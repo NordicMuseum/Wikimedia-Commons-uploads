@@ -79,6 +79,11 @@ class DiMuHarvester(object):
     def save_data(self, filename=None):
         """Dump data as json blob."""
         filename = filename or self.settings.get('harvest_file')
+        sorted_data = {}
+        sorted_keys = sorted(
+            self.data.keys(), key=lambda y: (self.data[y]['glam_id']))
+        for key in sorted_keys:
+            sorted_data[key] = self.data[key]
         common.open_and_write_file(filename, self.data, as_json=True)
         pywikibot.output('{0} created'.format(filename))
 
