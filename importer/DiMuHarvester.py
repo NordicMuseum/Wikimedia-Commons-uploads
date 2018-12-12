@@ -76,15 +76,20 @@ class DiMuHarvester(object):
         # not present in object entry, but it's needed if we want to link
         # to the exhibition from Commons
 
-    def save_data(self, filename=None):
-        """Dump data as json blob."""
-        filename = filename or self.settings.get('harvest_file')
+    def sort_data(self, sorting_key):
+        """Sort downloaded data by selected key."""
         sorted_data = {}
         sorted_keys = sorted(
             self.data.keys(), key=lambda y: (self.data[y]['glam_id']))
         for key in sorted_keys:
-            sorted_data[key] = self.data[key]
-        common.open_and_write_file(filename, self.data, as_json=True)
+                sorted_data[key] = self.data[key]
+        return sorted_data
+
+    def save_data(self, filename=None):
+        """Dump data as json blob."""
+        filename = filename or self.settings.get('harvest_file')
+        sorted_data = self.sort_data('glam_id')
+        common.open_and_write_file(filename, sorted_data, as_json=True)
         pywikibot.output('{0} created'.format(filename))
 
     def get_search_record_from_url(self, query, only_folder=False, start=None):
