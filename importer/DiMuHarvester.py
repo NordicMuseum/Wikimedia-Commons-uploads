@@ -243,12 +243,7 @@ class DiMuHarvester(object):
                 data = common.open_and_read_file(filepath, as_json=True)
             else:
                 data = get_json_from_url(url)
-                # try:
-                #     open(filepath, 'r')
-                # except FileNotFoundError:
-                #     open(filepath, 'w')
                 common.open_and_write_file(filepath, data, as_json=True)
-            # print(data)
         except requests.HTTPError as e:
             error_message = '{0}: {1}'.format(e, url)
             self.log.write(error_message)
