@@ -66,6 +66,8 @@ class DiMuHarvester(object):
 
     def __init__(self, options):
         """Initialise a harvester object for a DigitaltMuseum harvest."""
+        if not os.path.exists(CACHE_DIR):
+            os.makedirs(CACHE_DIR)  # Create directory for cache if needed
         self.data = {}  # data container for harvested info
         self.settings = options
         self.log = common.LogFile('', self.settings.get('harvest_log_file'))
@@ -235,12 +237,17 @@ class DiMuHarvester(object):
         url = 'http://api.dimu.org/artifact/uuid/{}'.format(uuid)
 
         try:
+            filepath = os.path.join(CACHE_DIR, uuid + ".json")
             if self.settings["cache"]:
                 print("Loading {} from local cache".format(uuid))
-                filepath = os.path.join(CACHE_DIR, uuid + ".json")
                 data = common.open_and_read_file(filepath, as_json=True)
             else:
                 data = get_json_from_url(url)
+                # try:
+                #     open(filepath, 'r')
+                # except FileNotFoundError:
+                #     open(filepath, 'w')
+                common.open_and_write_file(filepath, data, as_json=True)
             # print(data)
         except requests.HTTPError as e:
             error_message = '{0}: {1}'.format(e, url)
