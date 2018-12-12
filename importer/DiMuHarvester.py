@@ -80,7 +80,7 @@ class DiMuHarvester(object):
         """Sort downloaded data by selected key."""
         sorted_data = {}
         sorted_keys = sorted(
-            self.data.keys(), key=lambda y: (self.data[y]['glam_id']))
+            self.data.keys(), key=lambda y: (self.data[y][sorting_key]))
         for key in sorted_keys:
                 sorted_data[key] = self.data[key]
         return sorted_data
