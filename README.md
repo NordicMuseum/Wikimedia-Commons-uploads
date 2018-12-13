@@ -23,9 +23,9 @@ command if you are running a different version of pywikibot from the required on
 
 ## User Account
 
-The script must be run from an account which has the `upload_by_url` user right.
+The script must be run from a Wikimedia Commons account with the `upload_by_url` user right.
 On Wikimedia Commons this is limited to users with one of the `image-reviewer`,
-`bot`, `gwtoolset` or `sysop` flags. [Apply for `bot` rights](https://commons.wikimedia.org/wiki/Commons:Bots/Requests).
+`bot`, `gwtoolset` or `sysop` flags. [Apply for bot rights](https://commons.wikimedia.org/wiki/Commons:Bots/Requests).
 
 ## Settings
 
@@ -60,25 +60,27 @@ page. With `{key}` being the placeholder for the mapping table type (one of
 ## Usage
 
 ### The basic workflow is the following:
-1. Create settings.json (see above).
+1. Modify settings.json to fit your project.
 2. If it doesn't exist yet, create an institution settings file (see above).
 3. Create user-config.py with the bot username
 4. Create user-password.py with the bot username & password. [Generate a bot password](https://commons.wikimedia.org/wiki/Special:BotPasswords).
 
+(On Wikimedia Commons, prepare the templates needed & [apply for bot rights including `upload_by_url`](https://commons.wikimedia.org/wiki/Commons:Bots/Requests) if you don't already have them)
+
 ### The following commands are run from the root folder of your installation:
-4. Run `python importer/DiMuHarvester.py` to scrape info from the DiMu API and
-generate a "harvest file". [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/dimu_harvest_data.json) (note: if the harvest breaks, check the harvest_log_file to find the last UUID in the list)
-5. Run `python importer/DiMuMappingUpdater.py` to pull the harvest file and
+5. Run `python importer/DiMuHarvester.py -api_key:yourDiMuAPIkey` to scrape info from the DiMu API and
+generate a "harvest file". [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/dimu_harvest_data.json) (note: if the harvest breaks, check the harvest_log_file to find the last UUID in the list). If you want to re-harvest from the local cache, add the flag `-cache:True`
+6. Run `python importer/DiMuMappingUpdater.py` to pull the harvest file and
 generate mapping files for Wikimedia Commons
 
 ### Upload mappings to Wikimedia Commons
-6. Upload the generated mappings files in the `/connections` folder to Wikimedia
+7. Upload the generated mappings files in the `/connections` folder to Wikimedia
 Commons. Example: location of the [Nordic Museum mappings](https://commons.wikimedia.org/wiki/Special:PrefixIndex/Commons:Nordiska_museet/)
-7. Perform the mapping in the mapping tables.
+8. Perform the mapping in the mapping tables.
 
 ### After uploading the mappings to Wikimedia Commons, the following commands are run from the root folder of your installation:
-8. Run `python importer/make_glam_info.py -batch_settings:settings/settings.json -in_file:dimu_harvest_data.json -base_name:nm_output -update_mappings:True `
+9. Run `python importer/make_glam_info.py -batch_settings:settings/settings.json -in_file:dimu_harvest_data.json -base_name:nm_output -update_mappings:True `
 to pull the harvest file and mappings and prepare the batch file. [Example output](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/blob/master/examples/nm_output.json)
-9. Run `python importer/uploader.py -type:URL -in_path:nm_output.json` to
+10. Run `python importer/uploader.py -type:URL -in_path:nm_output.json` to
 perform the actual batch upload. `-cutoff:X` limits the number of files
 uploaded to `X` (this will override settings)

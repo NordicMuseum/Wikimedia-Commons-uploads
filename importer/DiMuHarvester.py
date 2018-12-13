@@ -17,6 +17,7 @@ import batchupload.common as common
 import batchupload.helpers as helpers
 
 SETTINGS_DIR = "settings"
+CACHE_DIR = "cache"
 SETTINGS = "settings.json"
 LOGFILE = 'dimu_harvest.log'
 HARVEST_FILE = 'dimu_harvest_data.json'
@@ -30,7 +31,8 @@ DEFAULT_OPTIONS = {
     'harvest_file': HARVEST_FILE,
     'verbose': False,
     'cutoff': None,
-    'folder_id': None
+    'folder_id': None,
+    'cache': False
 }
 PARAMETER_HELP = u"""\
 Basic DiMuHarvester options (can also be supplied via the settings file):
@@ -47,6 +49,8 @@ All are processed if not present (DEF: {cutoff})
 digits) of the Digitalt Museum folder used (DEF: {folder_id})
 - all_slides           whether to harvest all slides of multiple-slide \
 objects or only the first one (DEF: {all_slides})
+- cache                whether to get data from local cache instead of DM \
+(DEF: {cache})
 
 Can also handle any pywikibot options. Most importantly:
 -simulate              don't write to database
@@ -62,6 +66,8 @@ class DiMuHarvester(object):
 
     def __init__(self, options):
         """Initialise a harvester object for a DigitaltMuseum harvest."""
+        if not os.path.exists(CACHE_DIR):
+            os.makedirs(CACHE_DIR)  # Create directory for cache if needed
         self.data = {}  # data container for harvested info
         self.settings = options
         self.log = common.LogFile('', self.settings.get('harvest_log_file'))
@@ -70,10 +76,20 @@ class DiMuHarvester(object):
         # not present in object entry, but it's needed if we want to link
         # to the exhibition from Commons
 
+    def sort_data(self, sorting_key):
+        """Sort downloaded data by selected key."""
+        sorted_data = {}
+        sorted_keys = sorted(
+            self.data.keys(), key=lambda y: (self.data[y][sorting_key]))
+        for key in sorted_keys:
+                sorted_data[key] = self.data[key]
+        return sorted_data
+
     def save_data(self, filename=None):
         """Dump data as json blob."""
         filename = filename or self.settings.get('harvest_file')
-        common.open_and_write_file(filename, self.data, as_json=True)
+        sorted_data = self.sort_data('glam_id')
+        common.open_and_write_file(filename, sorted_data, as_json=True)
         pywikibot.output('{0} created'.format(filename))
 
     def get_search_record_from_url(self, query, only_folder=False, start=None):
@@ -231,7 +247,13 @@ class DiMuHarvester(object):
         url = 'http://api.dimu.org/artifact/uuid/{}'.format(uuid)
 
         try:
-            data = get_json_from_url(url)
+            filepath = os.path.join(CACHE_DIR, uuid + ".json")
+            if self.settings["cache"]:
+                print("Loading {} from local cache".format(uuid))
+                data = common.open_and_read_file(filepath, as_json=True)
+            else:
+                data = get_json_from_url(url)
+                common.open_and_write_file(filepath, data, as_json=True)
         except requests.HTTPError as e:
             error_message = '{0}: {1}'.format(e, url)
             self.log.write(error_message)
@@ -253,8 +275,14 @@ class DiMuHarvester(object):
                             raw_data.get('identifier').get('id'))]
         data['type'] = raw_data.get('artifactType')
 
-        data['filename'] = self.parse_alternative_id(
+        alternative_ids = self.parse_alternative_id(
             raw_data.get('alternativeIdentifiers'))
+
+        if alternative_ids:
+            if alternative_ids["type"] == "Filnamn":
+                data['filename'] = alternative_ids["identifier"]
+            elif alternative_ids["type"] == "Insamlingsnr":
+                data['insamlingsnr'] = alternative_ids["identifier"]
 
         # copyright can exists on both object and image level
         data['default_copyright'] = self.parse_license_info(
@@ -290,13 +318,16 @@ class DiMuHarvester(object):
         # parse technique
         self.parse_technique(data, raw_data.get('technique'))
 
+        # parse title
+        self.parse_title(data, raw_data.get('title'))
+
         # parse inscriptions
         self.parse_inscriptions(data, raw_data.get('inscriptions'))
 
         # tags are user entered (but approved) keywords
         self.parse_tags(data, raw_data.get('tags'))
+
         # not implemented yet
-        data['title'] = self.not_implemented_yet_warning(raw_data, 'titles')  # titles contains titles in multiple languages (NOR as default)  # noqa
         data['coordinate'] = self.not_implemented_yet_warning(
             raw_data, 'coordinates')
         data['names'] = self.not_implemented_yet_warning(raw_data, 'names')
@@ -304,6 +335,21 @@ class DiMuHarvester(object):
             raw_data, 'classifications')
 
         return data
+
+    def parse_title(self, data, raw_title):
+        """
+        Parse 'title' field.
+
+        Implemented so that objects without
+        a description can get a meaningful file name.
+        E.g.
+        http://api.dimu.org/artifact/uuid/7F78B868-EC5E-4572-BDF5-C478F3C57966
+
+        :param data: the object in which to store the parsed components
+        :param raw_title: content of 'title' key
+        """
+        if raw_title:
+            data['title'] = raw_title.strip()
 
     def parse_tags(self, data, raw_tags):
         """
@@ -324,13 +370,14 @@ class DiMuHarvester(object):
         if not data.get("subjects"):
             data["subjects"] = []
         subjects = set()
-        for subject in subjects_data:
-            if subject.get('nameType') == "subject":
-                subjects.add(subject.get('name'))
-            else:
-                self.log.write(
-                    '{}: had an unexpected subject name type "{}".'.format(
-                        self.active_uuid, subject.get('nameType')))
+        if subjects_data:
+            for subject in subjects_data:
+                if subject.get('nameType') == "subject":
+                    subjects.add(subject.get('name'))
+                else:
+                    self.log.write(
+                        '{}: had an unexpected subject name type "{}".'.format(
+                            self.active_uuid, subject.get('nameType')))
         new_subjects = data.get("subjects") + list(subjects)
         data['subjects'] = new_subjects
 
@@ -529,19 +576,20 @@ class DiMuHarvester(object):
     def parse_alternative_id(self, alt_id_data):
         """Parse data about alternative identifiers."""
         problem = None
+        accepted_ids = ["Insamlingsnr", "Filnamn"]
         if alt_id_data:
             # unclear how to handle multiple such or non-filename such
             if len(alt_id_data) > 1:
                 problem = (
                     '{}: Found multiple alternative identifiers, '
                     'unsure how to deal with this.'.format(self.active_uuid))
-            elif alt_id_data[0].get('type') != 'Filnamn':
+            elif alt_id_data[0].get('type') not in accepted_ids:
                 problem = (
                     '{0}: Found an unexpected alternative identifiers type '
                     '("{1}"), unsure how to deal with this.'.format(
                         self.active_uuid, alt_id_data[0].get('type')))
             else:
-                return alt_id_data[0].get('identifier')
+                return alt_id_data[0]
 
         if problem:
             self.verbose_output(problem)
@@ -645,8 +693,8 @@ class DiMuHarvester(object):
         """Parse creator info for different object types."""
         data["creator"] = []
         art_type = raw_data["artifactType"]
-        events = raw_data["eventWrap"]["events"]
-        if art_type == "Photograph":
+        events = raw_data["eventWrap"].get("events")
+        if events and art_type == "Photograph":
             ev_type = events[0].get("eventType")
             if ev_type == "Produktion":  # this is an artwork
                 person = self.parse_person(
@@ -671,6 +719,7 @@ class DiMuHarvester(object):
                                  if x["role"]["name"] == "Kunstner"]
                     person = self.parse_person(related_p[0])
                     data["creator"].append(person)
+
 
     def parse_event_wrap(self, data, event_wrap_data):
         """
@@ -708,13 +757,14 @@ class DiMuHarvester(object):
 
         # store non-creation events but log the types
         data['events'] = []
-        for event in event_wrap_data.get('events'):
-            event_type = event.get('eventType')
-            if event_type not in creation_types:
-                self.log.write(
-                    '{}: found a new event type "{}".'.format(
-                        self.active_uuid, event_type))
-                data['events'].append(self.parse_event(event))
+        if event_wrap_data.get('events'):
+            for event in event_wrap_data.get('events'):
+                event_type = event.get('eventType')
+                if event_type not in creation_types:
+                    self.log.write(
+                        '{}: found a new event type "{}".'.format(
+                            self.active_uuid, event_type))
+                    data['events'].append(self.parse_event(event))
 
         # store Historik
         data['history'] = None
@@ -799,7 +849,7 @@ def handle_args(args, usage):
     """
     expected_args = ('api_key', 'all_slides', 'glam_code',
                      'harvest_log_file', 'harvest_file', 'settings_file',
-                     'verbose', 'cutoff', 'folder_id')
+                     'verbose', 'cutoff', 'folder_id', 'cache')
     options = {}
 
     for arg in pywikibot.handle_args(args):
@@ -808,6 +858,8 @@ def handle_args(args, usage):
             options['verbose'] = common.interpret_bool(value)
         elif option == '-cutoff':
             options['cutoff'] = int(value)
+        elif option == '-cache':
+            options['cache'] = common.interpret_bool(value)
         elif option.startswith('-') and option[1:] in expected_args:
             options[option[1:]] = common.convert_from_commandline(value)
         else:

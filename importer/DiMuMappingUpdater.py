@@ -179,6 +179,8 @@ class DiMuMappingUpdater(object):
                     self.parse_person(person)
             if image.get("photographer"):
                 self.parse_person(image.get("photographer"))
+            if image.get("creator"):
+                self.parse_person(image.get("creator"))
 
     # @todo: is connection between place levels broken by this?
     #        Risk of mismatches?
@@ -195,6 +197,8 @@ class DiMuMappingUpdater(object):
 
     def parse_person(self, person_data):
         """Gather and combine person data."""
+        if type(person_data) is list:
+            person_data = person_data[0]
         idno = person_data.pop('id')
         role = person_data.pop('role')
         if idno not in self.people_to_map:

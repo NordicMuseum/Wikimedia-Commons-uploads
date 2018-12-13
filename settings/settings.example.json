@@ -1,6 +1,5 @@
 {
     "all_slides": "Bool on whether to harvest all slides of multi-slide objects or only 1st one",
-    "api_key": "YOUR API KEY",
     "batch_cat": "Stem for batch categories, eg 'Images from Nordiska museet'",
     "batch_date": "Batch date or other label to append to batch category stem, eg '2018-04'",
     "cutoff": "Int stating how many results to process, remove to process all",
