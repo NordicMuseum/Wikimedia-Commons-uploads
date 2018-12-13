@@ -23,9 +23,9 @@ command if you are running a different version of pywikibot from the required on
 
 ## User Account
 
-The script must be run from an account which has the `upload_by_url` user right.
+The script must be run from a Wikimedia Commons account with the `upload_by_url` user right.
 On Wikimedia Commons this is limited to users with one of the `image-reviewer`,
-`bot`, `gwtoolset` or `sysop` flags. [Apply for `bot` rights](https://commons.wikimedia.org/wiki/Commons:Bots/Requests).
+`bot`, `gwtoolset` or `sysop` flags. [Apply for bot rights](https://commons.wikimedia.org/wiki/Commons:Bots/Requests).
 
 ## Settings
 
@@ -65,7 +65,7 @@ page. With `{key}` being the placeholder for the mapping table type (one of
 3. Create user-config.py with the bot username
 4. Create user-password.py with the bot username & password. [Generate a bot password](https://commons.wikimedia.org/wiki/Special:BotPasswords).
 
-(On Wikimedia Commons, prepare the templates needed & [apply for bot rights including upload_by_url](https://commons.wikimedia.org/wiki/Commons:Bots/Requests))
+(On Wikimedia Commons, prepare the templates needed & [apply for bot rights including `upload_by_url`](https://commons.wikimedia.org/wiki/Commons:Bots/Requests) if you don't already have them)
 
 ### The following commands are run from the root folder of your installation:
 5. Run `python importer/DiMuHarvester.py -api_key:yourDiMuAPIkey` to scrape info from the DiMu API and
