@@ -2,7 +2,7 @@
 This repository contains the python3 scripts used by the Nordic Museum to upload
 images to Wikimedia Commons. It is based on [lokal-profil/upload_batches](https://github.com/lokal-profil/upload_batches).
 
-This is a work in progress started in autumn 2017 and ongoing throughout spring 2018. For more
+This is a work in progress started in autumn 2017 and ongoing throughout 2018. For more
 details, contact [Aron Ambrosiani](https://github.com/Ambrosiani) or [Alicia Fagerving](https://github.com/Vesihiisi). The remaining
 work is listed as [Issues](https://github.com/NordicMuseum/Wikimedia-Commons-uploads/issues).
 
@@ -46,7 +46,7 @@ The following settings cannot use the default options:
 
 * **api_key**: your [Digitalt museum API key](https://dok.digitaltmuseum.org/sv/api)
 (as provided by [KulturIT](mailto:support@kulturit.no)).
-* **glam_code**: institution code in Digitalt Museum. [List of institution codes for Swedish museums](http://api.dimu.org/api/owners?country=se&api.key=demo)
+* **glam_code**: institution code in Digitalt Museum. [List of institution codes for Swedish museums 🇸🇪](http://api.dimu.org/api/owners?country=se&api.key=demo) & [for Norwegian museums 🇳🇴](http://api.dimu.org/api/owners?country=no&api.key=demo)
 * **folder_id**: unique id (12 digits) or uuid (8-4-4-4-12 hexadecimal digits)
 of the Digitalt Museum folder used
 * **wiki_mapping_root**: root page on Wikimedia Commons of which all mapping
