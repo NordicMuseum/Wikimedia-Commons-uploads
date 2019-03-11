@@ -2,7 +2,6 @@
 *.pyc
 
 # output files
-*.json
 *.log
 
 # CI
@@ -11,15 +10,21 @@
 
 # pywikibot
 *secretPasswords
-user-config.py
 *.ctrl
 *.lwp
-apicache
-user-password.py
-nm_output.filenames.txt
-connections/commons-keywords.wiki
-connections/commons-people.wiki
-connections/commons-places.wiki
+
 scripts/*
 pwb.py
+
+# Passwords
+user-config.py
+user-password.py
+
+# Cache
+apicache
 apicache-py3/*
+cache/*
+
+# Mappings
+connections/*
+mappings/*
