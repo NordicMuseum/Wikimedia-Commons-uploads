@@ -59,6 +59,7 @@ page. With `{key}` being the placeholder for the mapping table type (one of
 ### Institutions with existing settings and templates already added:
 * Nordiska museet 🇸🇪 [S-NM.json](settings/S-NM.json)
 * Larvik museum 🇳🇴 [LAR.json](settings/LAR.json)
+* Armémuseum 🇸🇪 [S-AM.json](settings/S-AM.json)
 
 ## Usage
 

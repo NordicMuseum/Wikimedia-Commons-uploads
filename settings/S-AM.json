@@ -8,12 +8,12 @@
     "name": "Armémuseum",
     "cooperation_template": "Armémuseum cooperation project",
     "institution_template": "Armémuseum",
-    "link_template": "Armémuseum link",
+    "link_template": "Arme-link",
     "wiki_mapping_root": "Commons:Armémuseum/mapping",
     "default_intro_text": "{key} mapping table for [[Commons:Armémuseum]]\n",
     "intro_texts": {
-        "keyword": "Keyword mapping table for [[Commons:Armémuseum]]. Originally populated from [[Commons:Batch uploading/Armémuseum/keywords]].",
-        "people": "People mapping table for [[Commons:Armémuseum]]. Originally populated from [[Commons:Batch uploading/Armémuseum/people]].",
-        "places": "Places mapping table for [[Commons:Armémuseum]]. Originally populated from [[Commons:Batch uploading/Armémuseum/places]]."
+        "keyword": "Keyword mapping table for [[Commons:Armémuseum]].",
+        "people": "People mapping table for [[Commons:Armémuseum]].",
+        "places": "Places mapping table for [[Commons:Armémuseum]]."
     }
 }
