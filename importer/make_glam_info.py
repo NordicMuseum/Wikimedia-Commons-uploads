@@ -533,7 +533,7 @@ class GLAMItem(object):
             if self.glam_data.get("country") == "NO":
                 dimu_domain = 'digitaltmuseum.no'
             elif self.glam_data.get("country") == "SE":
-                dimy_domain = 'digitaltmuseum.se'
+                dimu_domain = 'digitaltmuseum.se'
         return 'https://{domain}/{id}/?slide={order}'.format(
             domain=dimu_domain, id=self.dimu_id, order=self.slider_order)
 
