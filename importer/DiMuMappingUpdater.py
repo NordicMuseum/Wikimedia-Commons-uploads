@@ -152,6 +152,7 @@ class DiMuMappingUpdater(object):
     def parse_harvest_data(self, harvest_data):
         """Go through the harvest data breaking out data needing mapping."""
         for key, image in harvest_data.items():
+            self.current_key = key
             self.subjects_to_map.update(image.get('subjects'))
             self.subjects_to_map.update(image.get('tags'))
 
@@ -191,6 +192,10 @@ class DiMuMappingUpdater(object):
         del place_data['role']
         place_data.update(place_data.pop('other'))
         for typ, value in place_data.items():
+            if not value.get('code'):
+                pywikibot.output(
+                    'None value for {} at {}'.format(typ, self.current_key))
+                continue
             if typ not in self.places_to_map:
                 self.places_to_map[typ] = Counter()
             self.places_to_map[typ].update((value.get('code'), ))
