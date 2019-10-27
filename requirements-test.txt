@@ -1,6 +1,9 @@
 -r requirements.txt
 
+coverage
+flake8
+isort
 mock
 nose
 nose-cov
-coverage
+pydocstyle

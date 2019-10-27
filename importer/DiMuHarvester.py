@@ -9,6 +9,7 @@ usage:
 &params;
 """
 import os
+
 import requests
 
 import pywikibot
@@ -82,7 +83,7 @@ class DiMuHarvester(object):
         sorted_keys = sorted(
             self.data.keys(), key=lambda y: (self.data[y][sorting_key]))
         for key in sorted_keys:
-                sorted_data[key] = self.data[key]
+            sorted_data[key] = self.data[key]
         return sorted_data
 
     def save_data(self, filename=None):
@@ -231,8 +232,8 @@ class DiMuHarvester(object):
 
             image_data = self.make_image_object(
                 image, order, parsed_data, other_keys)
-            if (image_data.get('copyright') or
-                    image_data.get('default_copyright')):
+            if (image_data.get('copyright')
+                    or image_data.get('default_copyright')):
                 self.data[key] = image_data
             else:
                 self.log.write('{}: had no license info. Skipping.'.format(
@@ -557,8 +558,8 @@ class DiMuHarvester(object):
                     # correct use of parish codes has them zero padded
                     field['code'] = field.get('code').zfill(4)
                 place[place_type] = {'label': field.get('value')}
-                place[place_type]['code'] = (field.get('code') or
-                                             field.get('value'))
+                place[place_type]['code'] = (
+                    field.get('code') or field.get('value'))
             elif place_type:
                 self.log.write(
                     '{}: encountered an unknown place_type "{}".'.format(
@@ -711,7 +712,7 @@ class DiMuHarvester(object):
             data["creator"].append({"id": person_name,
                                     "role": "creator",
                                     "name": person_name})
-        elif art_type == "Fineart": # this is an artwork
+        elif art_type == "Fineart":  # this is an artwork
             ev_type = events[0].get("eventType")
             if ev_type == "Produksjon":
                 if events[0].get("relatedPersons"):
@@ -719,7 +720,6 @@ class DiMuHarvester(object):
                                  if x["role"]["name"] == "Kunstner"]
                     person = self.parse_person(related_p[0])
                     data["creator"].append(person)
-
 
     def parse_event_wrap(self, data, event_wrap_data):
         """
@@ -883,8 +883,8 @@ def load_settings(args):
     options = handle_args(args, PARAMETER_HELP.format(**default_options))
 
     # settings_file must be handled first
-    options['settings_file'] = (options.get('settings_file') or
-                                default_options.pop('settings_file'))
+    options['settings_file'] = (
+        options.get('settings_file') or default_options.pop('settings_file'))
 
     # combine all loaded settings
     settings_options = common.open_and_read_file(
