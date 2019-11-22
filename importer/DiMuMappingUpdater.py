@@ -83,8 +83,8 @@ class DiMuMappingUpdater(object):
 
     def get_intro_text(self, key):
         """Return the specific info text for a list or the default one."""
-        return (self.settings.get('intro_texts').get(key) or
-                self.settings.get('default_intro_text').format(
+        return (self.settings.get('intro_texts').get(key)
+                or self.settings.get('default_intro_text').format(
                     key=key.title()))
 
     def dump_places(self):
@@ -506,8 +506,8 @@ def load_settings(args):
     options = handle_args(args, PARAMETER_HELP.format(**default_options))
 
     # settings_file must be handled first
-    options['settings_file'] = (options.get('settings_file') or
-                                default_options.pop('settings_file'))
+    options['settings_file'] = (
+        options.get('settings_file') or default_options.pop('settings_file'))
 
     # combine all loaded settings
     settings_options = common.open_and_read_file(

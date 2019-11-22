@@ -2,11 +2,11 @@
 # -*- coding: utf-8  -*-
 import unittest
 
-import mock
 import requests
 
 import pywikibot
 
+import mock
 from importer.DiMuHarvester import DiMuHarvester as harvester
 
 
